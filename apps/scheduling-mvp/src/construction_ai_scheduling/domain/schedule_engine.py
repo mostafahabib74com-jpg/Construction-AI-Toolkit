@@ -66,11 +66,19 @@ def calculate_forward_pass(
         activities=activities,
         relationships=relationships,
     )
-    blockers = tuple(item for item in issues if item["severity"] == "error")
+    all_issues = issues
+    blockers = tuple(item for item in all_issues if item["severity"] == "error")
     if not activities:
-        blockers += ({"code": "ACTIVITIES_REQUIRED", "message": "At least one activity is required.", "field": "activities", "severity": "error"},)
+        missing_activities = {
+            "code": "ACTIVITIES_REQUIRED",
+            "message": "At least one activity is required.",
+            "field": "activities",
+            "severity": "error",
+        }
+        all_issues += (missing_activities,)
+        blockers += (missing_activities,)
     if blockers:
-        raise SchedulingInputError("Schedule cannot be calculated until blocking inputs are corrected.", issues)
+        raise SchedulingInputError("Schedule cannot be calculated until blocking inputs are corrected.", all_issues)
 
     calendar_by_id = {item.calendar_id: item for item in calendars}
     activity_by_pk = {item.activity_pk: item for item in activities}

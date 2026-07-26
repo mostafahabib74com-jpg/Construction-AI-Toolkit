@@ -527,7 +527,14 @@ class SQLiteRepository:
             if not row:
                 return None
             result_rows = connection.execute(
-                "SELECT * FROM schedule_activity_results WHERE run_id = ? ORDER BY activity_pk", (row["run_id"],)
+                """
+                SELECT result.*
+                FROM schedule_activity_results AS result
+                JOIN schedule_activities AS activity ON activity.activity_pk = result.activity_pk
+                WHERE result.run_id = ?
+                ORDER BY activity.sort_order, activity.activity_id
+                """,
+                (row["run_id"],),
             ).fetchall()
         value = dict(row)
         value["validation_issues"] = json.loads(value.pop("validation_issues_json"))
