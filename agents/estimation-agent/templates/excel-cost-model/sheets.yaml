@@ -1,0 +1,41 @@
+schema_version: "1.0"
+template_id: estimation-professional-cost-model
+version: 0.1.0
+macro_policy: prohibited_by_default
+sheets:
+  - {order: 0, name: 00_Cover_Control, class: control}
+  - {order: 1, name: 01_Instructions, class: guidance}
+  - {order: 2, name: 02_Source_Register, class: input}
+  - {order: 3, name: 03_Assumptions, class: control}
+  - {order: 4, name: 04_RFP_Requirements, class: input}
+  - {order: 5, name: 05_Scope_Matrix, class: input}
+  - {order: 6, name: 06_BOQ, class: calculation}
+  - {order: 7, name: 07_CBS_Map, class: control}
+  - {order: 8, name: 08_Labor_Buildups, class: calculation}
+  - {order: 9, name: 09_Material_Buildups, class: calculation}
+  - {order: 10, name: 10_Plant_Buildups, class: calculation}
+  - {order: 11, name: 11_Subcontract_Quotes, class: calculation}
+  - {order: 12, name: 12_Rate_Buildups, class: calculation}
+  - {order: 13, name: 13_Direct_Costs, class: calculation}
+  - {order: 14, name: 14_Preliminaries, class: calculation}
+  - {order: 15, name: 15_Procurement_Logistics, class: calculation}
+  - {order: 16, name: 16_Risk_Opportunity, class: calculation}
+  - {order: 17, name: 17_Escalation_FX_Tax, class: calculation}
+  - {order: 18, name: 18_Overhead_Profit, class: restricted_input}
+  - {order: 19, name: 19_Bid_Summary, class: presentation}
+  - {order: 20, name: 20_Reconciliation, class: control}
+  - {order: 21, name: 21_Cash_Flow, class: calculation_optional}
+  - {order: 22, name: 22_Dashboard, class: presentation}
+  - {order: 23, name: 23_Export, class: integration}
+release_checks:
+  - formulas_valid
+  - no_circular_references
+  - no_broken_references
+  - detailed_to_summary_reconciled
+  - bid_price_reconciled
+  - quotation_coverage_reported
+  - assumptions_visible
+  - critical_risks_visible
+  - tax_basis_visible
+  - version_and_approval_visible
+  - visual_review_completed

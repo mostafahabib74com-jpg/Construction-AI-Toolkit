@@ -1,0 +1,45 @@
+schema_version: "1.0"
+workflow:
+  id: design-basis-report
+  title: "Design Basis Report"
+  version: 0.1.0
+  status: specification
+  objective: "Define the sourced tender design basis, assumptions, interfaces, deliverables, and estimate impacts."
+  prompt: ../../prompts/design-basis-report/prompt.md
+  prerequisites:
+    - "scope-extraction"
+    - "information-gap-analysis"
+  required_inputs:
+    - "approved_scope_matrix"
+    - "design_documents"
+    - "standards_profiles"
+    - "discipline_reviews"
+  deliverables:
+    - "design_basis_report"
+    - "design_criteria_matrix"
+    - "design_responsibility_matrix"
+    - "design_deliverable_register"
+    - "design_assumption_register"
+    - "design_risk_register"
+  required_reviewers:
+    - "Technical Manager"
+    - "Discipline Lead"
+    - "Estimation Manager"
+  required_tool_categories:
+    - "document_parser"
+    - "document_generator"
+  completion_gates:
+    - source_traceability_complete
+    - missing_information_visible
+    - assumptions_and_exclusions_visible
+    - output_schema_valid
+    - professional_review_recorded
+  blocking_conditions:
+    - "missing_design_responsibility"
+    - "unverified_code_profile"
+    - "missing_discipline_review"
+  authority:
+    may_draft: true
+    may_calculate_with_validated_tools: true
+    may_approve: false
+    may_issue_externally: false

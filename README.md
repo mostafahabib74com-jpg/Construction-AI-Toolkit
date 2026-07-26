@@ -54,3 +54,7 @@ This project is released under the MIT License.
 ## Architecture
 
 - [AI Engineering Agent Architecture](docs/architecture/AI-AGENT-ARCHITECTURE.md)
+
+## Specialized Agents
+
+- [Estimation Agent](agents/estimation-agent/README.md)

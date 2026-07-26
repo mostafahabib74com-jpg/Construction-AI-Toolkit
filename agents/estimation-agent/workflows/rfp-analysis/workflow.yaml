@@ -1,0 +1,44 @@
+schema_version: "1.0"
+workflow:
+  id: rfp-analysis
+  title: "RFP Analysis"
+  version: 0.1.0
+  status: specification
+  objective: "Extract and classify the complete controlled RFP requirement set before pricing."
+  prompt: ../../prompts/rfp-analysis/prompt.md
+  prerequisites:
+    []
+  required_inputs:
+    - "project_context"
+    - "document_register"
+    - "rfp_documents"
+    - "submission_context"
+  deliverables:
+    - "rfp_briefing"
+    - "source_register"
+    - "requirement_matrix"
+    - "submission_checklist"
+    - "estimate_impact_matrix"
+    - "initial_risk_register"
+  required_reviewers:
+    - "Estimation Manager"
+    - "Tender Manager"
+  required_tool_categories:
+    - "document_parser"
+    - "ocr"
+    - "requirement_extractor"
+  completion_gates:
+    - source_traceability_complete
+    - missing_information_visible
+    - assumptions_and_exclusions_visible
+    - output_schema_valid
+    - professional_review_recorded
+  blocking_conditions:
+    - "unknown_revision_cutoff"
+    - "missing_primary_rfp"
+    - "unreadable_mandatory_document"
+  authority:
+    may_draft: true
+    may_calculate_with_validated_tools: true
+    may_approve: false
+    may_issue_externally: false

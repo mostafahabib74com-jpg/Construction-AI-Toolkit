@@ -1,0 +1,53 @@
+schema_version: "1.0"
+workflow:
+  id: excel-cost-model
+  title: "Professional Excel Cost Model"
+  version: 0.1.0
+  status: specification
+  objective: "Generate a controlled, auditable, visually verified estimate workbook from approved structured data."
+  prompt: ../../prompts/excel-cost-model/prompt.md
+  prerequisites:
+    - "boq-development"
+    - "cbs-development"
+  required_inputs:
+    - "approved_estimate_data"
+    - "approved_boq"
+    - "approved_cbs"
+    - "rates_and_quotations"
+    - "commercial_adjustments"
+    - "workbook_template"
+  deliverables:
+    - "xlsx_workbook"
+    - "workbook_manifest"
+    - "formula_validation_report"
+    - "reconciliation_report"
+    - "override_register"
+    - "visual_qa_report"
+    - "executive_pdf"
+  required_reviewers:
+    - "Estimation Manager"
+    - "Commercial Manager"
+  required_tool_categories:
+    - "spreadsheet_generator"
+    - "formula_engine"
+    - "reconciliation_engine"
+    - "spreadsheet_renderer"
+  completion_gates:
+    - source_traceability_complete
+    - deterministic_calculations_valid
+    - assumptions_and_exclusions_visible
+    - output_schema_valid
+    - reconciliation_complete
+    - professional_review_recorded
+  blocking_conditions:
+    - "invalid_estimate_schema"
+    - "unapproved_commercial_adjustment"
+    - "formula_error"
+    - "reconciliation_failure"
+    - "visual_review_incomplete"
+  authority:
+    may_draft: true
+    may_calculate_with_validated_tools: true
+    may_approve: false
+    may_issue_externally: false
+    may_submit_bid: false

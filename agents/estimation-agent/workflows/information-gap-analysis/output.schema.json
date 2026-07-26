@@ -1,0 +1,169 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/agents/estimation-agent/workflows/information-gap-analysis/output.schema.json",
+  "title": "Information Gap Analysis Output",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "workflow_id",
+    "workflow_version",
+    "status",
+    "executive_summary",
+    "source_register",
+    "deliverables",
+    "findings",
+    "registers",
+    "review"
+  ],
+  "properties": {
+    "workflow_id": {
+      "const": "information-gap-analysis"
+    },
+    "workflow_version": {
+      "const": "0.1.0"
+    },
+    "status": {
+      "enum": [
+        "complete",
+        "incomplete",
+        "blocked",
+        "requires_review"
+      ]
+    },
+    "executive_summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_register": {
+      "type": "array",
+      "items": {
+        "$ref": "../../schemas/common.schema.json#/$defs/documentReference"
+      }
+    },
+    "deliverables": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "type",
+          "artifact_reference",
+          "status"
+        ],
+        "properties": {
+          "type": {
+            "enum": [
+              "completeness_assessment",
+              "information_gap_register",
+              "conflict_register",
+              "document_request_list",
+              "treatment_matrix",
+              "bid_escalations"
+            ]
+          },
+          "artifact_reference": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "status": {
+            "enum": [
+              "draft",
+              "generated",
+              "validated",
+              "approved",
+              "blocked"
+            ]
+          },
+          "notes": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      },
+      "minItems": 1
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "$ref": "../../schemas/common.schema.json#/$defs/finding"
+      }
+    },
+    "registers": {
+      "type": "object",
+      "required": [
+        "missing_information",
+        "assumptions",
+        "exclusions",
+        "qualifications",
+        "actions"
+      ],
+      "properties": {
+        "missing_information": {
+          "type": "array",
+          "items": {
+            "$ref": "../../schemas/common.schema.json#/$defs/registerItem"
+          }
+        },
+        "assumptions": {
+          "type": "array",
+          "items": {
+            "$ref": "../../schemas/common.schema.json#/$defs/registerItem"
+          }
+        },
+        "exclusions": {
+          "type": "array",
+          "items": {
+            "$ref": "../../schemas/common.schema.json#/$defs/registerItem"
+          }
+        },
+        "qualifications": {
+          "type": "array",
+          "items": {
+            "$ref": "../../schemas/common.schema.json#/$defs/registerItem"
+          }
+        },
+        "actions": {
+          "type": "array",
+          "items": {
+            "$ref": "../../schemas/common.schema.json#/$defs/registerItem"
+          }
+        }
+      }
+    },
+    "quality_gates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "gate",
+          "status"
+        ],
+        "properties": {
+          "gate": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "passed",
+              "failed",
+              "not_applicable",
+              "requires_review"
+            ]
+          },
+          "evidence": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "review": {
+      "$ref": "../../schemas/common.schema.json#/$defs/review"
+    }
+  }
+}
