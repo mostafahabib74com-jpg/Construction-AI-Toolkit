@@ -69,7 +69,7 @@ def _render_import_form(boq_service: BOQService, project_id: str) -> None:
         return
 
     st.caption(f"Detected {len(preview.frame)} data row(s). Review the source preview and confirm each mapping.")
-    st.dataframe(preview.frame.head(50), use_container_width=True, hide_index=True)
+    st.dataframe(preview.frame.head(50), width="stretch", hide_index=True)
 
     suggestions = boq_service.suggest_mapping(preview.columns)
     st.markdown("#### Column mapping")
@@ -148,7 +148,7 @@ def _render_review(boq_service: BOQService, project_id: str) -> None:
 
     edited = st.data_editor(
         frame,
-        use_container_width=True,
+        width="stretch",
         hide_index=True,
         disabled=["row_id", "source_row", "normalized_unit", "status", "validation_errors"],
         column_config={

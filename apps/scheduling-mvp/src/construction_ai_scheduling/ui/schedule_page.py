@@ -107,7 +107,7 @@ def _wbs_tab(services: SchedulingServices, workspace) -> None:
             ],
             columns=["Code", "Name", "Parent", "Order", "Notes"],
         ),
-        use_container_width=True,
+        width="stretch",
         hide_index=True,
     )
     selected_id = st.selectbox(
@@ -190,7 +190,7 @@ def _calendar_tab(services: SchedulingServices, workspace) -> None:
         else:
             st.success("Project setup calendar created. Review it before assigning activities.")
             st.rerun()
-    st.dataframe(_calendar_table(calendars), use_container_width=True, hide_index=True)
+    st.dataframe(_calendar_table(calendars), width="stretch", hide_index=True)
     calendar_id = st.selectbox(
         "Calendar to edit",
         [None, *[item.calendar_id for item in calendars]],
@@ -359,7 +359,7 @@ def _activity_tab(services: SchedulingServices, project, workspace) -> None:
     frame = _activity_frame(activities)
     edited = st.data_editor(
         frame,
-        use_container_width=True,
+        width="stretch",
         hide_index=True,
         disabled=["activity_pk", "boq_item"],
         column_config={
@@ -490,7 +490,7 @@ def _relationship_tab(services: SchedulingServices, workspace) -> None:
             ],
             columns=["Relationship", "Predecessor", "Successor", "Type", "Lag hours", "Notes"],
         ),
-        use_container_width=True,
+        width="stretch",
         hide_index=True,
     )
     if len(activities) < 2:
@@ -544,7 +544,7 @@ def _calculation_tab(services: SchedulingServices, workspace) -> None:
         issues += ({"code": "ACTIVITIES_REQUIRED", "message": "At least one activity is required.", "field": "activities", "severity": "error"},)
     if issues:
         st.subheader("Validation findings")
-        st.dataframe(pd.DataFrame(issues), use_container_width=True, hide_index=True)
+        st.dataframe(pd.DataFrame(issues), width="stretch", hide_index=True)
     blockers = [item for item in issues if item["severity"] == "error"]
     if blockers:
         st.error(f"Calculation is blocked by {len(blockers)} required correction(s).")
@@ -572,7 +572,7 @@ def _calculation_tab(services: SchedulingServices, workspace) -> None:
     third.metric("Completion variance", f"{variance:+d} calendar days" if variance is not None else "—")
     st.caption(f"{run.run_id} · engine {run.engine_version} · {run.calculated_at.isoformat()}")
     if run.validation_issues:
-        st.dataframe(pd.DataFrame(run.validation_issues), use_container_width=True, hide_index=True)
+        st.dataframe(pd.DataFrame(run.validation_issues), width="stretch", hide_index=True)
     activities_by_id = {item.activity_pk: item for item in activities}
     wbs_by_id = {item.wbs_id: item.code for item in wbs_nodes}
     calendar_by_id = {item.calendar_id: item.code for item in calendars}
@@ -593,7 +593,7 @@ def _calculation_tab(services: SchedulingServices, workspace) -> None:
                 "Planned finish": result.early_finish.isoformat(sep=" ", timespec="minutes"),
             }
         )
-    st.dataframe(pd.DataFrame(result_rows), use_container_width=True, hide_index=True)
+    st.dataframe(pd.DataFrame(result_rows), width="stretch", hide_index=True)
     st.caption("Dates are derived outputs. Edit inputs or logic, then calculate a new immutable run.")
 
 
