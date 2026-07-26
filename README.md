@@ -60,3 +60,9 @@ This project is released under the MIT License.
 - [Estimation Agent](agents/estimation-agent/README.md)
 - [Planning & Primavera P6 Agent](agents/planning-p6-agent/README.md)
 - [Tender Manager Agent](agents/tender-manager-agent/README.md)
+
+## Local Scheduling Application
+
+Phase 8 introduces the first working local application. Milestone 1 supports controlled project setup plus CSV/XLSX BOQ import, validation, editing, and SQLite storage.
+
+See [Scheduling MVP](apps/scheduling-mvp/README.md) for installation, launch, test instructions, and the current scope boundary.

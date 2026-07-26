@@ -64,3 +64,25 @@ Next:
 - Python Automation
 - Excel Automation
 - AI Agents
+
+---
+
+# Phase 8 – Local Scheduling Application
+
+## Milestone 1 – Project and BOQ intake
+
+- [x] Streamlit application foundation
+- [x] Required project setup and validation
+- [x] SQLite database and initial migration
+- [x] CSV/XLSX BOQ import with explicit column mapping
+- [x] Editable BOQ draft review
+- [x] Shared draft application schemas
+- [x] Automated Milestone 1 and regression tests
+
+## Deferred until approval
+
+- [ ] Duration calculations
+- [ ] Working calendar calculations
+- [ ] CPM and relationship scheduling
+- [ ] Gantt chart
+- [ ] Schedule exports and Primavera mapping
