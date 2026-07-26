@@ -48,3 +48,9 @@ New resources will be added regularly.
 ## 📜 License
 
 This project is released under the MIT License.
+
+---
+
+## Architecture
+
+- [AI Engineering Agent Architecture](docs/architecture/AI-AGENT-ARCHITECTURE.md)
