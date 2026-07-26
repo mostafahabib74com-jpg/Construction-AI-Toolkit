@@ -62,6 +62,52 @@ def test_xlsx_reader_selects_requested_worksheet():
     assert preview.frame.iloc[0]["Quantity"] == 12
 
 
+def test_xlsx_reader_detects_arabic_header_after_introductory_rows():
+    workbook = openpyxl.Workbook()
+    worksheet = workbook.active
+    worksheet.title = "جدول الكميات"
+    worksheet.append(["جدول الكميات للمشروع"])
+    worksheet.append(["مشروع تجريبي - بيانات توضيحية"])
+    worksheet.append([])
+    worksheet.append(["رقم البند", "الوصف", "الكمية", "الوحدة"])
+    worksheet.append(["A-01", "أعمال خرسانة مسلحة", 125, "م³"])
+    stream = BytesIO()
+    workbook.save(stream)
+
+    preview = TabularBOQReader().read("arabic-boq.xlsx", stream.getvalue())
+    mapping = TabularBOQReader.suggest_mapping(preview.columns)
+    rows = TabularBOQReader.extract_rows(preview.frame, mapping)
+
+    assert preview.header_row_number == 4
+    assert preview.columns == ("رقم البند", "الوصف", "الكمية", "الوحدة")
+    assert len(rows) == 1
+    assert rows[0]["source_row_number"] == 5
+    assert rows[0]["description"] == "أعمال خرسانة مسلحة"
+    assert rows[0]["unit"] == "م³"
+
+
+def test_xlsx_reader_allows_explicit_header_selection_without_dropping_data_rows():
+    workbook = openpyxl.Workbook()
+    worksheet = workbook.active
+    worksheet.append(["Description", "Quantity", "Unit"])
+    worksheet.append(["Introductory legend", "Not BOQ data", "Notes"])
+    worksheet.append(["Project title"])
+    worksheet.append(["Description", "Quantity", "Unit"])
+    worksheet.append(["Concrete", 10, "m3"])
+    worksheet.append(["بند يحتاج مراجعة", None, "عدد"])
+    stream = BytesIO()
+    workbook.save(stream)
+
+    reader = TabularBOQReader()
+    automatic = reader.read("boq-with-intro.xlsx", stream.getvalue())
+    selected = reader.read("boq-with-intro.xlsx", stream.getvalue(), header_row=4)
+
+    assert automatic.header_row_number == 1
+    assert 4 in dict(automatic.header_row_options)
+    assert list(selected.frame.index) == [5, 6]
+    assert selected.frame["Description"].tolist() == ["Concrete", "بند يحتاج مراجعة"]
+
+
 def test_reader_rejects_unsupported_or_empty_files():
     reader = TabularBOQReader()
     with pytest.raises(BOQImportError, match="CSV or XLSX"):

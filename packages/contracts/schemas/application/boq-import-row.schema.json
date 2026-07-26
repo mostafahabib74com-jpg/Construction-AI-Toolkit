@@ -14,6 +14,7 @@
     "quantity",
     "quantity_raw",
     "unit",
+    "normalized_unit",
     "validation_status",
     "validation_errors",
     "raw_data"
@@ -28,6 +29,7 @@
     "quantity": {"type": ["number", "null"]},
     "quantity_raw": {"type": ["string", "number", "null"]},
     "unit": {"type": ["string", "null"]},
+    "normalized_unit": {"type": ["string", "null"]},
     "validation_status": {"enum": ["valid", "incomplete", "invalid"]},
     "validation_errors": {
       "type": "array",

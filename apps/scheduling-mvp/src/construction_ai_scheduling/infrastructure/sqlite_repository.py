@@ -23,9 +23,20 @@ class SQLiteRepository:
 
     def initialize(self) -> None:
         self.database_path.parent.mkdir(parents=True, exist_ok=True)
-        migration = self.migration_path.read_text(encoding="utf-8")
         with self._connect() as connection:
-            connection.executescript(migration)
+            migration_files = sorted(self.migration_path.parent.glob("*.sql"))
+            if self.migration_path not in migration_files:
+                migration_files.insert(0, self.migration_path)
+            for migration_path in migration_files:
+                version = migration_path.stem
+                migrations_table_exists = connection.execute(
+                    "SELECT 1 FROM sqlite_master WHERE type = 'table' AND name = 'schema_migrations'"
+                ).fetchone()
+                if migrations_table_exists and connection.execute(
+                    "SELECT 1 FROM schema_migrations WHERE version = ?", (version,)
+                ).fetchone():
+                    continue
+                connection.executescript(migration_path.read_text(encoding="utf-8"))
 
     def create_project(self, project: Project) -> None:
         value = project.to_dict()
@@ -83,9 +94,9 @@ class SQLiteRepository:
                 """
                 INSERT INTO boq_items(
                     row_id, project_id, import_id, source_row_number, item_code, description,
-                    quantity, quantity_raw_json, unit, validation_status,
+                    quantity, quantity_raw_json, unit, normalized_unit, validation_status,
                     validation_errors_json, raw_data_json
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """,
                 [
                     (
@@ -98,6 +109,7 @@ class SQLiteRepository:
                         row.quantity,
                         json.dumps(row.quantity_raw, ensure_ascii=False),
                         row.unit,
+                        row.normalized_unit,
                         row.validation_status,
                         json.dumps(row.validation_errors, ensure_ascii=False),
                         json.dumps(row.raw_data, ensure_ascii=False, sort_keys=True),
@@ -145,7 +157,7 @@ class SQLiteRepository:
                 """
                 UPDATE boq_items
                 SET item_code = ?, description = ?, quantity = ?, quantity_raw_json = ?,
-                    unit = ?, validation_status = ?, validation_errors_json = ?
+                    unit = ?, normalized_unit = ?, validation_status = ?, validation_errors_json = ?
                 WHERE row_id = ? AND import_id = ? AND project_id = ?
                 """,
                 [
@@ -155,6 +167,7 @@ class SQLiteRepository:
                         row.quantity,
                         json.dumps(row.quantity_raw, ensure_ascii=False),
                         row.unit,
+                        row.normalized_unit,
                         row.validation_status,
                         json.dumps(row.validation_errors, ensure_ascii=False),
                         row.row_id,

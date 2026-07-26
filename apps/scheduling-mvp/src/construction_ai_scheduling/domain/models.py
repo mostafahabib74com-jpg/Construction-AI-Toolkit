@@ -93,6 +93,7 @@ class BOQRow:
     quantity: float | None
     quantity_raw: str | float | int | None
     unit: str | None
+    normalized_unit: str | None
     validation_status: str
     validation_errors: tuple[str, ...]
     raw_data: dict[str, Any]
@@ -114,6 +115,7 @@ class BOQRow:
             quantity=float(value["quantity"]) if value.get("quantity") is not None else None,
             quantity_raw=value.get("quantity_raw"),
             unit=value.get("unit"),
+            normalized_unit=value.get("normalized_unit"),
             validation_status=value["validation_status"],
             validation_errors=tuple(value.get("validation_errors") or ()),
             raw_data=dict(value.get("raw_data") or {}),

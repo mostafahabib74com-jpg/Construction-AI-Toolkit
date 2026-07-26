@@ -84,3 +84,22 @@ def test_header_only_boq_is_rejected(boq_service, saved_project):
             preview=preview,
             mapping={"item_code": None, "description": "Description", "quantity": "Quantity", "unit": "Unit"},
         )
+
+
+def test_arabic_boq_preserves_display_unit_and_stores_normalized_unit(boq_service, saved_project):
+    content = "رقم البند,الوصف,الكمية,الوحدة\nA-01,أعمال مباني البلوك,46,م²\n".encode("utf-8")
+    preview = boq_service.preview("arabic-boq.csv", content)
+    mapping = boq_service.suggest_mapping(preview.columns)
+    batch = boq_service.import_boq(
+        project_id=saved_project.project_id,
+        file_name="arabic-boq.csv",
+        preview=preview,
+        mapping=mapping,
+    )
+
+    row = batch.rows[0]
+    assert row.description == "أعمال مباني البلوك"
+    assert row.unit == "م²"
+    assert row.normalized_unit == "m2"
+    assert row.validation_status == "valid"
+    assert boq_service.get_rows(batch.import_id)[0] == row

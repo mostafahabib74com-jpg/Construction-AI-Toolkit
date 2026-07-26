@@ -9,6 +9,7 @@ from typing import Any
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 from .models import ValidationIssue
+from .units import MAX_UNIT_LENGTH, is_valid_unit
 
 WEEKDAYS = (
     "monday",
@@ -133,8 +134,12 @@ def validate_boq_fields(*, description: Any, quantity: Any, quantity_raw: Any, u
 
     if not isinstance(unit, str) or not unit.strip():
         issues.append(ValidationIssue("unit", "BOQ_UNIT_REQUIRED", "Unit is required.", "missing"))
-    elif not re.fullmatch(r"[A-Za-z0-9._/%-]{1,24}", unit.strip()):
-        issues.append(ValidationIssue("unit", "BOQ_UNIT_INVALID", "Unit must use 1-24 letters, numbers, or . _ / % - characters."))
+    elif not is_valid_unit(unit):
+        issues.append(ValidationIssue(
+            "unit",
+            "BOQ_UNIT_INVALID",
+            f"Unit must use 1-{MAX_UNIT_LENGTH} Unicode letters, numbers, spaces, or common engineering symbols.",
+        ))
     return issues
 
 

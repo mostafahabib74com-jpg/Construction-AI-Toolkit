@@ -7,10 +7,14 @@ Phase 8 Milestone 1 provides a local Streamlit application for creating project 
 - Project setup with explicit parties, dates, locale, units, and working-pattern inputs.
 - Local SQLite persistence.
 - CSV and XLSX BOQ intake with explicit column mapping.
+- Automatic Excel header detection with a selectable header-row override for sheets that contain introductory rows.
+- Unicode Arabic and English construction units with the source unit preserved and an internal normalized value.
 - Editable BOQ review and row-level validation.
 - Draft application contracts registered in the shared schema catalog.
 
 Duration calculations, calendar arithmetic, CPM logic, Gantt charts, and schedule exports are intentionally not included in this milestone.
+
+To re-import a corrected or previously rejected workbook, open **BOQ import and review**, upload the same file, confirm the worksheet and detected Excel header row, review the column mapping, and select **Import draft BOQ**. The re-import is stored as a new draft; the previous import is preserved for traceability.
 
 ## Start on Windows
 

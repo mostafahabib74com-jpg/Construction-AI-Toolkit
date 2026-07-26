@@ -11,6 +11,7 @@ from construction_ai_orchestrator.validation import SchemaCatalog
 
 from construction_ai_scheduling.domain.errors import BOQImportError
 from construction_ai_scheduling.domain.models import BOQImport, BOQRow
+from construction_ai_scheduling.domain.units import normalize_unit
 from construction_ai_scheduling.domain.validation import boq_validation_status, validate_boq_fields
 from construction_ai_scheduling.infrastructure.boq_reader import (
     BOQPreview,
@@ -33,8 +34,15 @@ class BOQService:
         self.catalog = catalog
         self.reader = reader or TabularBOQReader()
 
-    def preview(self, file_name: str, content: bytes, *, sheet_name: str | None = None) -> BOQPreview:
-        return self.reader.read(file_name, content, sheet_name=sheet_name)
+    def preview(
+        self,
+        file_name: str,
+        content: bytes,
+        *,
+        sheet_name: str | None = None,
+        header_row: int | None = None,
+    ) -> BOQPreview:
+        return self.reader.read(file_name, content, sheet_name=sheet_name, header_row=header_row)
 
     def sheet_names(self, file_name: str, content: bytes) -> tuple[str, ...]:
         return self.reader.sheet_names(file_name, content)
@@ -74,6 +82,7 @@ class BOQService:
                 quantity=source["quantity"],
                 quantity_raw=source["quantity_raw"],
                 unit=source["unit"],
+                normalized_unit=normalize_unit(source["unit"]),
                 validation_status=boq_validation_status(issues),
                 validation_errors=_error_messages(issues),
                 raw_data=source["raw_data"],
@@ -132,6 +141,7 @@ class BOQService:
                 quantity=quantity,
                 quantity_raw=quantity_raw,
                 unit=unit,
+                normalized_unit=normalize_unit(unit),
                 validation_status=boq_validation_status(issues),
                 validation_errors=_error_messages(issues),
                 raw_data=original.raw_data,

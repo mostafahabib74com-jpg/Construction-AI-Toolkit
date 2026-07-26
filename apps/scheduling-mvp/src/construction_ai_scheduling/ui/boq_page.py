@@ -42,6 +42,28 @@ def _render_import_form(boq_service: BOQService, project_id: str) -> None:
         if sheets:
             selected_sheet = st.selectbox("Worksheet", sheets)
         preview = boq_service.preview(uploaded.name, content, sheet_name=selected_sheet)
+        if preview.source_type == "xlsx":
+            option_labels = dict(preview.header_row_options)
+            option_numbers = list(option_labels)
+            selected_header_row = st.selectbox(
+                "Excel header row",
+                option_numbers,
+                index=option_numbers.index(preview.header_row_number),
+                format_func=lambda number: f"Row {number}: {option_labels[number]}",
+                help="Rows above the selected header are introductory content and are not imported.",
+                key=f"header_row_{uploaded.name}_{selected_sheet or 'xlsx'}_{len(content)}",
+            )
+            if selected_header_row != preview.header_row_number:
+                preview = boq_service.preview(
+                    uploaded.name,
+                    content,
+                    sheet_name=selected_sheet,
+                    header_row=selected_header_row,
+                )
+            st.caption(
+                f"Excel row {preview.header_row_number} supplies the column names. "
+                "Every nonblank row after it remains available for import."
+            )
     except BOQImportError as exc:
         st.error(str(exc))
         return
@@ -84,6 +106,7 @@ def _rows_frame(rows) -> pd.DataFrame:
             "description": row.description,
             "quantity": row.quantity,
             "unit": row.unit,
+            "normalized_unit": row.normalized_unit,
             "status": row.validation_status,
             "validation_errors": " | ".join(row.validation_errors),
         }
@@ -127,7 +150,7 @@ def _render_review(boq_service: BOQService, project_id: str) -> None:
         frame,
         use_container_width=True,
         hide_index=True,
-        disabled=["row_id", "source_row", "status", "validation_errors"],
+        disabled=["row_id", "source_row", "normalized_unit", "status", "validation_errors"],
         column_config={
             "row_id": None,
             "source_row": st.column_config.NumberColumn("Source row", format="%d"),
@@ -135,6 +158,7 @@ def _render_review(boq_service: BOQService, project_id: str) -> None:
             "description": st.column_config.TextColumn("Description", required=True, width="large"),
             "quantity": st.column_config.NumberColumn("Quantity", min_value=0.0, format="%.6f"),
             "unit": st.column_config.TextColumn("Unit", required=True),
+            "normalized_unit": st.column_config.TextColumn("Normalized unit"),
             "status": st.column_config.TextColumn("Validation"),
             "validation_errors": st.column_config.TextColumn("Issues", width="large"),
         },

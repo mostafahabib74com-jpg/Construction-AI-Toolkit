@@ -24,6 +24,7 @@ def test_incomplete_boq_row_is_a_valid_draft_contract(catalog):
         "quantity": None,
         "quantity_raw": None,
         "unit": None,
+        "normalized_unit": None,
         "validation_status": "incomplete",
         "validation_errors": ["[BOQ_DESCRIPTION_REQUIRED] Description is required."],
         "raw_data": {},
