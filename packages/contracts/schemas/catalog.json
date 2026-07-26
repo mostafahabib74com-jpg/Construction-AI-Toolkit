@@ -4,6 +4,12 @@
   "schemas": [
     "application/boq-import-row.schema.json",
     "application/boq-import.schema.json",
+    "application/schedule-activity.schema.json",
+    "application/schedule-calendar.schema.json",
+    "application/schedule-relationship.schema.json",
+    "application/schedule-run.schema.json",
+    "application/schedule-wbs-node.schema.json",
+    "application/schedule-workspace.schema.json",
     "application/scheduling-project.schema.json",
     "core/artifact.schema.json",
     "core/consolidated-result.schema.json",

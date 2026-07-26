@@ -6,11 +6,28 @@ from construction_ai_scheduling.application.planning_contracts import (
     BOQ_IMPORT_ROW_SCHEMA,
     BOQ_IMPORT_SCHEMA,
     SCHEDULING_PROJECT_SCHEMA,
+    SCHEDULE_ACTIVITY_SCHEMA,
+    SCHEDULE_CALENDAR_SCHEMA,
+    SCHEDULE_RELATIONSHIP_SCHEMA,
+    SCHEDULE_RUN_SCHEMA,
+    SCHEDULE_WBS_NODE_SCHEMA,
+    SCHEDULE_WORKSPACE_SCHEMA,
 )
 
 
 def test_milestone_one_schemas_are_registered(catalog):
     assert {SCHEDULING_PROJECT_SCHEMA, BOQ_IMPORT_SCHEMA, BOQ_IMPORT_ROW_SCHEMA} <= set(catalog.schema_ids)
+
+
+def test_milestone_two_draft_schemas_are_registered(catalog):
+    assert {
+        SCHEDULE_ACTIVITY_SCHEMA,
+        SCHEDULE_CALENDAR_SCHEMA,
+        SCHEDULE_RELATIONSHIP_SCHEMA,
+        SCHEDULE_RUN_SCHEMA,
+        SCHEDULE_WBS_NODE_SCHEMA,
+        SCHEDULE_WORKSPACE_SCHEMA,
+    } <= set(catalog.schema_ids)
 
 
 def test_incomplete_boq_row_is_a_valid_draft_contract(catalog):

@@ -1,6 +1,13 @@
-"""Pure domain models and input validation for Milestone 1."""
+"""Pure domain models and deterministic scheduling rules."""
 
-from .errors import InputValidationError
+from .errors import InputValidationError, SchedulingInputError
 from .models import BOQImport, BOQRow, Project, ValidationIssue
 
-__all__ = ["BOQImport", "BOQRow", "InputValidationError", "Project", "ValidationIssue"]
+__all__ = [
+    "BOQImport",
+    "BOQRow",
+    "InputValidationError",
+    "Project",
+    "SchedulingInputError",
+    "ValidationIssue",
+]

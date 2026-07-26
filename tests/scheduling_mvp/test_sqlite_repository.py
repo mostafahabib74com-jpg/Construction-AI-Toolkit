@@ -9,7 +9,11 @@ def test_initial_migration_is_idempotent(scheduling_repository):
     scheduling_repository.initialize()
     with scheduling_repository._connect() as connection:
         versions = connection.execute("SELECT version FROM schema_migrations").fetchall()
-    assert [row["version"] for row in versions] == ["001_initial", "002_boq_normalized_unit"]
+    assert [row["version"] for row in versions] == [
+        "001_initial",
+        "002_boq_normalized_unit",
+        "003_scheduling_engine",
+    ]
 
 
 def test_existing_milestone_one_database_receives_normalized_unit_column(tmp_path, repo_root):
@@ -26,6 +30,7 @@ def test_existing_milestone_one_database_receives_normalized_unit_column(tmp_pat
         versions = {row["version"] for row in connection.execute("SELECT version FROM schema_migrations").fetchall()}
     assert "normalized_unit" in columns
     assert "002_boq_normalized_unit" in versions
+    assert "003_scheduling_engine" in versions
 
 
 def test_import_summary_is_scoped_to_project(boq_service, project_service, saved_project, valid_project_input):

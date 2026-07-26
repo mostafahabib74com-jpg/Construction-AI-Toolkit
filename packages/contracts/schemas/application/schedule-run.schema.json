@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/contracts/v1/application/schedule-run.schema.json",
+  "title": "Scheduling MVP Calculation Run",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["run_id", "schedule_id", "engine_version", "status", "calculated_at", "project_planned_finish", "completion_variance_days", "validation_issues", "results"],
+  "properties": {
+    "run_id": {"type": "string", "minLength": 1},
+    "schedule_id": {"type": "string", "minLength": 1},
+    "engine_version": {"type": "string", "minLength": 1},
+    "status": {"enum": ["blocked", "calculated"]},
+    "calculated_at": {"type": "string", "format": "date-time"},
+    "project_planned_finish": {"type": ["string", "null"], "format": "date-time"},
+    "completion_variance_days": {"type": ["integer", "null"]},
+    "validation_issues": {"type": "array", "items": {"type": "object"}},
+    "results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["activity_pk", "exact_duration_hours", "exact_duration_days", "display_duration_days", "early_start", "early_finish", "formula", "calculation_trace"],
+        "properties": {
+          "activity_pk": {"type": "string", "minLength": 1},
+          "exact_duration_hours": {"type": "string", "pattern": "^(?:0|[1-9]\\d*)(?:\\.\\d+)?$"},
+          "exact_duration_days": {"type": "string", "pattern": "^(?:0|[1-9]\\d*)(?:\\.\\d+)?$"},
+          "display_duration_days": {"type": "string", "pattern": "^(?:0|[1-9]\\d*)(?:\\.\\d+)?$"},
+          "early_start": {"type": "string", "format": "date-time"},
+          "early_finish": {"type": "string", "format": "date-time"},
+          "formula": {"type": "string", "minLength": 1},
+          "calculation_trace": {"type": "object"}
+        }
+      }
+    }
+  }
+}

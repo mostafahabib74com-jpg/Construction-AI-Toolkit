@@ -17,3 +17,11 @@ class InputValidationError(ValueError):
 
 class BOQImportError(ValueError):
     """Raised when an uploaded BOQ file cannot be read safely."""
+
+
+class SchedulingInputError(ValueError):
+    """Raised when scheduling data violates an explicit domain rule."""
+
+    def __init__(self, message: str, issues: Sequence[ValidationIssue] = ()) -> None:
+        super().__init__(message)
+        self.issues = tuple(issues)
