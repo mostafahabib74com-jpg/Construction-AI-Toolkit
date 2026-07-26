@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/contracts/v1/core/artifact.schema.json",
+  "title": "Artifact",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["artifact_id", "project_id", "artifact_type", "version", "status", "producer", "created_at", "lineage"],
+  "properties": {
+    "artifact_id": {"type": "string", "minLength": 1},
+    "project_id": {"type": "string", "minLength": 1},
+    "artifact_type": {"type": "string", "minLength": 1},
+    "schema_id": {"type": ["string", "null"]},
+    "schema_version": {"type": ["string", "null"]},
+    "version": {"type": "string", "minLength": 1},
+    "status": {"enum": ["draft", "generated", "validated", "approved", "blocked", "superseded"]},
+    "producer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["agent_id", "workflow_id", "run_id"],
+      "properties": {
+        "agent_id": {"type": "string", "minLength": 1},
+        "workflow_id": {"type": "string", "minLength": 1},
+        "run_id": {"type": "string", "minLength": 1}
+      }
+    },
+    "created_at": {"type": "string", "format": "date-time"},
+    "lineage": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["artifact_id", "version"],
+        "properties": {
+          "artifact_id": {"type": "string", "minLength": 1},
+          "version": {"type": "string", "minLength": 1}
+        }
+      },
+      "uniqueItems": true
+    },
+    "uri": {"type": ["string", "null"]},
+    "payload": {},
+    "review": {"$ref": "https://construction-ai-toolkit.dev/contracts/v1/core/review.schema.json"}
+  }
+}

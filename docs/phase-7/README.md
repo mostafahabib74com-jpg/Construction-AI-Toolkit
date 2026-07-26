@@ -21,4 +21,11 @@
 
 ## Decision gate
 
-Milestone 7.2 must not begin until the shared-contract location, orchestrator runtime, workflow identity convention, and compatibility strategy in `RECOMMENDED-CORRECTIONS.md` are approved.
+The critical control-plane subset of Milestone 7.2 was authorized after the audit. Its scope and results are recorded in:
+
+- `FINDING-CLASSIFICATION.md` — all 30 findings classified as critical, high, medium, or optional.
+- `CORRECTIVE-ACTION-PLAN.md` — critical corrective actions and deferred accuracy work.
+- `CRITICAL-TEST-RESULTS.md` — executed tests, results, limitations, and remaining blockers.
+- `CRITICAL-CHANGE-INVENTORY.md` — every file created, modified, moved, or deleted.
+
+High-priority accuracy work must not begin until the critical implementation and test results are approved.

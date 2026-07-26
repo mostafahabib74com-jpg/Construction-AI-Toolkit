@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/contracts/v1/core/source-document.schema.json",
+  "title": "Source Document",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["document_id", "title", "revision", "controlled_status"],
+  "properties": {
+    "document_id": {"type": "string", "minLength": 1},
+    "title": {"type": "string", "minLength": 1},
+    "revision": {"type": "string", "minLength": 1},
+    "issue_date": {"type": ["string", "null"], "format": "date"},
+    "controlled_status": {"enum": ["current", "superseded", "unverified", "withdrawn"]},
+    "file_name": {"type": ["string", "null"]},
+    "media_type": {"type": ["string", "null"]},
+    "checksum_sha256": {"type": ["string", "null"], "pattern": "^[a-fA-F0-9]{64}$"},
+    "uri": {"type": ["string", "null"]}
+  }
+}

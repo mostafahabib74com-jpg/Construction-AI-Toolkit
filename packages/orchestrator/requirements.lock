@@ -1,0 +1,15 @@
+# Exact resolved dependencies for the Phase 7 critical control plane on Python 3.12.
+# Install with: python -m pip install -r packages/orchestrator/requirements.lock
+attrs==26.1.0
+colorama==0.4.6
+iniconfig==2.3.0
+jsonschema==4.23.0
+jsonschema-specifications==2025.9.1
+packaging==26.2
+pluggy==1.6.0
+PyYAML==6.0.2
+pytest==8.3.5
+referencing==0.37.0
+rpds-py==2026.6.3
+setuptools==75.8.0
+typing_extensions==4.16.0

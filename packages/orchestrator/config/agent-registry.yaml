@@ -1,0 +1,8 @@
+schema_version: "1.0"
+agents:
+  - id: estimation-agent
+    manifest: agents/estimation-agent/agent.yaml
+  - id: planning-p6-agent
+    manifest: agents/planning-p6-agent/agent.yaml
+  - id: tender-manager-agent
+    manifest: agents/tender-manager-agent/agent.yaml

@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/contracts/v1/core/consolidated-result.schema.json",
+  "title": "Consolidated Orchestration Result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["request_id", "status", "workflow_runs", "artifact_manifest", "issues", "blockers", "final_deliverables", "created_at"],
+  "properties": {
+    "request_id": {"type": "string", "minLength": 1},
+    "status": {"enum": ["complete", "blocked", "failed", "requires_review", "partial"]},
+    "workflow_runs": {"type": "array", "items": {"$ref": "https://construction-ai-toolkit.dev/contracts/v1/core/workflow-result.schema.json"}},
+    "artifact_manifest": {"type": "array", "items": {"$ref": "https://construction-ai-toolkit.dev/contracts/v1/core/artifact.schema.json"}},
+    "issues": {"type": "array", "items": {"$ref": "https://construction-ai-toolkit.dev/contracts/v1/core/error.schema.json"}},
+    "blockers": {"type": "array", "items": {"$ref": "https://construction-ai-toolkit.dev/contracts/v1/core/error.schema.json"}},
+    "final_deliverables": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["artifact_id", "version"],
+        "properties": {
+          "artifact_id": {"type": "string", "minLength": 1},
+          "version": {"type": "string", "minLength": 1}
+        }
+      },
+      "uniqueItems": true
+    },
+    "created_at": {"type": "string", "format": "date-time"}
+  }
+}

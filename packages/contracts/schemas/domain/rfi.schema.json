@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/contracts/v1/domain/rfi.schema.json",
+  "title": "Request for Information",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["rfi_id", "subject", "question", "reason", "status"],
+  "properties": {
+    "rfi_id": {"type": "string", "minLength": 1},
+    "subject": {"type": "string", "minLength": 1},
+    "question": {"type": "string", "minLength": 1},
+    "reason": {"type": "string", "minLength": 1},
+    "discipline": {"type": ["string", "null"]},
+    "required_by": {"type": ["string", "null"], "format": "date"},
+    "status": {"enum": ["draft", "internal_review", "approved_for_issue", "issued", "answered", "closed", "withdrawn"]},
+    "evidence_ids": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "impact_if_unanswered": {"type": ["string", "null"]}
+  }
+}

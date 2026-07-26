@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/contracts/v1/domain/rate.schema.json",
+  "title": "Rate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["rate_id", "description", "value", "unit", "source_status"],
+  "properties": {
+    "rate_id": {"type": "string", "minLength": 1},
+    "description": {"type": "string", "minLength": 1},
+    "value": {"$ref": "https://construction-ai-toolkit.dev/contracts/v1/core/money.schema.json"},
+    "unit": {"$ref": "https://construction-ai-toolkit.dev/contracts/v1/core/unit.schema.json"},
+    "source_status": {"enum": ["quoted", "historical", "calculated", "allowance", "unverified"]},
+    "source_reference": {"type": ["string", "null"]},
+    "inclusions": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "exclusions": {"type": "array", "items": {"type": "string", "minLength": 1}}
+  }
+}

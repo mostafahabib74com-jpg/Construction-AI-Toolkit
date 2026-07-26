@@ -1,0 +1,29 @@
+{
+  "catalog_version": "1.0.0",
+  "schema_draft": "https://json-schema.org/draft/2020-12/schema",
+  "schemas": [
+    "core/artifact.schema.json",
+    "core/consolidated-result.schema.json",
+    "core/error.schema.json",
+    "core/evidence.schema.json",
+    "core/money.schema.json",
+    "core/project.schema.json",
+    "core/quantity.schema.json",
+    "core/review.schema.json",
+    "core/source-document.schema.json",
+    "core/unit.schema.json",
+    "core/workflow-request.schema.json",
+    "core/workflow-result.schema.json",
+    "domain/activity.schema.json",
+    "domain/assumption.schema.json",
+    "domain/boq-item.schema.json",
+    "domain/deliverable.schema.json",
+    "domain/exclusion.schema.json",
+    "domain/rate.schema.json",
+    "domain/resource.schema.json",
+    "domain/rfi.schema.json",
+    "domain/risk.schema.json",
+    "domain/tender-clarification.schema.json",
+    "domain/wbs.schema.json"
+  ]
+}
