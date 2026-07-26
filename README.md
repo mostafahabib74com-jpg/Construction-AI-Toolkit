@@ -66,3 +66,5 @@ This project is released under the MIT License.
 Phase 8 introduces the first working local application. Milestone 1 supports controlled project setup plus CSV/XLSX BOQ import, validation, editing, and SQLite storage.
 
 See [Scheduling MVP](apps/scheduling-mvp/README.md) for installation, launch, test instructions, and the current scope boundary.
+
+On Windows, double-click `START_SCHEDULING_APP.bat` at the repository root. Keep its terminal open, and use `STOP_SCHEDULING_APP.bat` to stop only the managed local application.
