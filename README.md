@@ -63,7 +63,7 @@ This project is released under the MIT License.
 
 ## Local Scheduling Application
 
-Phase 8 introduces the first working local application. Milestone 1 supports controlled project setup plus CSV/XLSX BOQ import, validation, editing, and SQLite storage.
+Phase 8 introduces the first working local application. Milestone 2 preserves project and BOQ intake and adds WBS, project calendars, editable activity inputs, relationship validation, exact duration calculations, and deterministic forward planned dates.
 
 See [Scheduling MVP](apps/scheduling-mvp/README.md) for installation, launch, test instructions, and the current scope boundary.
 

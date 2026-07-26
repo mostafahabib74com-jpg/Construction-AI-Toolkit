@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "construction-ai-scheduling-mvp"
-version = "0.1.0"
-description = "Local project and BOQ intake application for the Construction AI Toolkit scheduling MVP"
+version = "0.2.0"
+description = "Local deterministic construction scheduling application for the Construction AI Toolkit"
 readme = "README.md"
 requires-python = ">=3.12,<3.13"
 dependencies = [

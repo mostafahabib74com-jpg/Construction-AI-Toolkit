@@ -39,21 +39,21 @@ python -m venv "%REPO_ROOT%\.venv-scheduling-mvp"
 if errorlevel 1 goto :VENV_ERROR
 
 :CHECK_DEPENDENCIES
-echo [CHECK] Verifying the Milestone 1 Python environment...
+echo [CHECK] Verifying the Scheduling MVP Python environment...
 "%VENV_PYTHON%" -c "import streamlit, pandas, openpyxl, jsonschema, yaml, construction_ai_orchestrator, construction_ai_scheduling" >nul 2>&1
 if errorlevel 1 goto :INSTALL_DEPENDENCIES
 "%VENV_PYTHON%" -m pip check >nul 2>&1
 if errorlevel 1 goto :INSTALL_DEPENDENCIES
-echo [OK] Milestone 1 dependencies are installed and consistent.
+echo [OK] Scheduling MVP dependencies are installed and consistent.
 goto :LAUNCH
 
 :INSTALL_DEPENDENCIES
-echo [SETUP] Installing missing Milestone 1 dependencies...
+echo [SETUP] Installing missing Scheduling MVP dependencies...
 "%VENV_PYTHON%" -m pip install -r "%REQUIREMENTS%"
 if errorlevel 1 goto :DEPENDENCY_ERROR
 "%VENV_PYTHON%" -c "import streamlit, pandas, openpyxl, jsonschema, yaml, construction_ai_orchestrator, construction_ai_scheduling" >nul 2>&1
 if errorlevel 1 goto :DEPENDENCY_ERROR
-echo [OK] Milestone 1 dependencies are ready.
+echo [OK] Scheduling MVP dependencies are ready.
 
 :LAUNCH
 echo [START] Starting Streamlit on http://127.0.0.1:8501
@@ -103,7 +103,7 @@ set "EXIT_CODE=1"
 goto :FINISH
 
 :DEPENDENCY_ERROR
-echo [ERROR] Milestone 1 dependencies could not be installed or imported.
+echo [ERROR] Scheduling MVP dependencies could not be installed or imported.
 echo [ERROR] Check your internet connection and the messages above.
 set "EXIT_CODE=1"
 

@@ -1,56 +1,70 @@
 # Construction Scheduling MVP
 
-Phase 8 Milestone 1 provides a local Streamlit application for creating project records and importing, validating, editing, and storing BOQ data.
+Phase 8 Milestone 2 adds a deterministic construction scheduling workspace to the local Streamlit application. Milestone 1 project setup and Arabic/English CSV/XLSX BOQ intake remain available.
 
-## Milestone 1 scope
+## Current capabilities
 
-- Project setup with explicit parties, dates, locale, units, and working-pattern inputs.
-- Local SQLite persistence.
-- CSV and XLSX BOQ intake with explicit column mapping.
-- Automatic Excel header detection with a selectable header-row override for sheets that contain introductory rows.
-- Unicode Arabic and English construction units with the source unit preserved and an internal normalized value.
-- Editable BOQ review and row-level validation.
-- Draft application contracts registered in the shared schema catalog.
+- Create and select locally stored project records.
+- Import, map, validate, edit, and preserve BOQ drafts.
+- Create an editable WBS with stable internal identifiers.
+- Create working calendars with weekdays, net productive hours, breaks, and date exceptions.
+- Explicitly convert only validated BOQ rows to draft activities.
+- Edit activity IDs, names, types, quantities, units, WBS, productivity basis/rate, crew count, calendar, notes, and order.
+- Create FS, SS, FF, and SF relationships with signed lag expressed in successor-calendar working hours.
+- Detect missing required inputs, invalid values, duplicate IDs or relationships, broken references, self-links, and circular logic.
+- Calculate exact durations and deterministic forward-pass planned starts and finishes.
+- Store every calculation as an immutable run with a signed completion-date variance.
 
-Duration calculations, calendar arithmetic, CPM logic, Gantt charts, and schedule exports are intentionally not included in this milestone.
+The engine never invents quantities, productivity values, crew counts, WBS assignments, calendars, or relationships. Displayed duration rounding does not change the exact value used for scheduling.
 
-To re-import a corrected or previously rejected workbook, open **BOQ import and review**, upload the same file, confirm the worksheet and detected Excel header row, review the column mapping, and select **Import draft BOQ**. The re-import is stored as a new draft; the previous import is preserved for traceability.
+## Milestone 2 boundary
+
+Milestone 2 does **not** include Gantt charts, Excel/CSV/Primavera exports, backward-pass CPM, float, critical path, resource loading, cost loading, cash flow, or other platform modules. Those remain future milestones.
+
+Synthetic inputs under `sample_data/` are marked demonstration data and are never loaded into user-created projects automatically.
+
+## Typical workflow
+
+1. Create or select a project in **Project setup**.
+2. Import and validate a BOQ in **BOQ import and review**.
+3. Open **Schedule workspace**.
+4. Build the WBS and review/create a project calendar.
+5. Convert selected valid BOQ rows or add manual activities.
+6. Complete all activity inputs without assumptions.
+7. Add and review relationships and lags.
+8. Open **Calculate & review**, correct blockers, and calculate a new immutable run.
 
 ## Start on Windows
 
 1. Open the repository folder in File Explorer.
 2. Double-click `START_SCHEDULING_APP.bat`.
 3. Keep the launcher terminal window open while using the application.
-4. The launcher opens `http://127.0.0.1:8501` in the default browser after Streamlit passes its health check.
+4. The launcher opens `http://127.0.0.1:8501` after the health check passes.
 
-The launcher detects the repository from its own location. It reuses `.venv-scheduling-mvp` when available, creates it with Python 3.12 when missing, and installs the Milestone 1 requirements only when imports or `pip check` fail.
+The launcher detects the repository from its own location, reuses `.venv-scheduling-mvp`, and installs the pinned local requirements only if imports or `pip check` fail.
 
 ## Stop on Windows
 
-Double-click `STOP_SCHEDULING_APP.bat`. The stop launcher sends a tokenized request to the active launcher, which terminates only the Streamlit child process it created. It refuses to terminate an unidentified process using port 8501.
-
-The START terminal displays confirmation when shutdown completes. It remains open until you press a key so startup or shutdown errors are not lost.
+Double-click `STOP_SCHEDULING_APP.bat`. It stops only the token-identified Streamlit process created by this repository's launcher.
 
 ## Troubleshoot ERR_CONNECTION_REFUSED
 
 `ERR_CONNECTION_REFUSED` means no process is listening on port 8501.
 
-1. Confirm the START terminal is still open. Closing it stops the local application.
+1. Confirm the START terminal remains open; closing it stops the application.
 2. Read the status messages in that terminal.
 3. Inspect the newest log under `apps/scheduling-mvp/logs/`.
 4. Run `STOP_SCHEDULING_APP.bat` once to clear a managed stale session.
 5. Run `START_SCHEDULING_APP.bat` again.
-6. Open `http://127.0.0.1:8501`, not an old preview address using a different port.
+6. Open `http://127.0.0.1:8501`.
 
-If Python cannot be found, install Python 3.12 and make either `py -3.12` or `python` available. If dependency installation fails, restore internet access and rerun START.
-
-Advanced manual launch from the repository root:
+Manual launch from the repository root:
 
 ```powershell
 .\.venv-scheduling-mvp\Scripts\python.exe -m streamlit run apps/scheduling-mvp/app.py --server.address 127.0.0.1 --server.port 8501
 ```
 
-The database defaults to `.local/scheduling-mvp.db`. Override it for testing or isolated use with the `CONSTRUCTION_AI_DB_PATH` environment variable.
+The database defaults to `.local/scheduling-mvp.db`. Set `CONSTRUCTION_AI_DB_PATH` to use an isolated database.
 
 ## Tests
 
@@ -58,4 +72,4 @@ The database defaults to `.local/scheduling-mvp.db`. Override it for testing or 
 .\.venv-scheduling-mvp\Scripts\python.exe -m pytest -p no:cacheprovider -c packages/orchestrator/pyproject.toml
 ```
 
-The command runs both the pre-existing platform suite and the scheduling MVP tests.
+This runs the complete existing platform suite and the Milestone 1 and Milestone 2 application tests.
