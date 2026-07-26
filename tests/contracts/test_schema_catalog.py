@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import json
+
 import pytest
 
 from construction_ai_orchestrator.errors import ContractValidationError
@@ -7,9 +9,10 @@ from construction_ai_orchestrator.errors import ContractValidationError
 PROJECT_SCHEMA = "https://construction-ai-toolkit.dev/contracts/v1/core/project.schema.json"
 
 
-def test_catalog_loads_all_declared_schemas(catalog):
-    assert len(catalog.schema_ids) == 29
-    assert len(set(catalog.schema_ids)) == 29
+def test_catalog_loads_all_declared_schemas(catalog, repo_root):
+    declared = json.loads((repo_root / "packages/contracts/schemas/catalog.json").read_text(encoding="utf-8"))["schemas"]
+    assert len(catalog.schema_ids) == len(declared)
+    assert len(set(catalog.schema_ids)) == len(declared)
 
 
 def test_all_schemas_pass_meta_schema_validation(catalog):
