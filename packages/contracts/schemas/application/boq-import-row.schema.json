@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/contracts/v1/application/boq-import-row.schema.json",
+  "title": "Draft BOQ Import Row",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "row_id",
+    "project_id",
+    "import_id",
+    "source_row_number",
+    "item_code",
+    "description",
+    "quantity",
+    "quantity_raw",
+    "unit",
+    "validation_status",
+    "validation_errors",
+    "raw_data"
+  ],
+  "properties": {
+    "row_id": {"type": "string", "minLength": 1},
+    "project_id": {"type": "string", "minLength": 1},
+    "import_id": {"type": "string", "minLength": 1},
+    "source_row_number": {"type": "integer", "minimum": 1},
+    "item_code": {"type": ["string", "null"]},
+    "description": {"type": ["string", "null"]},
+    "quantity": {"type": ["number", "null"]},
+    "quantity_raw": {"type": ["string", "number", "null"]},
+    "unit": {"type": ["string", "null"]},
+    "validation_status": {"enum": ["valid", "incomplete", "invalid"]},
+    "validation_errors": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    },
+    "raw_data": {"type": "object"}
+  }
+}

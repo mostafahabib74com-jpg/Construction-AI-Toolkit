@@ -6,3 +6,9 @@ __pycache__/
 *.egg-info/
 build/
 dist/
+.local/
+*.db
+*.db-shm
+*.db-wal
+apps/scheduling-mvp/uploads/
+apps/scheduling-mvp/exports/

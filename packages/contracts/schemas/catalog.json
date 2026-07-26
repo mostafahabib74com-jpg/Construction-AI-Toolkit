@@ -2,6 +2,9 @@
   "catalog_version": "1.0.0",
   "schema_draft": "https://json-schema.org/draft/2020-12/schema",
   "schemas": [
+    "application/boq-import-row.schema.json",
+    "application/boq-import.schema.json",
+    "application/scheduling-project.schema.json",
     "core/artifact.schema.json",
     "core/consolidated-result.schema.json",
     "core/error.schema.json",

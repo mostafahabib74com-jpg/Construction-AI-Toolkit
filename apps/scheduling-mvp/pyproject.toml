@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools==75.8.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "construction-ai-scheduling-mvp"
+version = "0.1.0"
+description = "Local project and BOQ intake application for the Construction AI Toolkit scheduling MVP"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "construction-ai-orchestrator==0.1.0",
+  "openpyxl>=3.1.5,<4",
+  "pandas>=2.2.3,<3",
+  "streamlit>=1.42,<2"
+]
+
+[project.optional-dependencies]
+test = ["pytest==8.3.5"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+addopts = "-ra --strict-config --strict-markers"
+testpaths = ["../../tests"]
