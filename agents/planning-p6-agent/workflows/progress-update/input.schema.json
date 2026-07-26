@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/agents/planning-p6-agent/workflows/progress-update/input.schema.json",
+  "title": "Progress Update Input",
+  "allOf": [
+    {
+      "$ref": "../../schemas/workflow.schema.json#/$defs/inputEnvelope"
+    },
+    {
+      "type": "object",
+      "required": [
+        "workflow_inputs"
+      ],
+      "properties": {
+        "workflow_inputs": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "approved_baseline_or_current_schedule",
+            "status_data_date",
+            "field_status_records",
+            "actuals_and_remaining_data"
+          ],
+          "properties": {
+            "approved_baseline_or_current_schedule": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: approved baseline or current schedule"
+            },
+            "status_data_date": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: status data date"
+            },
+            "field_status_records": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: field status records"
+            },
+            "actuals_and_remaining_data": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: actuals and remaining data"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

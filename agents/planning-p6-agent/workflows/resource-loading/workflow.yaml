@@ -1,0 +1,46 @@
+schema_version: "1.0"
+workflow:
+  id: resource-loading
+  title: "Resource Loading"
+  version: 0.1.0
+  status: specification
+  objective: "Assign auditable labor, plant, and nonlabor requirements to the validated schedule and test capacity feasibility."
+  prompt: ../../prompts/resource-loading/prompt.md
+  prerequisites:
+    - "baseline-schedule-generation"
+  required_inputs:
+    - "baseline_schedule"
+    - "resource_dictionary"
+    - "productivity_basis"
+    - "availability_limits"
+  deliverables:
+    - "resource_dictionary"
+    - "resource_assignment_register"
+    - "resource_histograms"
+    - "overallocation_report"
+    - "resource_loaded_schedule"
+  required_reviewers:
+    - "Planning Manager"
+    - "Project Controls Manager"
+    - "Construction Manager"
+  required_tool_categories:
+    - "resource_engine"
+    - "histogram_generator"
+    - "schedule_validator"
+  completion_gates:
+    - source_traceability_complete
+    - schedule_version_and_data_date_recorded
+    - deterministic_calculations_valid
+    - data_quality_checks_complete
+    - output_schema_valid
+    - professional_review_recorded
+  blocking_conditions:
+    - "missing_productivity_basis"
+    - "undefined_resource_units"
+    - "unresolved_overallocations"
+  authority:
+    may_draft: true
+    may_calculate_with_validated_tools: true
+    may_approve: false
+    may_modify_source_schedule: false
+    may_publish_to_p6: false

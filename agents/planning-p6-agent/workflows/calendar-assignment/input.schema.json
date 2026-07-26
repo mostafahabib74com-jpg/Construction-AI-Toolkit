@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/agents/planning-p6-agent/workflows/calendar-assignment/input.schema.json",
+  "title": "Calendar Assignment Input",
+  "allOf": [
+    {
+      "$ref": "../../schemas/workflow.schema.json#/$defs/inputEnvelope"
+    },
+    {
+      "type": "object",
+      "required": [
+        "workflow_inputs"
+      ],
+      "properties": {
+        "workflow_inputs": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "activity_register",
+            "workweek_rules",
+            "holiday_register",
+            "shift_and_exception_rules"
+          ],
+          "properties": {
+            "activity_register": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: activity register"
+            },
+            "workweek_rules": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: workweek rules"
+            },
+            "holiday_register": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: holiday register"
+            },
+            "shift_and_exception_rules": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: shift and exception rules"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

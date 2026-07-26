@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/agents/planning-p6-agent/workflows/shop-drawing-schedule/input.schema.json",
+  "title": "Shop Drawing Schedule Input",
+  "allOf": [
+    {
+      "$ref": "../../schemas/workflow.schema.json#/$defs/inputEnvelope"
+    },
+    {
+      "type": "object",
+      "required": [
+        "workflow_inputs"
+      ],
+      "properties": {
+        "workflow_inputs": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "baseline_schedule",
+            "design_deliverable_register",
+            "review_cycles",
+            "construction_need_dates"
+          ],
+          "properties": {
+            "baseline_schedule": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: baseline schedule"
+            },
+            "design_deliverable_register": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: design deliverable register"
+            },
+            "review_cycles": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: review cycles"
+            },
+            "construction_need_dates": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: construction need dates"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

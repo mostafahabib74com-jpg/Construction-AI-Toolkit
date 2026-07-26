@@ -1,0 +1,46 @@
+schema_version: "1.0"
+workflow:
+  id: cash-flow
+  title: "Cash Flow"
+  version: 0.1.0
+  status: specification
+  objective: "Generate transparent time-phased gross and net cash-flow forecasts from validated cost loading and payment assumptions."
+  prompt: ../../prompts/cash-flow/prompt.md
+  prerequisites:
+    - "cost-loading"
+  required_inputs:
+    - "cost_loaded_schedule"
+    - "payment_terms"
+    - "retention_and_advance_rules"
+    - "forecast_periods"
+  deliverables:
+    - "gross_cash_flow"
+    - "net_cash_flow"
+    - "inflow_outflow_curves"
+    - "payment_assumption_register"
+    - "cash_flow_reconciliation"
+  required_reviewers:
+    - "Planning Manager"
+    - "Project Controls Manager"
+    - "Cost Control Manager"
+  required_tool_categories:
+    - "cost_engine"
+    - "cash_flow_engine"
+    - "spreadsheet_engine"
+  completion_gates:
+    - source_traceability_complete
+    - schedule_version_and_data_date_recorded
+    - deterministic_calculations_valid
+    - data_quality_checks_complete
+    - output_schema_valid
+    - professional_review_recorded
+  blocking_conditions:
+    - "unreconciled_cost_loading"
+    - "missing_payment_terms"
+    - "unsupported_cash_flow_formula"
+  authority:
+    may_draft: true
+    may_calculate_with_validated_tools: true
+    may_approve: false
+    may_modify_source_schedule: false
+    may_publish_to_p6: false

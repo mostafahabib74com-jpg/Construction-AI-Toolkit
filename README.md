@@ -58,3 +58,4 @@ This project is released under the MIT License.
 ## Specialized Agents
 
 - [Estimation Agent](agents/estimation-agent/README.md)
+- [Planning & Primavera P6 Agent](agents/planning-p6-agent/README.md)

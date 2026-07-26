@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/agents/planning-p6-agent/schemas/common.schema.json",
+  "title": "Planning & P6 Common Definitions",
+  "$defs": {
+    "sourceReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_id", "title", "revision", "location"],
+      "properties": {
+        "source_id": {"type": "string", "minLength": 1},
+        "title": {"type": "string", "minLength": 1},
+        "revision": {"type": "string", "minLength": 1},
+        "location": {"type": "string", "minLength": 1},
+        "extraction_method": {"enum": ["native", "ocr", "structured_import", "field_record", "user_statement"]},
+        "confidence": {"type": "number", "minimum": 0, "maximum": 1}
+      }
+    },
+    "scheduleReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["project_id", "schedule_id", "version", "data_date", "status"],
+      "properties": {
+        "project_id": {"type": "string", "minLength": 1},
+        "schedule_id": {"type": "string", "minLength": 1},
+        "version": {"type": "string", "minLength": 1},
+        "data_date": {"type": "string", "format": "date-time"},
+        "status": {"enum": ["draft", "submitted", "approved", "update", "forecast", "recovery", "scenario", "impacted", "superseded"]},
+        "artifact_reference": {"type": ["string", "null"]}
+      }
+    },
+    "finding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "category", "description", "severity", "basis", "status"],
+      "properties": {
+        "id": {"type": "string"},
+        "category": {"type": "string"},
+        "description": {"type": "string"},
+        "severity": {"enum": ["critical", "high", "medium", "low", "information"]},
+        "basis": {"enum": ["source_fact", "deterministic_calculation", "planner_judgment", "assumption", "scenario", "recommendation"]},
+        "source": {"$ref": "#/$defs/sourceReference"},
+        "affected_ids": {"type": "array", "items": {"type": "string"}},
+        "recommended_action": {"type": ["string", "null"]},
+        "owner_role": {"type": ["string", "null"]},
+        "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+        "status": {"enum": ["open", "accepted", "rejected", "closed", "requires_review"]}
+      }
+    },
+    "registerItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "description", "status"],
+      "properties": {
+        "id": {"type": "string"},
+        "description": {"type": "string"},
+        "source": {"$ref": "#/$defs/sourceReference"},
+        "impact": {"type": ["string", "null"]},
+        "owner_role": {"type": ["string", "null"]},
+        "due_date": {"type": ["string", "null"], "format": "date"},
+        "status": {"enum": ["draft", "open", "approved", "rejected", "closed"]}
+      }
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["required_roles", "status"],
+      "properties": {
+        "required_roles": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+        "status": {"enum": ["not_started", "in_review", "approved", "rejected", "revision_required"]},
+        "comments": {"type": "array", "items": {"type": "string"}}
+      }
+    }
+  }
+}

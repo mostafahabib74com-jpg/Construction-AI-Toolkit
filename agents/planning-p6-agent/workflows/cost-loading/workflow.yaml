@@ -1,0 +1,47 @@
+schema_version: "1.0"
+workflow:
+  id: cost-loading
+  title: "Cost Loading"
+  version: 0.1.0
+  status: specification
+  objective: "Allocate controlled CBS values to schedule activities and reconcile the cost-loaded schedule to approved control totals."
+  prompt: ../../prompts/cost-loading/prompt.md
+  prerequisites:
+    - "baseline-schedule-generation"
+    - "resource-loading"
+  required_inputs:
+    - "baseline_schedule"
+    - "cost_breakdown_structure"
+    - "cost_source_register"
+    - "allocation_rules"
+  deliverables:
+    - "cost_assignment_register"
+    - "cost_loaded_schedule"
+    - "wbs_cost_reconciliation"
+    - "cost_curve_input"
+    - "cost_loading_exception_report"
+  required_reviewers:
+    - "Planning Manager"
+    - "Project Controls Manager"
+    - "Cost Control Manager"
+  required_tool_categories:
+    - "cost_engine"
+    - "spreadsheet_engine"
+    - "schedule_validator"
+  completion_gates:
+    - source_traceability_complete
+    - schedule_version_and_data_date_recorded
+    - deterministic_calculations_valid
+    - data_quality_checks_complete
+    - output_schema_valid
+    - professional_review_recorded
+  blocking_conditions:
+    - "cost_total_reconciliation_failure"
+    - "unsupported_cost_allocation"
+    - "missing_currency_basis"
+  authority:
+    may_draft: true
+    may_calculate_with_validated_tools: true
+    may_approve: false
+    may_modify_source_schedule: false
+    may_publish_to_p6: false

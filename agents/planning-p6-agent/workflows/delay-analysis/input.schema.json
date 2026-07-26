@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/agents/planning-p6-agent/workflows/delay-analysis/input.schema.json",
+  "title": "Delay Analysis Input",
+  "allOf": [
+    {
+      "$ref": "../../schemas/workflow.schema.json#/$defs/inputEnvelope"
+    },
+    {
+      "type": "object",
+      "required": [
+        "workflow_inputs"
+      ],
+      "properties": {
+        "workflow_inputs": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "accepted_baseline",
+            "schedule_updates",
+            "delay_event_register",
+            "contemporaneous_records",
+            "contract_rules"
+          ],
+          "properties": {
+            "accepted_baseline": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: accepted baseline"
+            },
+            "schedule_updates": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: schedule updates"
+            },
+            "delay_event_register": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: delay event register"
+            },
+            "contemporaneous_records": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: contemporaneous records"
+            },
+            "contract_rules": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: contract rules"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

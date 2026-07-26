@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/agents/planning-p6-agent/workflows/relationship-assignment/input.schema.json",
+  "title": "Relationship Assignment Input",
+  "allOf": [
+    {
+      "$ref": "../../schemas/workflow.schema.json#/$defs/inputEnvelope"
+    },
+    {
+      "type": "object",
+      "required": [
+        "workflow_inputs"
+      ],
+      "properties": {
+        "workflow_inputs": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "activity_register",
+            "calendar_register",
+            "construction_methodology",
+            "interface_register"
+          ],
+          "properties": {
+            "activity_register": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: activity register"
+            },
+            "calendar_register": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: calendar register"
+            },
+            "construction_methodology": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: construction methodology"
+            },
+            "interface_register": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: interface register"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

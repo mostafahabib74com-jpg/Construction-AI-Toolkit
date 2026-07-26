@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/agents/planning-p6-agent/workflows/material-submittal-schedule/input.schema.json",
+  "title": "Material Submittal Schedule Input",
+  "allOf": [
+    {
+      "$ref": "../../schemas/workflow.schema.json#/$defs/inputEnvelope"
+    },
+    {
+      "type": "object",
+      "required": [
+        "workflow_inputs"
+      ],
+      "properties": {
+        "workflow_inputs": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "procurement_schedule",
+            "material_register",
+            "approval_cycles",
+            "required_on_site_dates"
+          ],
+          "properties": {
+            "procurement_schedule": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: procurement schedule"
+            },
+            "material_register": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: material register"
+            },
+            "approval_cycles": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: approval cycles"
+            },
+            "required_on_site_dates": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: required on site dates"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "workflow_id": "wbs-development",
+  "workflow_version": "0.1.0",
+  "status": "requires_review",
+  "executive_summary": "Synthetic draft WBS package created from one controlled scope source; discipline ownership and external-works package boundaries require professional confirmation.",
+  "schedule_references": [
+    {
+      "project_id": "SYN-DEMO-001",
+      "schedule_id": "SYN-BL-001",
+      "version": "DRAFT-00",
+      "data_date": "2026-01-01T08:00:00+03:00",
+      "status": "draft",
+      "artifact_reference": null
+    }
+  ],
+  "source_register": [
+    {
+      "source_id": "SRC-SCOPE-001",
+      "title": "Synthetic Contract Scope",
+      "revision": "0",
+      "location": "examples://synthetic/scope",
+      "extraction_method": "structured_import",
+      "confidence": 1.0
+    }
+  ],
+  "deliverables": [
+    {"type": "complete_wbs", "artifact_reference": null, "status": "draft", "notes": "Synthetic example only."},
+    {"type": "wbs_dictionary", "artifact_reference": null, "status": "draft", "notes": "Ownership fields require review."},
+    {"type": "scope_coverage_matrix", "artifact_reference": null, "status": "draft", "notes": "External-works boundary remains open."}
+  ],
+  "findings": [
+    {
+      "id": "F-001",
+      "category": "scope_boundary",
+      "description": "The controlled scope does not define the boundary between site utilities and off-site utility connections.",
+      "severity": "high",
+      "basis": "source_fact",
+      "source": {
+        "source_id": "SRC-SCOPE-001",
+        "title": "Synthetic Contract Scope",
+        "revision": "0",
+        "location": "examples://synthetic/scope",
+        "extraction_method": "structured_import",
+        "confidence": 1.0
+      },
+      "affected_ids": ["SYN.EXT"],
+      "recommended_action": "Confirm utility ownership and termination points before WBS approval.",
+      "owner_role": "Construction Manager",
+      "confidence": 0.98,
+      "status": "requires_review"
+    }
+  ],
+  "registers": {
+    "assumptions": [],
+    "constraints": [],
+    "missing_information": [
+      {"id": "MI-001", "description": "Utility ownership and termination points are undefined.", "impact": "WBS scope overlap or omission", "owner_role": "Construction Manager", "due_date": null, "status": "open"}
+    ],
+    "changes": [],
+    "actions": [
+      {"id": "ACT-001", "description": "Resolve external-works scope boundary.", "impact": "Required before WBS approval", "owner_role": "Construction Manager", "due_date": null, "status": "open"}
+    ]
+  },
+  "quality_gates": [
+    {"gate": "source_traceability_complete", "status": "passed", "evidence": "SRC-SCOPE-001"},
+    {"gate": "professional_review_recorded", "status": "requires_review", "evidence": null}
+  ],
+  "review": {
+    "required_roles": ["Planning Manager", "Project Controls Manager", "Construction Manager"],
+    "status": "not_started",
+    "comments": []
+  }
+}

@@ -1,0 +1,23 @@
+schema_version: "1.0"
+profiles:
+  - {id: planning-methodology, type: methodology, required: true, owner_role: Planning Manager, content_file: planning-methodology.md}
+  - {id: p6-data-model, type: data_model, required: true, owner_role: P6 Administrator, content_file: p6-data-model.md}
+  - {id: wbs-and-coding, type: coding, required: true, owner_role: Planning Manager, content_file: wbs-and-coding.md}
+  - {id: cpm-and-logic, type: calculation, required: true, owner_role: Planning Manager, content_file: cpm-and-logic.md}
+  - {id: calendar-and-progress, type: calculation, required: true, owner_role: Planning Manager, content_file: calendar-and-progress.md}
+  - {id: resource-cost-cashflow, type: calculation, required: true, owner_role: Project Controls Manager, content_file: resource-cost-cashflow.md}
+  - {id: procurement-submittals, type: workflow, required: true, owner_role: Procurement Manager, content_file: procurement-submittals.md}
+  - {id: delay-and-tia, type: forensic, required: true, owner_role: Claims Manager, content_file: delay-and-tia.md}
+  - {id: schedule-quality, type: assurance, required: true, owner_role: Project Controls Manager, content_file: schedule-quality.md}
+external_profile_slots:
+  - contract_milestones_and_notice
+  - client_schedule_specification
+  - organization_planning_procedure
+  - activity_coding_dictionary
+  - calendar_and_working_rules
+  - progress_measurement_rules
+  - resource_and_productivity_database
+  - cost_and_currency_profile
+  - procurement_lead_times
+  - delay_analysis_protocol
+  - schedule_quality_thresholds

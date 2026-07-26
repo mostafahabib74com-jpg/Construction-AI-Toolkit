@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/agents/planning-p6-agent/workflows/cash-flow/output.schema.json",
+  "title": "Cash Flow Output",
+  "allOf": [
+    {
+      "$ref": "../../schemas/workflow.schema.json#/$defs/outputEnvelope"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "workflow_id": {
+          "const": "cash-flow"
+        },
+        "workflow_version": {
+          "const": "0.1.0"
+        },
+        "deliverables": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "enum": [
+                  "gross_cash_flow",
+                  "net_cash_flow",
+                  "inflow_outflow_curves",
+                  "payment_assumption_register",
+                  "cash_flow_reconciliation"
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}
