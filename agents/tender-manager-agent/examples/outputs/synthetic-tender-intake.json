@@ -1,0 +1,89 @@
+{
+  "workflow_id": "tender-package-ingestion",
+  "workflow_version": "0.1.0",
+  "status": "blocked",
+  "executive_summary": "The synthetic package contains one of three indexed documents. Scope and pricing documents are missing, so tender intake and downstream proposal work remain blocked.",
+  "tender_reference": {
+    "tender_id": "SYN-TND-001",
+    "version": "INTAKE-00",
+    "source_cutoff": "CUT-2026-08-01",
+    "latest_addendum_id": null
+  },
+  "source_register": [
+    {
+      "source_id": "SRC-ITT-001",
+      "title": "Synthetic Invitation to Tender",
+      "document_number": "SC-ITT-001",
+      "revision": "0",
+      "issue_date": "2026-08-01",
+      "location": "examples://synthetic/itt",
+      "checksum": "synthetic-checksum-not-for-security",
+      "addendum_id": null,
+      "supersedes_source_id": null,
+      "classification": "confidential",
+      "extraction_method": "structured_import",
+      "confidence": 1.0,
+      "controlled_status": "current"
+    }
+  ],
+  "domain_artifacts": [],
+  "deliverables": [
+    {"type": "document_register", "artifact_reference": null, "status": "draft", "notes": "One received source registered."},
+    {"type": "expected_received_matrix", "artifact_reference": null, "status": "blocked", "notes": "Two indexed documents are missing."},
+    {"type": "data_quality_report", "artifact_reference": null, "status": "generated", "notes": "Synthetic demonstration only."}
+  ],
+  "findings": [
+    {
+      "id": "F-001",
+      "category": "package_completeness",
+      "description": "The indexed scope and price schedule have not been received.",
+      "severity": "critical",
+      "basis": "source_fact",
+      "source": {
+        "source_id": "SRC-ITT-001",
+        "title": "Synthetic Invitation to Tender",
+        "document_number": "SC-ITT-001",
+        "revision": "0",
+        "issue_date": "2026-08-01",
+        "location": "examples://synthetic/itt",
+        "checksum": "synthetic-checksum-not-for-security",
+        "addendum_id": null,
+        "supersedes_source_id": null,
+        "classification": "confidential",
+        "extraction_method": "structured_import",
+        "confidence": 1.0,
+        "controlled_status": "current"
+      },
+      "affected_ids": ["EXPECTED-SCOPE", "EXPECTED-PRICE"],
+      "recommended_action": "Obtain the missing controlled documents through the authorized channel.",
+      "owner_role": "Tender Manager",
+      "due_date": "2026-08-02T12:00:00+03:00",
+      "confidence": 1.0,
+      "status": "open"
+    }
+  ],
+  "registers": {
+    "clarifications": [],
+    "rfis": [],
+    "assumptions": [],
+    "exclusions": [],
+    "qualifications": [],
+    "deviations": [],
+    "risks": [],
+    "actions": [
+      {"id": "ACT-001", "description": "Obtain missing scope and price schedule.", "basis": "source_fact", "impact": "Blocks tender analysis and pricing", "owner_role": "Tender Manager", "due_date": "2026-08-02T12:00:00+03:00", "approval_reference": null, "status": "open"}
+    ],
+    "decisions": []
+  },
+  "quality_gates": [
+    {"gate": "source_traceability_complete", "status": "passed", "evidence": "SRC-ITT-001"},
+    {"gate": "package_completeness", "status": "failed", "evidence": "Expected 3; received 1"},
+    {"gate": "professional_review_recorded", "status": "requires_review", "evidence": null}
+  ],
+  "review": {
+    "required_roles": ["Tender Manager", "Document Control Manager"],
+    "status": "not_started",
+    "comments": [],
+    "authorization_reference": null
+  }
+}

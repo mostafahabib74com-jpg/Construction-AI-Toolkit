@@ -1,0 +1,51 @@
+schema_version: "1.0"
+workflow:
+  id: exclusions-register
+  title: "Tender Exclusions Register"
+  version: 0.1.0
+  status: specification
+  objective: "Control exact offer boundaries and reconcile exclusions with scope, price, schedule, compliance, and submission documents."
+  prompt: ../../prompts/exclusions-register/prompt.md
+  prerequisites:
+    - "compliance-matrix"
+    - "assumptions-register"
+  required_inputs:
+    - "controlled_scope_and_boq"
+    - "approved_estimate_and_schedule_artifacts"
+    - "client_exclusion_and_deviation_rules"
+    - "commercial_authority_matrix"
+  deliverables:
+    - "exclusions_register"
+    - "classification_reconciliation"
+    - "scope_and_boq_cross_reference"
+    - "compliance_and_risk_impact_report"
+    - "client_disclosure_schedule"
+  required_reviewers:
+    - "Tender Manager"
+    - "Commercial Manager"
+    - "Contracts Manager"
+  required_tool_categories:
+    - "scope_reconciliation_engine"
+    - "boq_cross_reference"
+    - "compliance_validator"
+    - "consistency_validator"
+  completion_gates:
+    - source_traceability_complete
+    - latest_addendum_reconciled
+    - requirements_and_artifacts_versioned
+    - deterministic_checks_complete
+    - output_schema_valid
+    - professional_review_recorded
+  blocking_conditions:
+    - "prohibited_exclusion"
+    - "hidden_mandatory_noncompliance"
+    - "unreconciled_price_or_schedule_effect"
+    - "unapproved_contractual_exclusion"
+  authority:
+    may_draft: true
+    may_assemble_approved_artifacts: true
+    may_approve: false
+    may_issue_correspondence: false
+    may_commit_price: false
+    may_authorize_submission: false
+    may_upload: false

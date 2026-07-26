@@ -1,0 +1,52 @@
+schema_version: "1.0"
+workflow:
+  id: organization-chart
+  title: "Organization Chart"
+  version: 0.1.0
+  status: specification
+  objective: "Define a credible project organization, reporting model, role dictionary, RACI, and chart specification from verified personnel data."
+  prompt: ../../prompts/organization-chart/prompt.md
+  prerequisites:
+    - "execution-methodology"
+  required_inputs:
+    - "organization_requirements"
+    - "delivery_governance_model"
+    - "approved_personnel_and_cv_records"
+    - "schedule_phase_and_location_plan"
+    - "data_use_permissions"
+  deliverables:
+    - "organization_chart_data"
+    - "role_and_authority_dictionary"
+    - "personnel_evidence_register"
+    - "raci_matrix"
+    - "vacancy_and_coverage_report"
+    - "chart_rendering_specification"
+  required_reviewers:
+    - "Tender Manager"
+    - "Project Director or Construction Manager"
+    - "Authorized Personnel Data Owner"
+  required_tool_categories:
+    - "credential_validator"
+    - "availability_validator"
+    - "org_graph_validator"
+    - "chart_renderer"
+  completion_gates:
+    - source_traceability_complete
+    - latest_addendum_reconciled
+    - requirements_and_artifacts_versioned
+    - deterministic_checks_complete
+    - output_schema_valid
+    - professional_review_recorded
+  blocking_conditions:
+    - "unverified_named_person"
+    - "missing_personal_data_permission"
+    - "critical_role_vacancy_unaddressed"
+    - "reporting_line_conflict"
+  authority:
+    may_draft: true
+    may_assemble_approved_artifacts: true
+    may_approve: false
+    may_issue_correspondence: false
+    may_commit_price: false
+    may_authorize_submission: false
+    may_upload: false

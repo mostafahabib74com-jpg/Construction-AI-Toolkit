@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/agents/tender-manager-agent/workflows/technical-proposal/input.schema.json",
+  "title": "Technical Proposal Input",
+  "allOf": [
+    {
+      "$ref": "../../schemas/workflow.schema.json#/$defs/inputEnvelope"
+    },
+    {
+      "type": "object",
+      "required": [
+        "workflow_inputs"
+      ],
+      "properties": {
+        "workflow_inputs": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "approved_compliance_matrix",
+            "client_response_structure_and_limits",
+            "approved_discipline_artifacts",
+            "verified_company_content",
+            "approved_tender_registers"
+          ],
+          "properties": {
+            "approved_compliance_matrix": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: approved compliance matrix"
+            },
+            "client_response_structure_and_limits": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: client response structure and limits"
+            },
+            "approved_discipline_artifacts": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: approved discipline artifacts"
+            },
+            "verified_company_content": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: verified company content"
+            },
+            "approved_tender_registers": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: approved tender registers"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

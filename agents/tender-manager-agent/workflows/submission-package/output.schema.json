@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/agents/tender-manager-agent/workflows/submission-package/output.schema.json",
+  "title": "Submission Package Output",
+  "allOf": [
+    {
+      "$ref": "../../schemas/workflow.schema.json#/$defs/outputEnvelope"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "workflow_id": {
+          "const": "submission-package"
+        },
+        "workflow_version": {
+          "const": "0.1.0"
+        },
+        "deliverables": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "enum": [
+                  "submission_package_manifest",
+                  "requirement_to_file_final_matrix",
+                  "technical_commercial_reconciliation",
+                  "preflight_and_security_report",
+                  "signature_form_and_approval_checklist",
+                  "deadline_and_upload_plan",
+                  "submission_readiness_decision",
+                  "receipt_and_archive_template"
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

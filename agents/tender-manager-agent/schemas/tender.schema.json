@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/agents/tender-manager-agent/schemas/tender.schema.json",
+  "title": "Controlled Tender Workspace",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["tender", "documents", "requirements", "domain_artifacts", "registers", "submission", "review"],
+  "properties": {
+    "tender": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["tender_id", "opportunity_id", "name", "client", "reference", "version", "status", "submission_deadline", "time_zone", "currency", "language", "source_cutoff"],
+      "properties": {
+        "tender_id": {"type": "string"},
+        "opportunity_id": {"type": "string"},
+        "name": {"type": "string"},
+        "client": {"type": "string"},
+        "reference": {"type": "string"},
+        "version": {"type": "string"},
+        "status": {"enum": ["intake", "bid_decision", "active", "review", "approved_for_submission", "submitted", "withdrawn", "closed", "superseded"]},
+        "submission_deadline": {"type": "string", "format": "date-time"},
+        "time_zone": {"type": "string"},
+        "currency": {"type": "string", "pattern": "^[A-Z]{3}$"},
+        "language": {"type": "string"},
+        "source_cutoff": {"type": "string"},
+        "submission_method": {"type": ["string", "null"]},
+        "procurement_route": {"type": ["string", "null"]},
+        "contract_profile": {"type": ["string", "null"]}
+      }
+    },
+    "documents": {"type": "array", "items": {"$ref": "common.schema.json#/$defs/sourceReference"}},
+    "requirements": {"type": "array", "items": {"$ref": "common.schema.json#/$defs/requirement"}},
+    "domain_artifacts": {"type": "array", "items": {"$ref": "common.schema.json#/$defs/artifactReference"}},
+    "registers": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["clarifications", "rfis", "assumptions", "exclusions", "qualifications", "deviations", "risks", "actions", "decisions"],
+      "properties": {
+        "clarifications": {"type": "array", "items": {"$ref": "common.schema.json#/$defs/registerItem"}},
+        "rfis": {"type": "array", "items": {"$ref": "common.schema.json#/$defs/registerItem"}},
+        "assumptions": {"type": "array", "items": {"$ref": "common.schema.json#/$defs/registerItem"}},
+        "exclusions": {"type": "array", "items": {"$ref": "common.schema.json#/$defs/registerItem"}},
+        "qualifications": {"type": "array", "items": {"$ref": "common.schema.json#/$defs/registerItem"}},
+        "deviations": {"type": "array", "items": {"$ref": "common.schema.json#/$defs/registerItem"}},
+        "risks": {"type": "array", "items": {"$ref": "common.schema.json#/$defs/registerItem"}},
+        "actions": {"type": "array", "items": {"$ref": "common.schema.json#/$defs/registerItem"}},
+        "decisions": {"type": "array", "items": {"$ref": "common.schema.json#/$defs/registerItem"}}
+      }
+    },
+    "submission": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["manifest", "readiness_status", "deadline_status"],
+      "properties": {
+        "manifest": {"type": "array", "items": {"$ref": "common.schema.json#/$defs/manifestItem"}},
+        "readiness_status": {"enum": ["not_started", "not_ready", "conditionally_ready", "ready_for_authorized_release", "submitted"]},
+        "deadline_status": {"enum": ["unknown", "on_track", "at_risk", "missed"]},
+        "package_checksum": {"type": ["string", "null"]},
+        "receipt_reference": {"type": ["string", "null"]}
+      }
+    },
+    "review": {"$ref": "common.schema.json#/$defs/review"}
+  }
+}

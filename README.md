@@ -59,3 +59,4 @@ This project is released under the MIT License.
 
 - [Estimation Agent](agents/estimation-agent/README.md)
 - [Planning & Primavera P6 Agent](agents/planning-p6-agent/README.md)
+- [Tender Manager Agent](agents/tender-manager-agent/README.md)

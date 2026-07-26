@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/agents/tender-manager-agent/workflows/manpower-histogram/input.schema.json",
+  "title": "Manpower Histogram Input",
+  "allOf": [
+    {
+      "$ref": "../../schemas/workflow.schema.json#/$defs/inputEnvelope"
+    },
+    {
+      "type": "object",
+      "required": [
+        "workflow_inputs"
+      ],
+      "properties": {
+        "workflow_inputs": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "approved_schedule_and_resource_assignments",
+            "productivity_crew_shift_and_calendar_basis",
+            "organization_and_operator_requirements",
+            "labor_constraints"
+          ],
+          "properties": {
+            "approved_schedule_and_resource_assignments": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: approved schedule and resource assignments"
+            },
+            "productivity_crew_shift_and_calendar_basis": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: productivity crew shift and calendar basis"
+            },
+            "organization_and_operator_requirements": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: organization and operator requirements"
+            },
+            "labor_constraints": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: labor constraints"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

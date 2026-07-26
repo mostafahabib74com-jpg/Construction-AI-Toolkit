@@ -1,0 +1,47 @@
+{
+  "tender": {
+    "tender_id": "SYN-TND-001",
+    "name": "Synthetic Logistics Facility Tender",
+    "client": "Synthetic Client",
+    "reference": "SC-RFP-001",
+    "version": "INTAKE-00",
+    "submission_deadline": "2026-09-30T12:00:00+03:00",
+    "time_zone": "Asia/Riyadh",
+    "currency": "SAR",
+    "language": "en",
+    "submission_method": "controlled portal"
+  },
+  "execution": {
+    "workflow_version": "0.1.0",
+    "tender_version": "INTAKE-00",
+    "source_cutoff": "CUT-2026-08-01",
+    "latest_addendum_id": null,
+    "requested_language": "en",
+    "due_date": "2026-08-03T17:00:00+03:00"
+  },
+  "documents": [
+    {
+      "source_id": "SRC-ITT-001",
+      "title": "Synthetic Invitation to Tender",
+      "document_number": "SC-ITT-001",
+      "revision": "0",
+      "issue_date": "2026-08-01",
+      "location": "examples://synthetic/itt",
+      "checksum": "synthetic-checksum-not-for-security",
+      "addendum_id": null,
+      "supersedes_source_id": null,
+      "classification": "confidential",
+      "extraction_method": "structured_import",
+      "confidence": 1.0,
+      "controlled_status": "current"
+    }
+  ],
+  "domain_artifacts": [],
+  "workflow_inputs": {
+    "source_package": ["SRC-ITT-001"],
+    "client_indexes_and_transmittals": {"expected_documents": 3},
+    "submission_rules": {"method": "controlled portal", "deadline_source": "SRC-ITT-001"},
+    "communication_rules": {"authorized_channel": "client portal"}
+  },
+  "requested_formats": ["json", "xlsx"]
+}

@@ -1,0 +1,50 @@
+schema_version: "1.0"
+workflow:
+  id: assumptions-register
+  title: "Tender Assumptions Register"
+  version: 0.1.0
+  status: specification
+  objective: "Control the explicit tender bases used where source information is incomplete or a reviewed decision is required."
+  prompt: ../../prompts/assumptions-register/prompt.md
+  prerequisites:
+    - "compliance-matrix"
+    - "clarification-management"
+  required_inputs:
+    - "controlled_source_gaps"
+    - "approved_domain_artifacts"
+    - "query_and_response_register"
+    - "assumption_authority_matrix"
+  deliverables:
+    - "detailed_assumptions_register"
+    - "client_disclosure_shortlist"
+    - "assumption_impact_matrix"
+    - "approval_and_supersession_log"
+    - "critical_unresolved_assumption_report"
+  required_reviewers:
+    - "Tender Manager"
+    - "Commercial Manager"
+    - "Responsible Discipline Lead"
+  required_tool_categories:
+    - "cross_reference_validator"
+    - "impact_mapping_engine"
+    - "consistency_validator"
+  completion_gates:
+    - source_traceability_complete
+    - latest_addendum_reconciled
+    - requirements_and_artifacts_versioned
+    - deterministic_checks_complete
+    - output_schema_valid
+    - professional_review_recorded
+  blocking_conditions:
+    - "assumption_without_source_gap"
+    - "undisclosed_material_assumption"
+    - "unapproved_commercial_assumption"
+    - "cross_artifact_assumption_conflict"
+  authority:
+    may_draft: true
+    may_assemble_approved_artifacts: true
+    may_approve: false
+    may_issue_correspondence: false
+    may_commit_price: false
+    may_authorize_submission: false
+    may_upload: false
