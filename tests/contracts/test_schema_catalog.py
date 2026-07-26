@@ -8,8 +8,8 @@ PROJECT_SCHEMA = "https://construction-ai-toolkit.dev/contracts/v1/core/project.
 
 
 def test_catalog_loads_all_declared_schemas(catalog):
-    assert len(catalog.schema_ids) == 26
-    assert len(set(catalog.schema_ids)) == 26
+    assert len(catalog.schema_ids) == 29
+    assert len(set(catalog.schema_ids)) == 29
 
 
 def test_all_schemas_pass_meta_schema_validation(catalog):
