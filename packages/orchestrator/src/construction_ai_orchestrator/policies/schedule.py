@@ -6,30 +6,13 @@ from collections import Counter, defaultdict
 from datetime import datetime
 from typing import Any
 
+from construction_ai_orchestrator.scheduling.graph import find_cycle
+
 from .common import policy_issue
 
 
 def _duplicates(values: list[str]) -> list[str]:
     return sorted(value for value, count in Counter(values).items() if count > 1)
-
-
-def _has_cycle(nodes: set[str], edges: dict[str, set[str]]) -> bool:
-    visiting: set[str] = set()
-    visited: set[str] = set()
-
-    def visit(node: str) -> bool:
-        if node in visiting:
-            return True
-        if node in visited:
-            return False
-        visiting.add(node)
-        if any(visit(successor) for successor in edges.get(node, set())):
-            return True
-        visiting.remove(node)
-        visited.add(node)
-        return False
-
-    return any(visit(node) for node in nodes if node not in visited)
 
 
 def _parse_date_time(value: str) -> datetime:
@@ -73,7 +56,7 @@ def validate_schedule(value: dict[str, Any], *, excessive_lag_hours: float = 80.
                     remediation="Set the child level to parent level plus one.",
                     severity="warning",
                 ))
-    if _has_cycle(wbs_set, wbs_edges):
+    if find_cycle(wbs_set, ((parent, child) for parent, children in wbs_edges.items() for child in children)):
         issues.append(policy_issue(
             "WBS_CYCLE",
             "The WBS parent-child structure contains a cycle.",
@@ -103,6 +86,7 @@ def validate_schedule(value: dict[str, Any], *, excessive_lag_hours: float = 80.
     logic_edges: dict[str, set[str]] = defaultdict(set)
     predecessors: dict[str, set[str]] = defaultdict(set)
     successors: dict[str, set[str]] = defaultdict(set)
+    relationship_keys: set[tuple[str, str, str, float]] = set()
     for index, activity in enumerate(activities):
         activity_id = activity["activity_id"]
         if activity["wbs_id"] not in wbs_set:
@@ -138,6 +122,15 @@ def validate_schedule(value: dict[str, Any], *, excessive_lag_hours: float = 80.
         for relation_index, relation in enumerate(activity.get("relationships") or []):
             predecessor = relation["predecessor_activity_id"]
             relation_path = f"$.activities[{index}].relationships[{relation_index}]"
+            relationship_key = (predecessor, activity_id, relation["type"], relation["lag_hours"])
+            if relationship_key in relationship_keys:
+                issues.append(policy_issue(
+                    "RELATIONSHIP_DUPLICATE",
+                    "The same activity relationship is listed more than once.",
+                    path=relation_path,
+                    remediation="Keep one relationship and remove the duplicate.",
+                ))
+            relationship_keys.add(relationship_key)
             if predecessor not in activity_set:
                 issues.append(policy_issue(
                     "RELATIONSHIP_ENDPOINT_MISSING",
@@ -173,7 +166,7 @@ def validate_schedule(value: dict[str, Any], *, excessive_lag_hours: float = 80.
                     remediation="Model the waiting period explicitly or document the basis.",
                     severity="warning",
                 ))
-    if _has_cycle(activity_set, logic_edges):
+    if find_cycle(activity_set, ((parent, child) for parent, children in logic_edges.items() for child in children)):
         issues.append(policy_issue(
             "SCHEDULE_LOGIC_CYCLE",
             "Activity relationships contain a circular dependency.",

@@ -62,3 +62,12 @@ def test_reversed_activity_dates_are_blocked(catalog):
     schedule["activities"][1]["planned_finish"] = "2026-07-31T17:00:00+03:00"
     report = AccuracyPolicyEngine(catalog).evaluate(SCHEDULE, schedule)
     assert "ACTIVITY_DATES_REVERSED" in {item["code"] for item in report.blockers}
+
+
+def test_duplicate_relationship_is_blocked(catalog):
+    schedule = valid_schedule()
+    schedule["activities"][1]["relationships"].append(
+        {"predecessor_activity_id": "A-START", "type": "FS", "lag_hours": 0}
+    )
+    report = AccuracyPolicyEngine(catalog).evaluate(SCHEDULE, schedule)
+    assert "RELATIONSHIP_DUPLICATE" in {item["code"] for item in report.blockers}
