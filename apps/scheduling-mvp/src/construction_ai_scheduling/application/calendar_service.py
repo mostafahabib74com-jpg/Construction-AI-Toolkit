@@ -60,6 +60,11 @@ class CalendarService:
         now = datetime.now(timezone.utc)
         existing = self.repository.get_calendar(calendar_id) if calendar_id else None
         start = time.fromisoformat(workday_start_time) if isinstance(workday_start_time, str) else workday_start_time
+        def exception_date(value: Any) -> date:
+            if isinstance(value, datetime):
+                return value.date()
+            return date.fromisoformat(value) if isinstance(value, str) else value
+
         calendar = ProjectCalendar(
             calendar_id=calendar_id or f"CAL-{uuid4().hex[:12].upper()}",
             schedule_id=schedule_id,
@@ -80,7 +85,7 @@ class CalendarService:
             exceptions=tuple(
                 CalendarException(
                     item.get("exception_id") or f"EXC-{uuid4().hex[:12].upper()}",
-                    date.fromisoformat(item["date"]) if isinstance(item["date"], str) else item["date"],
+                    exception_date(item["date"]),
                     bool(item["working"]),
                     time.fromisoformat(item["workday_start_time"]) if isinstance(item.get("workday_start_time"), str) else item.get("workday_start_time"),
                     parse_decimal(item.get("working_hours")),

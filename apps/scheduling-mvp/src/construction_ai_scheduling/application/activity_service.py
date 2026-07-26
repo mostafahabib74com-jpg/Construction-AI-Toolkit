@@ -100,6 +100,12 @@ class ActivityService:
         now = datetime.now(timezone.utc)
         activity_pk = value.get("activity_pk") or f"ACT-{uuid4().hex[:12].upper()}"
         existing = self.repository.get_activity(activity_pk)
+        crew_value = value.get("crew_count")
+        if crew_value not in {None, ""}:
+            numeric_crew = float(crew_value)
+            if not numeric_crew.is_integer():
+                raise SchedulingInputError("Crew count must be a whole number.")
+            crew_value = int(numeric_crew)
         activity = ScheduleActivity(
             activity_pk=activity_pk,
             schedule_id=value["schedule_id"],
@@ -116,7 +122,7 @@ class ActivityService:
             wbs_id=value.get("wbs_id") or None,
             productivity_rate=parse_decimal(value.get("productivity_rate")),
             productivity_basis=value.get("productivity_basis") or None,
-            crew_count=int(value["crew_count"]) if value.get("crew_count") not in {None, ""} else None,
+            crew_count=crew_value,
             calendar_id=value.get("calendar_id") or None,
             notes=str(value["notes"]).strip() if value.get("notes") else None,
             assumptions=tuple(dict.fromkeys(item.strip() for item in value.get("assumptions") or [] if item.strip())),
