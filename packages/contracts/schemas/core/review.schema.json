@@ -6,10 +6,11 @@
   "additionalProperties": false,
   "required": ["status", "required_roles"],
   "properties": {
-    "status": {"enum": ["not_reviewed", "in_review", "conditionally_approved", "approved", "rejected"]},
+    "status": {"enum": ["not_reviewed", "in_review", "conditionally_approved", "approved", "rejected", "revision_required"]},
     "required_roles": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
     "reviewed_by": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
     "reviewed_at": {"type": ["string", "null"], "format": "date-time"},
-    "notes": {"type": ["string", "null"]}
+    "notes": {"type": ["string", "null"]},
+    "authorization_reference": {"type": ["string", "null"]}
   }
 }

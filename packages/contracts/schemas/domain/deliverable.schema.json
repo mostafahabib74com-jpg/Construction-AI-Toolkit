@@ -12,6 +12,7 @@
     "status": {"enum": ["planned", "draft", "generated", "validated", "approved", "blocked", "submitted"]},
     "mandatory_fields": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
     "missing_fields": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "field_values": {"type": "object"},
     "artifact_reference": {
       "anyOf": [
         {
@@ -26,6 +27,7 @@
         {"type": "null"}
       ]
     },
-    "due_at": {"type": ["string", "null"], "format": "date-time"}
+    "due_at": {"type": ["string", "null"], "format": "date-time"},
+    "review": {"$ref": "https://construction-ai-toolkit.dev/contracts/v1/core/review.schema.json"}
   }
 }

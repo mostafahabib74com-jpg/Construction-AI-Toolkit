@@ -43,7 +43,7 @@ def consolidate(
     final_deliverables = [
         {"artifact_id": artifact["artifact_id"], "version": artifact["version"]}
         for artifact in artifacts
-        if artifact["status"] in {"validated", "approved"}
+        if artifact["status"] == "approved"
     ]
     result = {
         "request_id": request_id,

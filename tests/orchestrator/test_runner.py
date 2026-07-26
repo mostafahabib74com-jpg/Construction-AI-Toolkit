@@ -10,8 +10,8 @@ def make_artifact(workflow, request, run_id, *, artifact_id="ART-001", lineage=N
         "artifact_id": artifact_id,
         "project_id": request["project"]["project_id"],
         "artifact_type": "controlled_test_artifact",
-        "schema_id": None,
-        "schema_version": None,
+        "schema_id": "https://construction-ai-toolkit.dev/contracts/v1/core/quantity.schema.json",
+        "schema_version": "1.0.0",
         "version": "1.0.0",
         "status": "validated",
         "producer": {
@@ -22,7 +22,14 @@ def make_artifact(workflow, request, run_id, *, artifact_id="ART-001", lineage=N
         "created_at": FIXED_TIME,
         "lineage": lineage or [],
         "uri": None,
-        "payload": {"synthetic": True},
+        "payload": {
+            "value": 1,
+            "unit": {"code": "ea", "system": "SI"},
+            "status": "confirmed",
+            "measurement_basis": "Synthetic test fixture",
+            "source_ids": ["SRC-001"],
+            "assumption_id": None,
+        },
     }
 
 
@@ -66,7 +73,7 @@ def test_handler_output_is_registered_and_consolidated(registry, catalog, reques
     result = orchestrator(registry, catalog, {key: handler}).run(request)
     assert result["status"] == "complete"
     assert result["artifact_manifest"][0]["artifact_id"] == "ART-001"
-    assert result["final_deliverables"] == [{"artifact_id": "ART-001", "version": "1.0.0"}]
+    assert result["final_deliverables"] == []
 
 
 def test_sequence_passes_artifact_references_between_agents(registry, catalog, request_factory):
@@ -108,7 +115,7 @@ def test_sequence_passes_artifact_references_between_agents(registry, catalog, r
     assert result["status"] == "complete"
     assert observed["upstream"] == [{"artifact_id": "TENDER-SCOPE", "version": "1.0.0"}]
     assert observed["resolved_upstream"][0]["artifact_id"] == "TENDER-SCOPE"
-    assert observed["resolved_upstream"][0]["payload"] == {"synthetic": True}
+    assert observed["resolved_upstream"][0]["payload"]["source_ids"] == ["SRC-001"]
     assert [item["artifact_id"] for item in result["artifact_manifest"]] == ["ESTIMATE-INPUT", "TENDER-SCOPE"]
 
 

@@ -29,3 +29,11 @@ The critical control-plane subset of Milestone 7.2 was authorized after the audi
 - `CRITICAL-CHANGE-INVENTORY.md` — every file created, modified, moved, or deleted.
 
 High-priority accuracy work must not begin until the critical implementation and test results are approved.
+
+The first high-priority milestone was subsequently approved and implemented. Its scope is limited to common-data adapters and release-time accuracy policies:
+
+- `HIGH-PRIORITY-MILESTONE-1.md` — implemented safeguards, adapter coverage, and remaining high-priority work.
+- `HIGH-PRIORITY-TEST-RESULTS.md` — automated and static verification evidence.
+- `HIGH-PRIORITY-CHANGE-INVENTORY.md` — exact file-level changes.
+
+Excel/P6 generation, full domain handlers, CI, the 39 evaluation cases, and new agents remain paused for separate approval.

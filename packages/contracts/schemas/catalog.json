@@ -17,12 +17,15 @@
     "domain/activity.schema.json",
     "domain/assumption.schema.json",
     "domain/boq-item.schema.json",
+    "domain/calendar.schema.json",
+    "domain/contract-requirement.schema.json",
     "domain/deliverable.schema.json",
     "domain/exclusion.schema.json",
     "domain/rate.schema.json",
     "domain/resource.schema.json",
     "domain/rfi.schema.json",
     "domain/risk.schema.json",
+    "domain/schedule.schema.json",
     "domain/tender-clarification.schema.json",
     "domain/wbs.schema.json"
   ]

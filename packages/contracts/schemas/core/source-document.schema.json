@@ -10,10 +10,18 @@
     "title": {"type": "string", "minLength": 1},
     "revision": {"type": "string", "minLength": 1},
     "issue_date": {"type": ["string", "null"], "format": "date"},
-    "controlled_status": {"enum": ["current", "superseded", "unverified", "withdrawn"]},
+    "controlled_status": {"enum": ["current", "superseded", "reference_only", "unverified", "missing", "withdrawn"]},
+    "document_number": {"type": ["string", "null"]},
     "file_name": {"type": ["string", "null"]},
     "media_type": {"type": ["string", "null"]},
     "checksum_sha256": {"type": ["string", "null"], "pattern": "^[a-fA-F0-9]{64}$"},
-    "uri": {"type": ["string", "null"]}
+    "checksum_algorithm": {"type": ["string", "null"]},
+    "checksum_value": {"type": ["string", "null"]},
+    "uri": {"type": ["string", "null"]},
+    "classification": {"enum": ["public", "internal", "confidential", "restricted", null]},
+    "extraction_method": {"enum": ["native", "ocr", "structured_import", "field_record", "manual_register", "user_statement", null]},
+    "confidence": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+    "addendum_id": {"type": ["string", "null"]},
+    "supersedes_document_id": {"type": ["string", "null"]}
   }
 }

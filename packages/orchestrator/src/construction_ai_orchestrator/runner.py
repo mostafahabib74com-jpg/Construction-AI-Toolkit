@@ -11,6 +11,7 @@ from .artifacts import ArtifactStore
 from .consolidation import consolidate, utc_now
 from .errors import HandlerNotAvailableError, PlatformError
 from .models import ExecutionContext, WorkflowDefinition
+from .policies import AccuracyPolicyEngine
 from .registry import AgentRegistry
 from .router import WorkflowRouter
 from .validation import SchemaCatalog
@@ -40,6 +41,7 @@ class Orchestrator:
         registry: AgentRegistry,
         catalog: SchemaCatalog,
         handlers: Mapping[str, WorkflowHandler] | None = None,
+        policy_engine: AccuracyPolicyEngine | None = None,
         clock: Callable[[], str] = utc_now,
         id_factory: Callable[[], str] | None = None,
     ) -> None:
@@ -47,6 +49,7 @@ class Orchestrator:
         self.catalog = catalog
         self.router = WorkflowRouter(registry)
         self.handlers = dict(handlers or {})
+        self.policy_engine = policy_engine or AccuracyPolicyEngine(catalog)
         self.clock = clock
         self.id_factory = id_factory or (lambda: str(uuid4()))
 
@@ -138,6 +141,26 @@ class Orchestrator:
             context = ExecutionContext(run_id=run_id, upstream_artifacts=upstream)
             response = dict(handler(workflow, deepcopy(request), context))
             artifacts = list(response.get("artifacts", []))
+            policy_issues = [
+                issue
+                for artifact in artifacts
+                for issue in self.policy_engine.evaluate_release_artifact(dict(artifact)).issues
+            ]
+            policy_blockers = [issue for issue in policy_issues if issue["severity"] == "blocker"]
+            policy_warnings = [issue for issue in policy_issues if issue["severity"] != "blocker"]
+            if policy_blockers:
+                result = {
+                    "run_id": run_id,
+                    "request_id": request["request_id"],
+                    "qualified_workflow_id": workflow.qualified_id,
+                    "status": "blocked",
+                    "summary": "Workflow output was blocked by release-time accuracy safeguards.",
+                    "artifacts": [],
+                    "issues": list(response.get("issues", [])) + policy_warnings,
+                    "blockers": list(response.get("blockers", [])) + policy_blockers,
+                }
+                self.catalog.assert_valid(result, RESULT_SCHEMA_ID)
+                return result
             result = {
                 "run_id": run_id,
                 "request_id": request["request_id"],
@@ -145,7 +168,7 @@ class Orchestrator:
                 "status": response.get("status", "complete"),
                 "summary": response.get("summary", "Workflow handler completed."),
                 "artifacts": artifacts,
-                "issues": list(response.get("issues", [])),
+                "issues": list(response.get("issues", [])) + policy_warnings,
                 "blockers": list(response.get("blockers", [])),
             }
             self.catalog.assert_valid(result, RESULT_SCHEMA_ID)

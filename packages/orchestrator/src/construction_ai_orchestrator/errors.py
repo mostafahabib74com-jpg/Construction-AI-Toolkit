@@ -55,6 +55,11 @@ class ContractValidationError(PlatformError):
     recoverable = True
 
 
+class AdapterValidationError(PlatformError):
+    code = "ADAPTER_VALIDATION_ERROR"
+    recoverable = True
+
+
 class ArtifactConflictError(PlatformError):
     code = "ARTIFACT_CONFLICT"
 

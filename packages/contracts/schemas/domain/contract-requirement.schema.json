@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/contracts/v1/domain/contract-requirement.schema.json",
+  "title": "Contract Requirement",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["requirement_id", "text", "basis", "mandatory", "status", "evidence_ids"],
+  "properties": {
+    "requirement_id": {"type": "string", "minLength": 1},
+    "text": {"type": "string", "minLength": 1},
+    "basis": {"enum": ["source_fact", "assumption", "inference"]},
+    "mandatory": {"type": "boolean"},
+    "status": {"enum": ["draft", "proposed", "confirmed", "rejected", "superseded"]},
+    "evidence_ids": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "assumption_id": {"type": ["string", "null"]},
+    "owner_role": {"type": ["string", "null"]},
+    "response_reference": {"type": ["string", "null"]}
+  }
+}

@@ -4,6 +4,12 @@ The orchestrator is the platform control plane for the three implemented agent s
 
 It does not execute construction-domain work by itself. A workflow without a registered handler returns a visible `HANDLER_NOT_AVAILABLE` blocker.
 
+## Release accuracy safeguards
+
+Artifacts marked `validated`, `conditionally_approved`, or `approved` must identify a local canonical schema and version and provide a schema-valid payload. The orchestrator then applies the relevant quantity, BOQ/rate, contract, schedule, or deliverable policy. Blocking findings prevent the artifact from entering the registry. Only professionally reviewed artifacts with `approved` status appear as final deliverables.
+
+Common-data adapters are available for Estimation, Planning & P6, and Tender Manager sources, projects, reviews, quantities, schedule references, and tender artifact references. They require explicit context where legacy data is incomplete.
+
 ## Install and test
 
 ```powershell

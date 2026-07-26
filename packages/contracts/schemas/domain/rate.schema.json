@@ -12,6 +12,7 @@
     "unit": {"$ref": "https://construction-ai-toolkit.dev/contracts/v1/core/unit.schema.json"},
     "source_status": {"enum": ["quoted", "historical", "calculated", "allowance", "unverified"]},
     "source_reference": {"type": ["string", "null"]},
+    "zero_cost_justification": {"type": ["string", "null"]},
     "inclusions": {"type": "array", "items": {"type": "string", "minLength": 1}},
     "exclusions": {"type": "array", "items": {"type": "string", "minLength": 1}}
   }

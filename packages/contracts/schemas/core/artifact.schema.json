@@ -12,7 +12,7 @@
     "schema_id": {"type": ["string", "null"]},
     "schema_version": {"type": ["string", "null"]},
     "version": {"type": "string", "minLength": 1},
-    "status": {"enum": ["draft", "generated", "validated", "approved", "blocked", "superseded"]},
+    "status": {"enum": ["draft", "generated", "in_review", "validated", "conditionally_approved", "approved", "rejected", "blocked", "superseded"]},
     "producer": {
       "type": "object",
       "additionalProperties": false,
