@@ -1,0 +1,14 @@
+schema_version: "1.0"
+cases:
+  - {id: incomplete-scope, purpose: Detect WBS and activity coverage gaps.}
+  - {id: logic-loop-open-ends, purpose: Detect loops, missing predecessors/successors, and dangling paths.}
+  - {id: calendar-conflict, purpose: Detect invalid assignments and inconsistent working rules.}
+  - {id: out-of-sequence-progress, purpose: Preserve actuals and evaluate approved scheduling behavior.}
+  - {id: future-actuals, purpose: Reject actual dates after the data date.}
+  - {id: resource-overallocation, purpose: Detect peaks without silently leveling the baseline.}
+  - {id: cost-reconciliation-failure, purpose: Block cash flow when loaded cost differs from the approved total.}
+  - {id: procurement-lead-time-gap, purpose: Detect missing approval, manufacture, shipping, and customs stages.}
+  - {id: recovery-unfeasible, purpose: Reject recovery based on unavailable resources or unsafe sequence.}
+  - {id: tia-wrong-update, purpose: Reject a TIA using an unsuitable contemporaneous schedule.}
+  - {id: delay-method-bias, purpose: Detect method selection intended to favor a party.}
+  - {id: invalid-xer-roundtrip, purpose: Block claims of valid export without clean reimport comparison.}

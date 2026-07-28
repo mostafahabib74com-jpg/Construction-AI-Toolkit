@@ -1,0 +1,42 @@
+schema_version: "1.0"
+workflow:
+  id: information-gap-analysis
+  title: "Information Gap Analysis"
+  version: 0.1.0
+  status: specification
+  objective: "Identify and prioritize missing, conflicting, ambiguous, or low-confidence bid information."
+  prompt: ../../prompts/information-gap-analysis/prompt.md
+  prerequisites:
+    - "rfp-analysis"
+    - "scope-extraction"
+  required_inputs:
+    - "approved_rfp_analysis"
+    - "approved_scope_matrix"
+    - "estimate_strategy"
+  deliverables:
+    - "completeness_assessment"
+    - "information_gap_register"
+    - "conflict_register"
+    - "document_request_list"
+    - "treatment_matrix"
+    - "bid_escalations"
+  required_reviewers:
+    - "Estimation Manager"
+    - "Tender Manager"
+  required_tool_categories:
+    - "document_parser"
+    - "coverage_validator"
+  completion_gates:
+    - source_traceability_complete
+    - missing_information_visible
+    - assumptions_and_exclusions_visible
+    - output_schema_valid
+    - professional_review_recorded
+  blocking_conditions:
+    - "missing_scope_matrix"
+    - "unknown_query_deadline"
+  authority:
+    may_draft: true
+    may_calculate_with_validated_tools: true
+    may_approve: false
+    may_issue_externally: false

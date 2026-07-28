@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/agents/tender-manager-agent/workflows/assumptions-register/output.schema.json",
+  "title": "Tender Assumptions Register Output",
+  "allOf": [
+    {
+      "$ref": "../../schemas/workflow.schema.json#/$defs/outputEnvelope"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "workflow_id": {
+          "const": "assumptions-register"
+        },
+        "workflow_version": {
+          "const": "0.1.0"
+        },
+        "deliverables": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "enum": [
+                  "detailed_assumptions_register",
+                  "client_disclosure_shortlist",
+                  "assumption_impact_matrix",
+                  "approval_and_supersession_log",
+                  "critical_unresolved_assumption_report"
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

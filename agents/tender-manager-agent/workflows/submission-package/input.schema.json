@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/agents/tender-manager-agent/workflows/submission-package/input.schema.json",
+  "title": "Submission Package Input",
+  "allOf": [
+    {
+      "$ref": "../../schemas/workflow.schema.json#/$defs/inputEnvelope"
+    },
+    {
+      "type": "object",
+      "required": [
+        "workflow_inputs"
+      ],
+      "properties": {
+        "workflow_inputs": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "latest_tender_sources_and_submission_rules",
+            "approved_submission_artifacts",
+            "approved_registers_decisions_and_waivers",
+            "file_envelope_signature_and_security_rules"
+          ],
+          "properties": {
+            "latest_tender_sources_and_submission_rules": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: latest tender sources and submission rules"
+            },
+            "approved_submission_artifacts": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: approved submission artifacts"
+            },
+            "approved_registers_decisions_and_waivers": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: approved registers decisions and waivers"
+            },
+            "file_envelope_signature_and_security_rules": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: file envelope signature and security rules"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

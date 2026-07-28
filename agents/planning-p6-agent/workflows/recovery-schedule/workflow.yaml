@@ -1,0 +1,49 @@
+schema_version: "1.0"
+workflow:
+  id: recovery-schedule
+  title: "Recovery Schedule"
+  version: 0.1.0
+  status: specification
+  objective: "Develop feasible recovery options and a controlled recovery schedule without rewriting historical actuals or concealing risk."
+  prompt: ../../prompts/recovery-schedule/prompt.md
+  prerequisites:
+    - "progress-update"
+  required_inputs:
+    - "current_schedule_update"
+    - "recovery_target"
+    - "remaining_scope"
+    - "resource_constraints"
+  deliverables:
+    - "recovery_schedule"
+    - "recovery_options_appraisal"
+    - "resource_and_cost_impact"
+    - "revised_curves"
+    - "implementation_register"
+  required_reviewers:
+    - "Planning Manager"
+    - "Project Controls Manager"
+    - "Construction Manager"
+    - "Project Director"
+  required_tool_categories:
+    - "cpm_engine"
+    - "resource_engine"
+    - "scenario_engine"
+    - "schedule_validator"
+  completion_gates:
+    - source_traceability_complete
+    - schedule_version_and_data_date_recorded
+    - deterministic_calculations_valid
+    - data_quality_checks_complete
+    - output_schema_valid
+    - professional_review_recorded
+  blocking_conditions:
+    - "undefined_recovery_target"
+    - "infeasible_recovery_logic"
+    - "missing_resource_limits"
+    - "unvalidated_recovery_model"
+  authority:
+    may_draft: true
+    may_calculate_with_validated_tools: true
+    may_approve: false
+    may_modify_source_schedule: false
+    may_publish_to_p6: false

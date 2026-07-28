@@ -1,0 +1,40 @@
+{
+  "project": {
+    "project_id": "SYN-DEMO-001",
+    "name": "Synthetic Logistics Facility",
+    "location": "Synthetic City",
+    "time_zone": "Asia/Riyadh",
+    "currency": "SAR"
+  },
+  "execution": {
+    "workflow_version": "0.1.0",
+    "schedule_version": "DRAFT-00",
+    "data_date": "2026-01-01T08:00:00+03:00",
+    "source_cutoff": "SRC-CUT-001",
+    "requested_language": "en"
+  },
+  "documents": [
+    {
+      "source_id": "SRC-SCOPE-001",
+      "title": "Synthetic Contract Scope",
+      "revision": "0",
+      "location": "examples://synthetic/scope",
+      "extraction_method": "structured_import",
+      "confidence": 1.0
+    }
+  ],
+  "schedules": [],
+  "workflow_inputs": {
+    "contract_scope": {
+      "facilities": ["warehouse", "office", "external works"]
+    },
+    "project_breakdown_requirements": {
+      "levels": ["project", "facility", "discipline", "work package"]
+    },
+    "milestone_register": [
+      {"id": "MS-001", "name": "Project completion", "date": "2027-06-30"}
+    ],
+    "coding_rules": "SYN.<facility>.<discipline>.<package>"
+  },
+  "requested_formats": ["json", "xlsx"]
+}

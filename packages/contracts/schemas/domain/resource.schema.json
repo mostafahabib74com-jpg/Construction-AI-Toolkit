@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/contracts/v1/domain/resource.schema.json",
+  "title": "Resource",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["resource_id", "name", "resource_type", "unit", "status"],
+  "properties": {
+    "resource_id": {"type": "string", "minLength": 1},
+    "name": {"type": "string", "minLength": 1},
+    "resource_type": {"enum": ["labor", "equipment", "material", "subcontract", "expense"]},
+    "unit": {"$ref": "https://construction-ai-toolkit.dev/contracts/v1/core/unit.schema.json"},
+    "max_units_per_hour": {"type": ["number", "null"], "minimum": 0},
+    "rate_id": {"type": ["string", "null"]},
+    "status": {"enum": ["draft", "available", "restricted", "inactive"]}
+  }
+}

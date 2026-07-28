@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+.venv-*/
+*.egg-info/
+build/
+dist/
+.local/
+*.db
+*.db-shm
+*.db-wal
+apps/scheduling-mvp/uploads/
+apps/scheduling-mvp/exports/
+apps/scheduling-mvp/logs/*
+!apps/scheduling-mvp/logs/README.md

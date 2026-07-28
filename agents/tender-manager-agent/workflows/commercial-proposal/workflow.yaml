@@ -1,0 +1,57 @@
+schema_version: "1.0"
+workflow:
+  id: commercial-proposal
+  title: "Commercial Proposal"
+  version: 0.1.0
+  status: specification
+  objective: "Assemble and reconcile a complete commercial proposal from approved pricing, contract, finance, tax, and commercial artifacts."
+  prompt: ../../prompts/commercial-proposal/prompt.md
+  prerequisites:
+    - "compliance-matrix"
+    - "assumptions-register"
+    - "exclusions-register"
+    - "technical-proposal"
+  required_inputs:
+    - "approved_estimate_and_price_schedules"
+    - "approved_commercial_contract_tax_and_finance_decisions"
+    - "client_commercial_forms_and_portal_fields"
+    - "approved_commercial_registers"
+  deliverables:
+    - "commercial_proposal_specification"
+    - "price_and_form_reconciliation"
+    - "commercial_schedule_and_portal_mapping"
+    - "commercial_qualification_schedule"
+    - "commercial_risk_and_approval_report"
+    - "commercial_rendering_specification"
+  required_reviewers:
+    - "Tender Manager"
+    - "Estimation Manager"
+    - "Commercial Manager"
+    - "Contracts Manager"
+    - "Finance or Tax Specialist"
+  required_tool_categories:
+    - "estimate_artifact_validator"
+    - "spreadsheet_engine"
+    - "commercial_reconciliation"
+    - "form_validator"
+    - "office_renderer"
+  completion_gates:
+    - source_traceability_complete
+    - latest_addendum_reconciled
+    - requirements_and_artifacts_versioned
+    - deterministic_checks_complete
+    - output_schema_valid
+    - professional_review_recorded
+  blocking_conditions:
+    - "unapproved_price_artifact"
+    - "commercial_total_reconciliation_failure"
+    - "unapproved_term_or_deviation"
+    - "technical_commercial_scope_conflict"
+  authority:
+    may_draft: true
+    may_assemble_approved_artifacts: true
+    may_approve: false
+    may_issue_correspondence: false
+    may_commit_price: false
+    may_authorize_submission: false
+    may_upload: false

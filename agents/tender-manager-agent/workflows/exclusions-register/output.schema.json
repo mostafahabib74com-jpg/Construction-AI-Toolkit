@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/agents/tender-manager-agent/workflows/exclusions-register/output.schema.json",
+  "title": "Tender Exclusions Register Output",
+  "allOf": [
+    {
+      "$ref": "../../schemas/workflow.schema.json#/$defs/outputEnvelope"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "workflow_id": {
+          "const": "exclusions-register"
+        },
+        "workflow_version": {
+          "const": "0.1.0"
+        },
+        "deliverables": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "enum": [
+                  "exclusions_register",
+                  "classification_reconciliation",
+                  "scope_and_boq_cross_reference",
+                  "compliance_and_risk_impact_report",
+                  "client_disclosure_schedule"
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+schema_version: "1.0"
+workflow:
+  id: rfi-generation
+  title: "Technical RFI Generation"
+  version: 0.1.0
+  status: specification
+  objective: "Generate controlled technical clarification requests linked to estimate impacts."
+  prompt: ../../prompts/rfi-generation/prompt.md
+  prerequisites:
+    - "information-gap-analysis"
+  required_inputs:
+    - "approved_gap_register"
+    - "source_documents"
+    - "rfi_submission_rules"
+    - "technical_review_comments"
+  deliverables:
+    - "rfi_register"
+    - "rfi_drafts"
+    - "internal_impact_register"
+    - "rfi_scope_mapping"
+    - "response_tracker"
+  required_reviewers:
+    - "Estimation Manager"
+    - "Technical Manager"
+    - "Tender Manager"
+  required_tool_categories:
+    - "document_parser"
+    - "document_generator"
+  completion_gates:
+    - source_traceability_complete
+    - missing_information_visible
+    - assumptions_and_exclusions_visible
+    - output_schema_valid
+    - professional_review_recorded
+  blocking_conditions:
+    - "missing_source_reference"
+    - "past_clarification_deadline"
+    - "unapproved_external_correspondence"
+  authority:
+    may_draft: true
+    may_calculate_with_validated_tools: true
+    may_approve: false
+    may_issue_externally: false

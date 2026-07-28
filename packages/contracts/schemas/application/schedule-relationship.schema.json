@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/contracts/v1/application/schedule-relationship.schema.json",
+  "title": "Scheduling MVP Activity Relationship",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["relationship_id", "schedule_id", "predecessor_activity_pk", "successor_activity_pk", "relationship_type", "lag_hours", "notes", "created_at"],
+  "properties": {
+    "relationship_id": {"type": "string", "minLength": 1},
+    "schedule_id": {"type": "string", "minLength": 1},
+    "predecessor_activity_pk": {"type": "string", "minLength": 1},
+    "successor_activity_pk": {"type": "string", "minLength": 1},
+    "relationship_type": {"enum": ["FS", "SS", "FF", "SF"]},
+    "lag_hours": {"type": "string", "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$"},
+    "notes": {"type": ["string", "null"]},
+    "created_at": {"type": "string", "format": "date-time"}
+  }
+}

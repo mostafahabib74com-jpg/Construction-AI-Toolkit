@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/contracts/v1/core/unit.schema.json",
+  "title": "Unit",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["code", "system"],
+  "properties": {
+    "code": {"type": "string", "pattern": "^[A-Za-z0-9._/%-]{1,24}$"},
+    "system": {"enum": ["SI", "imperial", "mixed", "non_dimensional"]},
+    "description": {"type": ["string", "null"]}
+  }
+}

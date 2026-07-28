@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/agents/tender-manager-agent/workflows/organization-chart/input.schema.json",
+  "title": "Organization Chart Input",
+  "allOf": [
+    {
+      "$ref": "../../schemas/workflow.schema.json#/$defs/inputEnvelope"
+    },
+    {
+      "type": "object",
+      "required": [
+        "workflow_inputs"
+      ],
+      "properties": {
+        "workflow_inputs": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "organization_requirements",
+            "delivery_governance_model",
+            "approved_personnel_and_cv_records",
+            "schedule_phase_and_location_plan",
+            "data_use_permissions"
+          ],
+          "properties": {
+            "organization_requirements": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: organization requirements"
+            },
+            "delivery_governance_model": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: delivery governance model"
+            },
+            "approved_personnel_and_cv_records": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: approved personnel and cv records"
+            },
+            "schedule_phase_and_location_plan": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: schedule phase and location plan"
+            },
+            "data_use_permissions": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: data use permissions"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

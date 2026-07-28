@@ -1,0 +1,40 @@
+name: Scheduling MVP CI
+
+on:
+  push:
+    paths:
+      - "apps/scheduling-mvp/**"
+      - "packages/contracts/schemas/**"
+      - "packages/orchestrator/**"
+      - "tests/**"
+      - "requirements-scheduling-mvp.txt"
+      - ".github/workflows/scheduling-mvp-ci.yml"
+  pull_request:
+    paths:
+      - "apps/scheduling-mvp/**"
+      - "packages/contracts/schemas/**"
+      - "packages/orchestrator/**"
+      - "tests/**"
+      - "requirements-scheduling-mvp.txt"
+      - ".github/workflows/scheduling-mvp-ci.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: |
+            requirements-scheduling-mvp.txt
+            apps/scheduling-mvp/pyproject.toml
+            packages/orchestrator/pyproject.toml
+      - name: Install Milestone 1 dependencies
+        run: python -m pip install -r requirements-scheduling-mvp.txt
+      - name: Run complete test suite
+        run: python -m pytest -p no:cacheprovider -c packages/orchestrator/pyproject.toml

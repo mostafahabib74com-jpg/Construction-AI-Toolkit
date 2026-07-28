@@ -48,3 +48,23 @@ New resources will be added regularly.
 ## 📜 License
 
 This project is released under the MIT License.
+
+---
+
+## Architecture
+
+- [AI Engineering Agent Architecture](docs/architecture/AI-AGENT-ARCHITECTURE.md)
+
+## Specialized Agents
+
+- [Estimation Agent](agents/estimation-agent/README.md)
+- [Planning & Primavera P6 Agent](agents/planning-p6-agent/README.md)
+- [Tender Manager Agent](agents/tender-manager-agent/README.md)
+
+## Local Scheduling Application
+
+Phase 8 introduces the first working local application. Milestone 2 preserves project and BOQ intake and adds WBS, project calendars, editable activity inputs, relationship validation, exact duration calculations, and deterministic forward planned dates.
+
+See [Scheduling MVP](apps/scheduling-mvp/README.md) for installation, launch, test instructions, and the current scope boundary.
+
+On Windows, double-click `START_SCHEDULING_APP.bat` at the repository root. Keep its terminal open, and use `STOP_SCHEDULING_APP.bat` to stop only the managed local application.

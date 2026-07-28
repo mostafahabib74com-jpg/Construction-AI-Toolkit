@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/agents/tender-manager-agent/workflows/organization-chart/output.schema.json",
+  "title": "Organization Chart Output",
+  "allOf": [
+    {
+      "$ref": "../../schemas/workflow.schema.json#/$defs/outputEnvelope"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "workflow_id": {
+          "const": "organization-chart"
+        },
+        "workflow_version": {
+          "const": "0.1.0"
+        },
+        "deliverables": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "enum": [
+                  "organization_chart_data",
+                  "role_and_authority_dictionary",
+                  "personnel_evidence_register",
+                  "raci_matrix",
+                  "vacancy_and_coverage_report",
+                  "chart_rendering_specification"
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

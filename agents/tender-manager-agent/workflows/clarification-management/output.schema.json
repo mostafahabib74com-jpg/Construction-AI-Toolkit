@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/agents/tender-manager-agent/workflows/clarification-management/output.schema.json",
+  "title": "Clarification Management Output",
+  "allOf": [
+    {
+      "$ref": "../../schemas/workflow.schema.json#/$defs/outputEnvelope"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "workflow_id": {
+          "const": "clarification-management"
+        },
+        "workflow_version": {
+          "const": "0.1.0"
+        },
+        "deliverables": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "enum": [
+                  "clarification_register",
+                  "draft_clarification_questions",
+                  "response_impact_log",
+                  "outstanding_query_dashboard",
+                  "artifact_revision_actions"
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/agents/planning-p6-agent/workflows/baseline-schedule-generation/input.schema.json",
+  "title": "Baseline Schedule Generation Input",
+  "allOf": [
+    {
+      "$ref": "../../schemas/workflow.schema.json#/$defs/inputEnvelope"
+    },
+    {
+      "type": "object",
+      "required": [
+        "workflow_inputs"
+      ],
+      "properties": {
+        "workflow_inputs": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "approved_wbs",
+            "approved_activity_register",
+            "approved_calendars",
+            "approved_relationships",
+            "contract_milestones"
+          ],
+          "properties": {
+            "approved_wbs": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: approved wbs"
+            },
+            "approved_activity_register": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: approved activity register"
+            },
+            "approved_calendars": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: approved calendars"
+            },
+            "approved_relationships": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: approved relationships"
+            },
+            "contract_milestones": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: contract milestones"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+schema_version: "1.0"
+workflow:
+  id: execution-methodology
+  title: "Execution Methodology"
+  version: 0.1.0
+  status: specification
+  objective: "Develop a constructible, tender-compliant, schedule-aligned, resource-supported execution methodology."
+  prompt: ../../prompts/execution-methodology/prompt.md
+  prerequisites:
+    - "compliance-matrix"
+    - "assumptions-register"
+    - "exclusions-register"
+  required_inputs:
+    - "controlled_scope_and_design_sources"
+    - "construction_strategy"
+    - "preliminary_schedule_and_milestones"
+    - "discipline_contributions"
+    - "site_and_logistics_constraints"
+  deliverables:
+    - "execution_strategy"
+    - "work_package_method_matrix"
+    - "logistics_and_interface_narrative"
+    - "schedule_resource_method_reconciliation"
+    - "constructability_risk_register"
+    - "methodology_review_tracker"
+  required_reviewers:
+    - "Tender Manager"
+    - "Construction Manager"
+    - "Planning Manager"
+    - "QA/QC Manager"
+    - "HSE Manager"
+  required_tool_categories:
+    - "document_parser"
+    - "methodology_validator"
+    - "schedule_cross_reference"
+    - "resource_reconciliation"
+  completion_gates:
+    - source_traceability_complete
+    - latest_addendum_reconciled
+    - requirements_and_artifacts_versioned
+    - deterministic_checks_complete
+    - output_schema_valid
+    - professional_review_recorded
+  blocking_conditions:
+    - "missing_constructability_basis"
+    - "unsafe_or_unreviewed_method"
+    - "method_schedule_conflict"
+    - "unresolved_critical_interface"
+  authority:
+    may_draft: true
+    may_assemble_approved_artifacts: true
+    may_approve: false
+    may_issue_correspondence: false
+    may_commit_price: false
+    may_authorize_submission: false
+    may_upload: false

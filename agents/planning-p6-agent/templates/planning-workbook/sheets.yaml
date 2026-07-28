@@ -1,0 +1,41 @@
+schema_version: "1.0"
+template:
+  id: planning-control-workbook
+  version: 0.1.0
+  status: specification
+  owner_role: Project Controls Manager
+  immutable_keys: [Project_ID, Schedule_ID, Schedule_Version, Data_Date]
+  exchange_rules:
+    duration_unit: hours
+    date_format: ISO-8601
+    time_zone: required
+    decimal_separator: "."
+    formulas_allowed_in_csv: false
+  sheets:
+    - {order: 1, name: Control, primary_key: "Schedule_ID + Schedule_Version"}
+    - {order: 2, name: Sources, primary_key: Source_ID}
+    - {order: 3, name: WBS, primary_key: WBS_ID}
+    - {order: 4, name: Activities, primary_key: Activity_ID}
+    - {order: 5, name: Relationships, primary_key: Relationship_ID}
+    - {order: 6, name: Calendars, primary_key: Calendar_ID}
+    - {order: 7, name: Resources, primary_key: Resource_ID}
+    - {order: 8, name: Resource_Assignments, primary_key: Assignment_ID}
+    - {order: 9, name: Cost_Loading, primary_key: Cost_Assignment_ID}
+    - {order: 10, name: Cash_Flow, primary_key: "Period_ID + Scenario_ID"}
+    - {order: 11, name: Procurement, primary_key: Package_ID}
+    - {order: 12, name: Material_Submittals, primary_key: Submittal_ID}
+    - {order: 13, name: Shop_Drawings, primary_key: Drawing_ID}
+    - {order: 14, name: Progress_Update, primary_key: "Activity_ID + Data_Date"}
+    - {order: 15, name: Delay_Events, primary_key: Delay_Event_ID}
+    - {order: 16, name: Recovery_Actions, primary_key: Recovery_Action_ID}
+    - {order: 17, name: TIA_Fragnet, primary_key: "TIA_ID + Fragnet_Row_ID"}
+    - {order: 18, name: QA_Checks, primary_key: Check_ID}
+    - {order: 19, name: Registers, primary_key: Register_Item_ID}
+  release_gates:
+    - all_identifiers_unique
+    - all_foreign_keys_resolve
+    - source_traceability_complete
+    - schedule_version_and_data_date_recorded
+    - deterministic_calculations_reconciled
+    - p6_round_trip_validated_when_applicable
+    - professional_review_recorded

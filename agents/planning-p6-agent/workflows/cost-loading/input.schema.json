@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/agents/planning-p6-agent/workflows/cost-loading/input.schema.json",
+  "title": "Cost Loading Input",
+  "allOf": [
+    {
+      "$ref": "../../schemas/workflow.schema.json#/$defs/inputEnvelope"
+    },
+    {
+      "type": "object",
+      "required": [
+        "workflow_inputs"
+      ],
+      "properties": {
+        "workflow_inputs": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "baseline_schedule",
+            "cost_breakdown_structure",
+            "cost_source_register",
+            "allocation_rules"
+          ],
+          "properties": {
+            "baseline_schedule": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: baseline schedule"
+            },
+            "cost_breakdown_structure": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: cost breakdown structure"
+            },
+            "cost_source_register": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: cost source register"
+            },
+            "allocation_rules": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: allocation rules"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/agents/planning-p6-agent/workflows/recovery-schedule/output.schema.json",
+  "title": "Recovery Schedule Output",
+  "allOf": [
+    {
+      "$ref": "../../schemas/workflow.schema.json#/$defs/outputEnvelope"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "workflow_id": {
+          "const": "recovery-schedule"
+        },
+        "workflow_version": {
+          "const": "0.1.0"
+        },
+        "deliverables": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "enum": [
+                  "recovery_schedule",
+                  "recovery_options_appraisal",
+                  "resource_and_cost_impact",
+                  "revised_curves",
+                  "implementation_register"
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

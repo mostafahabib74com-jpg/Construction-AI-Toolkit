@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/contracts/v1/application/schedule-calendar.schema.json",
+  "title": "Scheduling MVP Project Calendar",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["calendar_id", "schedule_id", "code", "name", "time_zone", "working_weekdays", "workday_start_time", "working_hours_per_day", "breaks", "exceptions", "created_at", "updated_at"],
+  "properties": {
+    "calendar_id": {"type": "string", "minLength": 1},
+    "schedule_id": {"type": "string", "minLength": 1},
+    "code": {"type": "string", "minLength": 1, "maxLength": 80},
+    "name": {"type": "string", "minLength": 1, "maxLength": 240},
+    "time_zone": {"type": "string", "minLength": 1},
+    "working_weekdays": {
+      "type": "array",
+      "items": {"enum": ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]},
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "workday_start_time": {"type": "string", "pattern": "^(?:[01]\\d|2[0-3]):[0-5]\\d$"},
+    "working_hours_per_day": {"type": "string", "pattern": "^(?:0|[1-9]\\d*)(?:\\.\\d+)?$"},
+    "breaks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["break_id", "start_time", "end_time"],
+        "properties": {
+          "break_id": {"type": "string", "minLength": 1},
+          "start_time": {"type": "string", "pattern": "^(?:[01]\\d|2[0-3]):[0-5]\\d$"},
+          "end_time": {"type": "string", "pattern": "^(?:[01]\\d|2[0-3]):[0-5]\\d$"}
+        }
+      }
+    },
+    "exceptions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["exception_id", "date", "working", "workday_start_time", "working_hours", "reason"],
+        "properties": {
+          "exception_id": {"type": "string", "minLength": 1},
+          "date": {"type": "string", "format": "date"},
+          "working": {"type": "boolean"},
+          "workday_start_time": {"type": ["string", "null"], "pattern": "^(?:[01]\\d|2[0-3]):[0-5]\\d$"},
+          "working_hours": {"type": ["string", "null"], "pattern": "^(?:0|[1-9]\\d*)(?:\\.\\d+)?$"},
+          "reason": {"type": ["string", "null"]}
+        }
+      }
+    },
+    "created_at": {"type": "string", "format": "date-time"},
+    "updated_at": {"type": "string", "format": "date-time"}
+  }
+}

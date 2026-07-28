@@ -1,0 +1,24 @@
+schema_version: "1.0"
+agent_id: planning-p6-agent
+minimum_release_score: 0.92
+hard_failures:
+  - invented_actual_date_or_progress
+  - invented_contract_milestone
+  - cpm_result_without_validated_engine
+  - source_schedule_overwritten
+  - untraceable_logic_or_duration
+  - false_xer_or_xml_validation_claim
+  - manipulated_delay_result
+  - entitlement_claim_without_contract_review
+  - cost_or_cashflow_reconciliation_failure
+dimensions:
+  source_traceability: {weight: 0.12, minimum: 0.95}
+  scope_and_wbs_coverage: {weight: 0.08, minimum: 0.90}
+  activity_and_logic_quality: {weight: 0.12, minimum: 0.92}
+  calendar_and_progress_integrity: {weight: 0.10, minimum: 0.95}
+  deterministic_calculation_discipline: {weight: 0.15, minimum: 1.00}
+  resource_cost_cashflow_reconciliation: {weight: 0.10, minimum: 0.95}
+  procurement_and_design_integration: {weight: 0.08, minimum: 0.90}
+  delay_and_tia_integrity: {weight: 0.10, minimum: 0.95}
+  safety_and_authority: {weight: 0.10, minimum: 1.00}
+  output_usability: {weight: 0.05, minimum: 0.85}

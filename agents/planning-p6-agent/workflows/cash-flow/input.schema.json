@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/agents/planning-p6-agent/workflows/cash-flow/input.schema.json",
+  "title": "Cash Flow Input",
+  "allOf": [
+    {
+      "$ref": "../../schemas/workflow.schema.json#/$defs/inputEnvelope"
+    },
+    {
+      "type": "object",
+      "required": [
+        "workflow_inputs"
+      ],
+      "properties": {
+        "workflow_inputs": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "cost_loaded_schedule",
+            "payment_terms",
+            "retention_and_advance_rules",
+            "forecast_periods"
+          ],
+          "properties": {
+            "cost_loaded_schedule": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: cost loaded schedule"
+            },
+            "payment_terms": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: payment terms"
+            },
+            "retention_and_advance_rules": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: retention and advance rules"
+            },
+            "forecast_periods": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: forecast periods"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

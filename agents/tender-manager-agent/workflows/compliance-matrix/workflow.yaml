@@ -1,0 +1,52 @@
+schema_version: "1.0"
+workflow:
+  id: compliance-matrix
+  title: "Compliance Matrix"
+  version: 0.1.0
+  status: specification
+  objective: "Build an atomic, source-linked requirements matrix that controls ownership, evidence, responses, and submission compliance."
+  prompt: ../../prompts/compliance-matrix/prompt.md
+  prerequisites:
+    - "tender-package-ingestion"
+  required_inputs:
+    - "controlled_tender_sources"
+    - "evaluation_criteria"
+    - "submission_rules"
+    - "responsibility_model"
+  deliverables:
+    - "detailed_compliance_matrix"
+    - "requirements_dashboard"
+    - "responsibility_matrix"
+    - "evidence_cross_reference"
+    - "noncompliance_report"
+    - "addendum_impact_reconciliation"
+  required_reviewers:
+    - "Tender Manager"
+    - "Proposal Manager"
+    - "Technical Manager"
+    - "Commercial Manager"
+  required_tool_categories:
+    - "requirement_extractor"
+    - "citation_validator"
+    - "matrix_validator"
+    - "deterministic_metrics_engine"
+  completion_gates:
+    - source_traceability_complete
+    - latest_addendum_reconciled
+    - requirements_and_artifacts_versioned
+    - deterministic_checks_complete
+    - output_schema_valid
+    - professional_review_recorded
+  blocking_conditions:
+    - "unreconciled_addendum"
+    - "missing_mandatory_source"
+    - "unassigned_mandatory_requirement"
+    - "untraceable_requirement"
+  authority:
+    may_draft: true
+    may_assemble_approved_artifacts: true
+    may_approve: false
+    may_issue_correspondence: false
+    may_commit_price: false
+    may_authorize_submission: false
+    may_upload: false

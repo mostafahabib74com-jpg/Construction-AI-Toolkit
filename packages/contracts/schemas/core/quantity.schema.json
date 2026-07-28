@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/contracts/v1/core/quantity.schema.json",
+  "title": "Quantity",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["status", "unit"],
+  "properties": {
+    "value": {"type": ["number", "null"]},
+    "unit": {"$ref": "https://construction-ai-toolkit.dev/contracts/v1/core/unit.schema.json"},
+    "status": {"enum": ["confirmed", "allowance", "unknown", "not_applicable"]},
+    "measurement_basis": {"type": ["string", "null"]},
+    "source_ids": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "assumption_id": {"type": ["string", "null"]}
+  }
+}
