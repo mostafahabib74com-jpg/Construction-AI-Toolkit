@@ -6,8 +6,9 @@ This directory contains reusable Codex Skills for the Construction AI Toolkit.
 - `skill-creator`: standard for creating and improving construction-domain skills.
 - `tender-management`: end-to-end tender review and bid coordination.
 - `quantity-takeoff`: traceable construction measurement and BOQ quantity reconciliation.
+- `rate-analysis`: transparent construction unit-rate build-up from verified resources, productivity, quotations, indirects, risk, and markup.
 
 ## Planned families
-Rate analysis, construction estimating, contract management, Primavera P6, project controls, construction management, BIM management, and structural engineering.
+Construction estimating, contract management, Primavera P6, project controls, construction management, BIM management, and structural engineering.
 
 Skills are workflows, not renamed prompts. Existing material in `AI-Prompts/` remains a reference library and should be progressively incorporated where relevant.
