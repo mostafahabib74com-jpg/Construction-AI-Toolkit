@@ -84,6 +84,12 @@ State the allocation basis clearly.
 ### 8. Add risk/contingency and commercial markup
 Keep these separate from base cost. Apply contingency/risk only when justified and document the basis. Keep overhead and profit distinguishable where possible.
 
+Do not confuse markup with gross margin:
+- Markup is calculated on cost: `Selling Price = Cost × (1 + Markup %)`
+- Gross margin is calculated on selling price: `Selling Price = Cost / (1 - Margin %)`
+
+Example: if cost = 100 and markup = 20%, selling price = 120. If target gross margin = 20%, selling price = 125.
+
 ### 9. Derive selling rate
 Use an explicit build-up, for example:
 `Selling rate = Direct cost + Allocated indirects + Risk/contingency + Overhead + Profit + applicable commercial additions`
@@ -110,6 +116,7 @@ Provide the build-up, assumptions, quotation references, sensitivity/risk notes,
 - Distinguish net consumption from procurement allowance.
 - Normalize quotations before comparison.
 - Keep direct cost, indirect cost, contingency, overhead, profit, and taxes separate.
+- Never use markup % and margin % interchangeably; state which basis is being applied.
 - For subcontract quotations, identify whether materials, plant, supervision, testing, mobilization, and wastage are included.
 - For remeasurable work, ensure the unit rate is compatible with the measurement rule.
 
