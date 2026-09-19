@@ -16,8 +16,11 @@ Use this repository as a construction-engineering AI system, not merely a prompt
 10. Before final delivery, perform discipline-specific QA/QC.
 
 ## Codex Skills architecture
-Reusable skills live under:
+Repository skills live under:
+
 `.agents/skills/<skill-name>/SKILL.md`
+
+Keep each discoverable skill as its own direct child folder under `.agents/skills/`. Use names such as `tender-management`, `quantity-takeoff`, `structural-analysis`, `rc-column-design`, `foundation-design`, `etabs-workflow`, and `safe-workflow`.
 
 A skill should define:
 - purpose and trigger conditions;
@@ -31,7 +34,7 @@ A skill should define:
 
 Do not create a new skill merely because a prompt exists. Create a skill when a repeatable workflow has a clear trigger, inputs, process, checks, and deliverables.
 
-## Initial skill families
+## Initial skill roadmap
 - skill-creator
 - tender-management
 - quantity-takeoff
@@ -42,9 +45,18 @@ Do not create a new skill merely because a prompt exists. Create a skill when a 
 - project-controls
 - construction-management
 - bim-management
-- structural-engineering
-
-The structural family will progressively include structural analysis, RC design, columns, beams, slabs, foundations, retaining walls, structural repair, ETABS, SAFE, drawing review, and shop drawings.
+- structural-analysis
+- rc-design
+- rc-column-design
+- rc-beam-design
+- rc-slab-design
+- foundation-design
+- retaining-wall-design
+- structural-repair
+- etabs-workflow
+- safe-workflow
+- structural-drawing-review
+- structural-shop-drawings
 
 ## Skill routing
 When a task spans disciplines, coordinate skills rather than forcing one skill to do everything. A tender may require tender-management + quantity-takeoff + rate-analysis + construction-estimating + contract-management + primavera-p6.
