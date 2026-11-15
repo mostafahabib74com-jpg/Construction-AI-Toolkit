@@ -23,6 +23,8 @@ Version 0.3 combines deterministic scheduling, Gantt/exports, sourced unit-rate 
 - Persist estimates per project, copy validated BOQ quantities without prices and export calculation/evidence packages.
 - Browse all five repository skills and the original engineering prompts.
 - Create a separate, explicitly synthetic demo project with one button.
+- Opt into hierarchical BOQ preparation: combine descriptions sharing merged item-code/quantity cells, keep the shared quantity once, and review excluded headings/totals. Preserve original row evidence and source scope through estimating and activity conversion.
+- Open a known project directly using `?project=<project-id>&view=boq` (or `estimate`, `schedule`, `workflows`).
 
 The engine never invents quantities, productivity values, crew counts, WBS assignments, calendars, or relationships. Displayed duration rounding does not change the exact value used for scheduling.
 

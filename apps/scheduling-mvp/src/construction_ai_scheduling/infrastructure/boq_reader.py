@@ -11,6 +11,7 @@ from pathlib import Path
 from typing import Any
 
 import pandas as pd
+from openpyxl import load_workbook
 
 from construction_ai_scheduling.domain.errors import BOQImportError
 
@@ -41,6 +42,7 @@ FIELD_ALIASES = {
     field: {_header_key(alias) for alias in aliases}
     for field, aliases in RAW_FIELD_ALIASES.items()
 }
+FIELD_ALIASES["description"].add(_header_key("وصف العمل"))
 
 
 @dataclass(frozen=True, slots=True)
@@ -52,6 +54,7 @@ class BOQPreview:
     selected_sheet: str | None
     header_row_number: int
     header_row_options: tuple[tuple[int, str], ...]
+    merged_ranges: tuple[tuple[int, int, int, int], ...] = ()
 
 
 def _is_blank(value: Any) -> bool:
@@ -177,6 +180,7 @@ class TabularBOQReader:
         if not content:
             raise BOQImportError("The uploaded BOQ file is empty.")
         source_type = self.source_type(file_name)
+        merged_ranges = ()
         try:
             if source_type == "csv":
                 raw_frame = pd.read_csv(BytesIO(content), dtype=object, header=None)
@@ -197,6 +201,13 @@ class TabularBOQReader:
                     header=None,
                 )
                 sheet_names = names
+                with BytesIO(content) as source:
+                    workbook = load_workbook(source, data_only=False)
+                    merged_ranges = tuple(
+                        (item.min_row, item.max_row, item.min_col, item.max_col)
+                        for item in workbook[selected_sheet].merged_cells.ranges
+                    )
+                    workbook.close()
         except BOQImportError:
             raise
         except Exception as exc:
@@ -226,6 +237,7 @@ class TabularBOQReader:
             selected_sheet=selected_sheet,
             header_row_number=selected_header_row,
             header_row_options=options,
+            merged_ranges=merged_ranges,
         )
 
     @staticmethod
@@ -244,6 +256,9 @@ class TabularBOQReader:
         extracted: list[dict[str, Any]] = []
         for index, record in frame.iterrows():
             raw_data = {str(column): _json_value(record[column]) for column in frame.columns}
+            provenance = frame.attrs.get("row_provenance", {}).get(int(index))
+            if provenance:
+                raw_data["_import_preparation"] = provenance
 
             def mapped(field: str) -> Any:
                 column = mapping.get(field)

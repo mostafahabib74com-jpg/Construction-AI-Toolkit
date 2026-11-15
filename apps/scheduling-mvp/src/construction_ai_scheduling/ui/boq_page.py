@@ -7,6 +7,7 @@ import streamlit as st
 
 from construction_ai_scheduling.application.boq_service import BOQService
 from construction_ai_scheduling.application.project_service import ProjectService
+from construction_ai_scheduling.application.boq_preparation import prepare_boq
 from construction_ai_scheduling.domain.errors import BOQImportError
 
 MAPPING_LABELS = {
@@ -79,6 +80,21 @@ def _render_import_form(boq_service: BOQService, project_id: str) -> None:
     for container, field in zip(columns, MAPPING_LABELS, strict=True):
         with container:
             mapping[field] = _mapping_selector(field, preview.columns, suggestions[field], file_key)
+
+    with st.expander("Hierarchical BOQ preparation / تجهيز العناوين والخلايا المدمجة"):
+        combine = st.checkbox("Combine descriptions sharing merged item-code and quantity cells", value=False, key=f"combine_{file_key}")
+        exclude = st.checkbox("Exclude section headings, scope headers and total rows from measurable items", value=False, key=f"exclude_{file_key}")
+        if combine or exclude:
+            try:
+                prepared = prepare_boq(preview, mapping, combine_merged_items=combine, exclude_structural_rows=exclude)
+            except BOQImportError as exc:
+                st.error(str(exc))
+                return
+            preview = prepared.preview
+            st.caption(f"{len(preview.frame)} item row(s); {len(prepared.excluded_rows)} structural row(s) excluded; {len(prepared.combined_groups)} merged item group(s). Source row references and scope context are retained.")
+            st.dataframe(preview.frame.head(30), width="stretch", hide_index=True)
+            if prepared.excluded_rows:
+                st.dataframe(pd.DataFrame(prepared.excluded_rows), width="stretch", hide_index=True)
 
     st.info("Unmapped or blank required values will be stored as incomplete drafts and clearly flagged for review.")
     if st.button("Import draft BOQ", type="primary"):

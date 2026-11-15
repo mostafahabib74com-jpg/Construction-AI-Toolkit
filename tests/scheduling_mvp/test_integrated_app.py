@@ -79,3 +79,17 @@ def test_integrated_ui_demo_gantt_estimate_and_workflow_browser(tmp_path, monkey
     app.sidebar.radio[0].set_value("Engineering workflows").run()
     assert not app.exception
     assert app.metric[0].value == "5"
+
+
+def test_project_and_workspace_deep_link_opens_the_requested_intake(tmp_path, monkeypatch, repo_root):
+    database = tmp_path / "linked-project.db"
+    services = services_for(repo_root, database)
+    project = create_demo(services, repo_root)
+    monkeypatch.setenv("CONSTRUCTION_AI_DB_PATH", str(database))
+    app = AppTest.from_file(str(repo_root / "apps/scheduling-mvp/app.py"), default_timeout=25)
+    app.query_params["project"] = project.project_id
+    app.query_params["view"] = "boq"
+    app.run()
+    assert not app.exception
+    assert app.sidebar.selectbox[0].value == project.project_id
+    assert app.sidebar.radio[0].value == "BOQ import and review"

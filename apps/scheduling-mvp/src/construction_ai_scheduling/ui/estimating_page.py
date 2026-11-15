@@ -35,7 +35,8 @@ def render_estimating_page(services, active_project_id):
                     if row.validation_status != "valid" or row.row_id in existing:
                         continue
                     payload["items"].append({"item_id": row.row_id, "description": row.description, "unit": row.unit,
-                                             "quantity": str(row.quantity), "quantity_source": f"{import_id}, row {row.source_row_number}", "resources": []})
+                                             "quantity": str(row.quantity), "quantity_source": f"{import_id}, row {row.source_row_number}",
+                                             "source_evidence": row.raw_data.get("_import_preparation", {}), "resources": []})
                     added += 1
                 repository.save_estimate_draft(project.project_id, payload)
                 st.success(f"Copied {added} unpriced item(s).")
@@ -53,8 +54,8 @@ def render_estimating_page(services, active_project_id):
             if any(not value for value in ids) or len(set(ids)) != len(ids):
                 st.error("Give every item a unique ID before saving.")
             else:
-                previous = {item["item_id"]: item.get("resources", []) for item in payload["items"]}
-                payload["items"] = [{**row, "item_id": item_id, "resources": previous.get(item_id, [])} for row, item_id in zip(rows, ids)]
+                previous = {item["item_id"]: item for item in payload["items"]}
+                payload["items"] = [{**previous.get(item_id, {"resources": []}), **row, "item_id": item_id} for row, item_id in zip(rows, ids)]
                 repository.save_estimate_draft(project.project_id, payload)
                 st.rerun()
     if payload["items"]:
@@ -62,6 +63,9 @@ def render_estimating_page(services, active_project_id):
         ids = [item["item_id"] for item in payload["items"]]
         selected = st.selectbox("Estimate item", ids, format_func=lambda key: next(f"{key} — {item['description']}" for item in payload["items"] if item["item_id"] == key))
         item = next(item for item in payload["items"] if item["item_id"] == selected)
+        if item.get("source_evidence"):
+            with st.expander("Source scope and merged-row evidence"):
+                st.json(item["source_evidence"])
         st.info("Consumption is resource units per one BOQ unit. Labor/equipment: crew cost per period ÷ production per the same period. Record the calculation and quotation in source.")
         resource_fields = ["name", "category", "resource_unit", "consumption", "rate", "waste_percent", "waste_basis", "source", "price_date"]
         with st.form(f"resources_{project.project_id}_{selected}"):
@@ -93,8 +97,15 @@ def render_estimating_page(services, active_project_id):
     result = calculate_estimate(payload, project.currency)
     if result["issues"]:
         st.warning("Estimate is incomplete. No final selling price is available.")
-        for issue in result["issues"]:
+        total_items, priced_items = len(payload["items"]), len(result["items"])
+        for column, label, value in zip(st.columns(3), ["Estimate items", "Priced items", "Items needing rates/evidence"], [total_items, priced_items, total_items - priced_items]):
+            column.metric(label, value)
+        st.dataframe(pd.DataFrame([{key: item.get(key) for key in ["item_id", "description", "unit", "quantity", "quantity_source"]} for item in payload["items"]]), hide_index=True, width="stretch")
+        for issue in result["issues"][:5]:
             st.write("• " + issue)
+        if len(result["issues"]) > 5:
+            with st.expander(f"Review all {len(result['issues'])} missing inputs / findings"):
+                st.dataframe(pd.DataFrame({"Finding": result["issues"]}), hide_index=True, width="stretch")
     else:
         st.success("Calculation complete. Review source evidence before commercial approval.")
         summary = result["summary"]

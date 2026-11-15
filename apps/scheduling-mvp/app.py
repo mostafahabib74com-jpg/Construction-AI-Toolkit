@@ -61,6 +61,9 @@ def main() -> None:
     projects = services.project.list_projects()
     project_ids = [project.project_id for project in projects]
     current = st.session_state.get("active_project_id")
+    requested_project = st.query_params.get("project")
+    if current not in project_ids and requested_project in project_ids:
+        current = requested_project
     project_index = project_ids.index(current) + 1 if current in project_ids else 0
     selected = st.sidebar.selectbox(
         "Active project",
@@ -71,10 +74,14 @@ def main() -> None:
         ),
     )
     st.session_state.active_project_id = selected
-    page = st.sidebar.radio("Workspace", ["Project setup", "BOQ import and review", "Schedule workspace", "Estimating", "Engineering workflows"])
+    pages = ["Project setup", "BOQ import and review", "Schedule workspace", "Estimating", "Engineering workflows"]
+    requested_view = {"boq": "BOQ import and review", "schedule": "Schedule workspace", "estimate": "Estimating", "workflows": "Engineering workflows"}.get(st.query_params.get("view"), "Project setup")
+    page = st.sidebar.radio("Workspace", pages, index=pages.index(requested_view))
     st.sidebar.caption("Saved projects, Gantt, CSV/Excel exports and sourced unit-rate analysis. Use the demo button for a separate synthetic project.")
     if selected and next(project.name for project in projects if project.project_id == selected).startswith("DEMO -"):
         st.warning("SYNTHETIC DEMO / بيانات تجريبية — quantities, productivity and prices are arithmetic examples, not project or market data.")
+    if selected and next(project.name for project in projects if project.project_id == selected).startswith("TRIAL -"):
+        st.warning("IMPORT TRIAL / تجربة استيراد: BOQ quantities come from the source file. Project dates and parties are trial placeholders; no actual programme or final price is approved.")
 
     if page == "Project setup":
         render_project_page(services.project, selected)

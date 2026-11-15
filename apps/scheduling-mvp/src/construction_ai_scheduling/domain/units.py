@@ -40,6 +40,15 @@ _ALIAS_TO_CANONICAL = {
     for canonical, aliases in _CANONICAL_ALIASES.items()
     for alias in aliases
 }
+_ALIAS_TO_CANONICAL.update({
+    _alias_key(alias): canonical
+    for canonical, aliases in {
+        "m": {"م ط", "متر طولي", "متر طولى", "م.ط"},
+        "set": {"مجموعة", "طقم", "set"},
+        "ls": {"قاطوعة"},
+    }.items()
+    for alias in aliases
+})
 
 
 def normalize_unit(value: Any) -> str | None:

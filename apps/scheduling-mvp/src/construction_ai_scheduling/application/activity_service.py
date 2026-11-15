@@ -57,7 +57,10 @@ class ActivityService:
                 productivity_basis=None,
                 crew_count=None,
                 calendar_id=None,
-                notes=None,
+                notes="\n".join(
+                    f"Source row {context['row']}: {context['description']}"
+                    for context in row.raw_data.get("_import_preparation", {}).get("scope_context", [])
+                ) or None,
                 assumptions=[],
                 sort_order=next_order,
                 source_boq_row_id=row.row_id,
