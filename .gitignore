@@ -14,3 +14,5 @@ apps/scheduling-mvp/uploads/
 apps/scheduling-mvp/exports/
 apps/scheduling-mvp/logs/*
 !apps/scheduling-mvp/logs/README.md
+dependency-install.log
+test-results*.log

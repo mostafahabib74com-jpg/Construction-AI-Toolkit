@@ -20,6 +20,10 @@ cd /d "%REPO_ROOT%" || goto :REPOSITORY_ERROR
 if not exist "%LAUNCHER%" goto :ENTRY_ERROR
 if not exist "%REQUIREMENTS%" goto :REQUIREMENTS_ERROR
 if exist "%VENV_PYTHON%" goto :CHECK_DEPENDENCIES
+if exist "%REPO_ROOT%\.venv\Scripts\python.exe" (
+    set "VENV_PYTHON=%REPO_ROOT%\.venv\Scripts\python.exe"
+    goto :CHECK_DEPENDENCIES
+)
 
 echo [SETUP] Python environment was not found. Creating it now...
 where py >nul 2>&1

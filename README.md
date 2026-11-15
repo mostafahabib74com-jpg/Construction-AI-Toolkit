@@ -63,8 +63,14 @@ This project is released under the MIT License.
 
 ## Local Scheduling Application
 
-Phase 8 introduces the first working local application. Milestone 2 preserves project and BOQ intake and adds WBS, project calendars, editable activity inputs, relationship validation, exact duration calculations, and deterministic forward planned dates.
+The integrated local application combines project and BOQ intake, WBS, calendars, activity logic, exact durations, Gantt charts, schedule exports, evidence-backed estimating and the repository's Codex Skills library.
+
+Start with **Create synthetic demo / تجربة البرنامج** to create a separate example project. The demo contains synthetic arithmetic inputs, not market prices or project evidence. Your own estimates start with no resource rates.
+
+The **Estimating** workspace supports material/labor/equipment/subcontract build-ups, source references, pricing dates, material waste, project allowances, markup or gross margin, discount and explicit tax. Incomplete items block the final selling price. The **Engineering workflows** workspace exposes the five existing repository skills and the original prompt library.
+
+See [Integrated application and validation](docs/phase-8/INTEGRATED-APPLICATION.md) for the tested scope, calculation basis and current limits. Shared-calendar schedules include a CPM backward pass, working-hour float and critical activity identification. Multi-calendar schedules keep their forward dates and explicitly report that CPM is unavailable.
 
 See [Scheduling MVP](apps/scheduling-mvp/README.md) for installation, launch, test instructions, and the current scope boundary.
 
-On Windows, double-click `START_SCHEDULING_APP.bat` at the repository root. Keep its terminal open, and use `STOP_SCHEDULING_APP.bat` to stop only the managed local application.
+On Windows, double-click `START_SCHEDULING_APP.bat` at the repository root. Keep its terminal open, and use `STOP_SCHEDULING_APP.bat` to stop only the managed local application. Python 3.12 is required.

@@ -13,6 +13,7 @@ def test_initial_migration_is_idempotent(scheduling_repository):
         "001_initial",
         "002_boq_normalized_unit",
         "003_scheduling_engine",
+        "004_integrated_workspaces",
     ]
 
 

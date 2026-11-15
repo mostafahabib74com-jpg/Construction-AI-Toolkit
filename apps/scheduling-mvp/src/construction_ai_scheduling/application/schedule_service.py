@@ -11,6 +11,7 @@ from construction_ai_orchestrator.policies.engine import SCHEDULE, AccuracyPolic
 from construction_ai_orchestrator.validation import SchemaCatalog
 
 from construction_ai_scheduling.domain.errors import SchedulingInputError
+from construction_ai_scheduling.domain.cpm_engine import enrich_with_cpm
 from construction_ai_scheduling.domain.schedule_engine import ENGINE_VERSION, calculate_forward_pass
 from construction_ai_scheduling.domain.schedule_models import ScheduleRun
 from construction_ai_scheduling.infrastructure.sqlite_repository import SQLiteRepository
@@ -81,6 +82,8 @@ class ScheduleService:
                 },
             )
         validation_issues = tuple(calculation.validation_issues) + tuple(policy_issues)
+        results, cpm_issues = enrich_with_cpm(calculation.results, activities, calendars, relationships)
+        validation_issues += cpm_issues
         status = "blocked" if any(item.get("severity", "error") == "error" for item in validation_issues) else "calculated"
         run = ScheduleRun(
             run_id=f"RUN-{uuid4().hex[:12].upper()}",
@@ -91,11 +94,12 @@ class ScheduleService:
             project_planned_finish=calculation.project_planned_finish,
             completion_variance_days=calculation.completion_variance_days,
             validation_issues=validation_issues,
-            results=calculation.results,
+            results=results,
         )
         return self._save_run(workspace, run)
 
     def _save_run(self, workspace, run: ScheduleRun) -> ScheduleRun:
+        run = replace(run, input_snapshot=self.current_inputs(workspace.schedule_id))
         self.catalog.assert_valid(run.to_dict(), SCHEDULE_RUN_SCHEMA)
         self.repository.save_schedule_run(run)
         updated = replace(workspace, status=run.status, updated_at=datetime.now(timezone.utc))
@@ -105,3 +109,18 @@ class ScheduleService:
 
     def latest_run(self, schedule_id: str) -> ScheduleRun | None:
         return self.repository.latest_schedule_run(schedule_id)
+
+    def current_inputs(self, schedule_id: str) -> dict:
+        workspace = self.repository.get_schedule(schedule_id)
+        project = self.repository.get_project(workspace.project_id)
+        return {
+            "project": project.to_dict(),
+            "calculation_settings": {"rounding_precision": workspace.rounding_precision, "rounding_mode": workspace.rounding_mode},
+            "wbs": [item.to_dict() for item in self.repository.list_wbs_nodes(schedule_id)],
+            "calendars": [item.to_dict() for item in self.repository.list_calendars(schedule_id)],
+            "activities": [item.to_dict() for item in self.repository.list_activities(schedule_id)],
+            "relationships": [item.to_dict() for item in self.repository.list_relationships(schedule_id)],
+        }
+
+    def is_current(self, run: ScheduleRun) -> bool:
+        return run.input_snapshot == self.current_inputs(run.schedule_id)

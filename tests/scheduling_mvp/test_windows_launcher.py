@@ -92,3 +92,5 @@ def test_batch_files_use_their_own_repository_location(repo_root):
     assert "apps\\scheduling-mvp\\launcher.py" in start
     assert "apps\\scheduling-mvp\\launcher.py" in stop
     assert "requirements-scheduling-mvp.txt" in start
+    assert '%REPO_ROOT%\\.venv\\Scripts\\python.exe' in start
+    assert '%REPO_ROOT%\\.venv\\Scripts\\python.exe' in stop

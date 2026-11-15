@@ -517,6 +517,10 @@ class SQLiteRepository:
                     for item in run.results
                 ],
             )
+            connection.execute(
+                "UPDATE schedule_runs SET snapshot_json = ? WHERE run_id = ?",
+                (json.dumps(value, ensure_ascii=False, sort_keys=True), run.run_id),
+            )
 
     def latest_schedule_run(self, schedule_id: str) -> ScheduleRun | None:
         with self._connect() as connection:
@@ -526,6 +530,8 @@ class SQLiteRepository:
             ).fetchone()
             if not row:
                 return None
+            if row["snapshot_json"]:
+                return ScheduleRun.from_dict(json.loads(row["snapshot_json"]))
             result_rows = connection.execute(
                 """
                 SELECT result.*
@@ -552,3 +558,20 @@ class SQLiteRepository:
             for item in result_rows
         ]
         return ScheduleRun.from_dict(value)
+
+    def get_estimate_draft(self, project_id: str) -> dict[str, Any] | None:
+        with self._connect() as connection:
+            row = connection.execute(
+                "SELECT payload_json FROM estimate_drafts WHERE project_id = ?", (project_id,)
+            ).fetchone()
+        return json.loads(row["payload_json"]) if row else None
+
+    def save_estimate_draft(self, project_id: str, payload: dict[str, Any]) -> None:
+        from datetime import datetime, timezone
+
+        with self._connect() as connection:
+            connection.execute(
+                "INSERT INTO estimate_drafts(project_id, payload_json, updated_at) VALUES (?, ?, ?) "
+                "ON CONFLICT(project_id) DO UPDATE SET payload_json=excluded.payload_json, updated_at=excluded.updated_at",
+                (project_id, json.dumps(payload, ensure_ascii=False, sort_keys=True), datetime.now(timezone.utc).isoformat()),
+            )

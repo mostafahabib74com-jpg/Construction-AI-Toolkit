@@ -13,6 +13,7 @@ echo  Stop Construction AI Toolkit - Scheduling MVP
 echo ============================================================
 
 cd /d "%REPO_ROOT%" || goto :REPOSITORY_ERROR
+if not exist "%VENV_PYTHON%" if exist "%REPO_ROOT%\.venv\Scripts\python.exe" set "VENV_PYTHON=%REPO_ROOT%\.venv\Scripts\python.exe"
 if not exist "%VENV_PYTHON%" goto :ENVIRONMENT_ERROR
 if not exist "%LAUNCHER%" goto :ENTRY_ERROR
 

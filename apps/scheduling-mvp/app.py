@@ -18,6 +18,9 @@ from construction_ai_scheduling.settings import load_settings
 from construction_ai_scheduling.ui.boq_page import render_boq_page
 from construction_ai_scheduling.ui.project_page import render_project_page
 from construction_ai_scheduling.ui.schedule_page import SchedulingServices, render_schedule_page
+from construction_ai_scheduling.ui.estimating_page import render_estimating_page
+from construction_ai_scheduling.ui.library_page import render_library_page
+from construction_ai_scheduling.application.demo_service import create_demo
 
 
 @st.cache_resource
@@ -39,12 +42,21 @@ def build_services(database_path: str) -> SchedulingServices:
 
 
 def main() -> None:
-    st.set_page_config(page_title="Construction Scheduling MVP", page_icon="🏗️", layout="wide")
+    st.set_page_config(page_title="Construction AI Toolkit", page_icon="🏗️", layout="wide")
     settings = load_settings()
     services = build_services(str(settings.database_path))
 
     st.title("Construction AI Toolkit")
-    st.caption("Phase 8 · Construction Project Scheduling MVP · Milestone 2")
+    st.caption("Planning, estimating and engineering workflows / التخطيط والتسعير والمهارات الهندسية")
+
+    if st.sidebar.button("Create synthetic demo / تجربة البرنامج"):
+        try:
+            project = create_demo(services, settings.repo_root)
+        except Exception as exc:
+            st.error(f"Demo setup failed: {exc}")
+        else:
+            st.session_state.active_project_id = project.project_id
+            st.rerun()
 
     projects = services.project.list_projects()
     project_ids = [project.project_id for project in projects]
@@ -59,17 +71,21 @@ def main() -> None:
         ),
     )
     st.session_state.active_project_id = selected
-    page = st.sidebar.radio("Milestone 2", ["Project setup", "BOQ import and review", "Schedule workspace"])
-    st.sidebar.caption(
-        "Forward scheduling is enabled. Gantt, exports, resource loading, and cost loading are not included."
-    )
+    page = st.sidebar.radio("Workspace", ["Project setup", "BOQ import and review", "Schedule workspace", "Estimating", "Engineering workflows"])
+    st.sidebar.caption("Saved projects, Gantt, CSV/Excel exports and sourced unit-rate analysis. Use the demo button for a separate synthetic project.")
+    if selected and next(project.name for project in projects if project.project_id == selected).startswith("DEMO -"):
+        st.warning("SYNTHETIC DEMO / بيانات تجريبية — quantities, productivity and prices are arithmetic examples, not project or market data.")
 
     if page == "Project setup":
         render_project_page(services.project, selected)
     elif page == "BOQ import and review":
         render_boq_page(services.boq, services.project, selected)
-    else:
+    elif page == "Schedule workspace":
         render_schedule_page(services, selected)
+    elif page == "Estimating":
+        render_estimating_page(services, selected)
+    else:
+        render_library_page(settings.repo_root)
 
 
 if __name__ == "__main__":

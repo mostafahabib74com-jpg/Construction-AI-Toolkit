@@ -1,6 +1,6 @@
-# Construction Scheduling MVP
+# Construction AI Toolkit — Integrated Local Application
 
-Phase 8 Milestone 2 adds a deterministic construction scheduling workspace to the local Streamlit application. Milestone 1 project setup and Arabic/English CSV/XLSX BOQ intake remain available.
+Version 0.3 combines deterministic scheduling, Gantt/exports, sourced unit-rate analysis and the existing repository skills. Project setup and Arabic/English CSV/XLSX BOQ intake remain available.
 
 ## Current capabilities
 
@@ -14,14 +14,23 @@ Phase 8 Milestone 2 adds a deterministic construction scheduling workspace to th
 - Detect missing required inputs, invalid values, duplicate IDs or relationships, broken references, self-links, and circular logic.
 - Calculate exact durations and deterministic forward-pass planned starts and finishes.
 - Store every calculation as an immutable run with a signed completion-date variance.
+- View a Gantt chart with milestones and critical-activity colors.
+- Calculate a CPM backward pass and total/free float for a single shared activity calendar.
+- Download schedule CSV, Excel with relationships/calendars/WBS/traces, and a complete JSON snapshot.
+- Keep saved run inputs and results unchanged after draft edits and activity deletion; show stale-input warnings.
+- Build project estimates from explicit resource consumption and prices, sources and pricing dates.
+- Distinguish markup from gross margin, with separate indirects, contingency, overhead, discount and explicit tax.
+- Persist estimates per project, copy validated BOQ quantities without prices and export calculation/evidence packages.
+- Browse all five repository skills and the original engineering prompts.
+- Create a separate, explicitly synthetic demo project with one button.
 
 The engine never invents quantities, productivity values, crew counts, WBS assignments, calendars, or relationships. Displayed duration rounding does not change the exact value used for scheduling.
 
-## Milestone 2 boundary
+## Current calculation boundaries
 
-Milestone 2 does **not** include Gantt charts, Excel/CSV/Primavera exports, backward-pass CPM, float, critical path, resource loading, cost loading, cash flow, or other platform modules. Those remain future milestones.
+CPM float uses a single shared activity calendar and the calculated planned finish, not the contractual deadline. Multi-calendar forward scheduling remains supported, with no fabricated float. Contractual completion variance is displayed separately. CSV/Excel are review exports, not native XER files or verified P6 imports. Resource leveling, time-phased cost loading, cash flow and external AI-provider execution are not implemented.
 
-Synthetic inputs under `sample_data/` are marked demonstration data and are never loaded into user-created projects automatically.
+Synthetic inputs under `sample_data/` are marked demonstration data. The sidebar demo button explicitly creates a separate example project; it never fills real project prices. Estimate evidence references still require human verification.
 
 ## Typical workflow
 
@@ -33,6 +42,9 @@ Synthetic inputs under `sample_data/` are marked demonstration data and are neve
 6. Complete all activity inputs without assumptions.
 7. Add and review relationships and lags.
 8. Open **Calculate & review**, correct blockers, and calculate a new immutable run.
+9. View the Gantt chart and download saved results.
+10. Open **Estimating** to enter resource rates and their sources; incomplete costs block the final price.
+11. Browse **Engineering workflows** for tender management, quantity takeoff, rate analysis and estimate compilation.
 
 ## Start on Windows
 

@@ -24,7 +24,7 @@ from construction_ai_scheduling.domain.schedule_models import (
 from construction_ai_scheduling.domain.schedule_validation import validate_schedule_inputs
 
 
-ENGINE_VERSION = "2.0.0-forward-pass"
+ENGINE_VERSION = "3.0.0-snapshot-cpm"
 
 
 @dataclass(frozen=True, slots=True)

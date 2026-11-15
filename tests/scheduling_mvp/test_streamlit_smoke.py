@@ -46,4 +46,4 @@ def test_streamlit_application_loads_milestone_two_workspace(
         "Relationships",
         "Calculate & review",
     ]
-    assert "does not calculate float or critical path" in app.info[0].value
+    assert "single shared activity calendar" in app.info[0].value

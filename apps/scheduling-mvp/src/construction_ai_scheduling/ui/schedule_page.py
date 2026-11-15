@@ -3,11 +3,13 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from datetime import time
+from datetime import time, datetime
+import json
 from typing import Any
 
 import pandas as pd
 import streamlit as st
+import altair as alt
 
 from construction_ai_scheduling.application.activity_service import ActivityService
 from construction_ai_scheduling.application.boq_service import BOQService
@@ -17,6 +19,7 @@ from construction_ai_scheduling.application.relationship_service import Relation
 from construction_ai_scheduling.application.schedule_service import ScheduleService
 from construction_ai_scheduling.application.schedule_workspace_service import ScheduleWorkspaceService
 from construction_ai_scheduling.application.wbs_service import WBSService
+from construction_ai_scheduling.application.schedule_exports import schedule_rows, schedule_workbook, csv_bytes
 from construction_ai_scheduling.domain.errors import SchedulingInputError
 from construction_ai_scheduling.domain.schedule_validation import validate_schedule_inputs
 
@@ -69,7 +72,7 @@ def _overview(services: SchedulingServices, project, workspace) -> None:
     ):
         column.metric(label, value)
     st.caption(
-        f"{workspace.schedule_id} · {workspace.version} · forward pass only · "
+        f"{workspace.schedule_id} · {workspace.version} · deterministic scheduling · "
         f"project dates {project.planned_start_date} to {project.required_completion_date}"
     )
     with st.form("calculation_settings"):
@@ -88,7 +91,7 @@ def _overview(services: SchedulingServices, project, workspace) -> None:
         else:
             st.success("Display settings saved. Exact internal durations remain unrounded.")
             st.rerun()
-    st.info("This milestone calculates early planned dates only. It does not calculate float or critical path.")
+    st.info("Early dates support multiple calendars. Float and critical path use a single shared activity calendar and the calculated project finish.")
 
 
 def _wbs_tab(services: SchedulingServices, workspace) -> None:
@@ -550,7 +553,7 @@ def _calculation_tab(services: SchedulingServices, workspace) -> None:
         st.error(f"Calculation is blocked by {len(blockers)} required correction(s).")
     else:
         st.success("No blocking draft-input errors were found. Warnings remain visible in the saved run.")
-    if st.button("Calculate forward schedule", type="primary", disabled=bool(blockers)):
+    if st.button("Calculate schedule", type="primary", disabled=bool(blockers)):
         try:
             run = services.schedule.calculate(workspace.schedule_id)
         except Exception as exc:
@@ -573,27 +576,32 @@ def _calculation_tab(services: SchedulingServices, workspace) -> None:
     st.caption(f"{run.run_id} · engine {run.engine_version} · {run.calculated_at.isoformat()}")
     if run.validation_issues:
         st.dataframe(pd.DataFrame(run.validation_issues), width="stretch", hide_index=True)
-    activities_by_id = {item.activity_pk: item for item in activities}
-    wbs_by_id = {item.wbs_id: item.code for item in wbs_nodes}
-    calendar_by_id = {item.calendar_id: item.code for item in calendars}
-    result_rows = []
-    for result in run.results:
-        activity = activities_by_id.get(result.activity_pk)
-        if not activity:
-            continue
-        result_rows.append(
-            {
-                "Activity ID": activity.activity_id,
-                "Activity name": activity.activity_name,
-                "WBS": wbs_by_id.get(activity.wbs_id, ""),
-                "Calendar": calendar_by_id.get(activity.calendar_id, ""),
-                "Exact hours": str(result.exact_duration_hours),
-                "Duration days": str(result.display_duration_days),
-                "Planned start": result.early_start.isoformat(sep=" ", timespec="minutes"),
-                "Planned finish": result.early_finish.isoformat(sep=" ", timespec="minutes"),
-            }
-        )
+    if run.status != "calculated" or not run.input_snapshot:
+        st.warning("Recalculate successfully to view the chart and export an immutable input snapshot.")
+        return
+    if not services.schedule.is_current(run):
+        st.warning("Inputs changed after this run. The table, Gantt and downloads show the saved run; recalculate for current inputs.")
+    result_rows = schedule_rows(run)
     st.dataframe(pd.DataFrame(result_rows), width="stretch", hide_index=True)
+    st.subheader("Gantt chart / مخطط جانت")
+    frame = pd.DataFrame(result_rows)
+    frame["Label"] = frame["Activity ID"] + " — " + frame["Activity name"]
+    for source, target in [("Planned start", "Start"), ("Planned finish", "Finish")]:
+        frame[target] = frame[source].map(lambda value: datetime.fromisoformat(value).replace(tzinfo=None))
+    frame["Path"] = frame["Critical"].map({True: "Critical", False: "Noncritical"}).fillna("Not assessed")
+    base = alt.Chart(frame).encode(
+        y=alt.Y("Label:N", sort=frame["Label"].tolist(), title=None, axis=alt.Axis(labelLimit=310)),
+        color=alt.Color("Path:N", scale=alt.Scale(domain=["Critical", "Noncritical", "Not assessed"], range=["#dc3545", "#147d92", "#8c8c8c"])),
+        tooltip=["Activity ID:N", "Activity name:N", "Planned start:N", "Planned finish:N", "Duration days:N", "Path:N"],
+    )
+    bars = base.transform_filter(alt.datum.Type == "task_dependent").mark_bar().encode(x=alt.X("Start:T", title="Calendar dates"), x2="Finish:T")
+    milestones = base.transform_filter(alt.datum.Type != "task_dependent").mark_point(shape="diamond", size=100, filled=True).encode(x="Start:T")
+    st.altair_chart((bars + milestones).properties(height=min(1200, max(200, len(frame) * 30))), use_container_width=True)
+    st.caption("Chart uses each saved local date/time. Exact offsets and calendar definitions are preserved in the downloads.")
+    left, middle, right = st.columns(3)
+    left.download_button("Download schedule CSV", csv_bytes(result_rows), file_name=f"{run.run_id}.csv", mime="text/csv")
+    middle.download_button("Download schedule Excel", schedule_workbook(run), file_name=f"{run.run_id}.xlsx", mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    right.download_button("Download complete run JSON", json.dumps(run.to_dict(), ensure_ascii=False, indent=2), file_name=f"{run.run_id}.json", mime="application/json")
     st.caption("Dates are derived outputs. Edit inputs or logic, then calculate a new immutable run.")
 
 

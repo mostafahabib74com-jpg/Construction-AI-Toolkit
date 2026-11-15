@@ -365,6 +365,7 @@ class ScheduleRun:
     completion_variance_days: int | None
     validation_issues: tuple[dict[str, Any], ...]
     results: tuple[ActivityCalculationResult, ...]
+    input_snapshot: dict[str, Any] | None = None
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -377,6 +378,7 @@ class ScheduleRun:
             "completion_variance_days": self.completion_variance_days,
             "validation_issues": list(self.validation_issues),
             "results": [item.to_dict() for item in self.results],
+            "input_snapshot": self.input_snapshot,
         }
 
     @classmethod
@@ -391,4 +393,5 @@ class ScheduleRun:
             completion_variance_days=int(value["completion_variance_days"]) if value.get("completion_variance_days") is not None else None,
             validation_issues=tuple(value.get("validation_issues") or ()),
             results=tuple(ActivityCalculationResult.from_dict(item) for item in value.get("results") or ()),
+            input_snapshot=value.get("input_snapshot"),
         )
