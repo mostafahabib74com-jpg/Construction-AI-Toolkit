@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/agents/planning-p6-agent/workflows/activity-list-development/input.schema.json",
+  "title": "Activity List Development Input",
+  "allOf": [
+    {
+      "$ref": "../../schemas/workflow.schema.json#/$defs/inputEnvelope"
+    },
+    {
+      "type": "object",
+      "required": [
+        "workflow_inputs"
+      ],
+      "properties": {
+        "workflow_inputs": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "approved_wbs",
+            "scope_and_deliverables",
+            "milestone_register",
+            "productivity_or_duration_basis"
+          ],
+          "properties": {
+            "approved_wbs": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: approved wbs"
+            },
+            "scope_and_deliverables": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: scope and deliverables"
+            },
+            "milestone_register": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: milestone register"
+            },
+            "productivity_or_duration_basis": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: productivity or duration basis"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

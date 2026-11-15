@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/agents/tender-manager-agent/workflows/tender-package-ingestion/output.schema.json",
+  "title": "Tender Package Ingestion Output",
+  "allOf": [
+    {
+      "$ref": "../../schemas/workflow.schema.json#/$defs/outputEnvelope"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "workflow_id": {
+          "const": "tender-package-ingestion"
+        },
+        "workflow_version": {
+          "const": "0.1.0"
+        },
+        "deliverables": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "enum": [
+                  "document_register",
+                  "expected_received_matrix",
+                  "addendum_register",
+                  "deadline_register",
+                  "data_quality_report",
+                  "tender_intake_summary"
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

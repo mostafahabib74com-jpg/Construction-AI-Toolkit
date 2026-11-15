@@ -1,0 +1,53 @@
+schema_version: "1.0"
+workflow:
+  id: baseline-schedule-generation
+  title: "Baseline Schedule Generation"
+  version: 0.1.0
+  status: specification
+  objective: "Assemble and validate a complete CPM baseline and controlled P6 import package from approved planning inputs."
+  prompt: ../../prompts/baseline-schedule-generation/prompt.md
+  prerequisites:
+    - "wbs-development"
+    - "activity-list-development"
+    - "calendar-assignment"
+    - "relationship-assignment"
+  required_inputs:
+    - "approved_wbs"
+    - "approved_activity_register"
+    - "approved_calendars"
+    - "approved_relationships"
+    - "contract_milestones"
+  deliverables:
+    - "baseline_schedule_model"
+    - "p6_import_package"
+    - "basis_of_schedule"
+    - "schedule_narrative"
+    - "cpm_report"
+    - "schedule_quality_report"
+  required_reviewers:
+    - "Planning Manager"
+    - "Project Controls Manager"
+    - "Project Director"
+  required_tool_categories:
+    - "cpm_engine"
+    - "p6_adapter"
+    - "schedule_validator"
+    - "file_round_trip_validator"
+  completion_gates:
+    - source_traceability_complete
+    - schedule_version_and_data_date_recorded
+    - deterministic_calculations_valid
+    - data_quality_checks_complete
+    - output_schema_valid
+    - professional_review_recorded
+  blocking_conditions:
+    - "incomplete_network"
+    - "missing_calendars"
+    - "contractual_milestone_conflict"
+    - "unvalidated_p6_export"
+  authority:
+    may_draft: true
+    may_calculate_with_validated_tools: true
+    may_approve: false
+    may_modify_source_schedule: false
+    may_publish_to_p6: false

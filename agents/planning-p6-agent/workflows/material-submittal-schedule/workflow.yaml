@@ -1,0 +1,47 @@
+schema_version: "1.0"
+workflow:
+  id: material-submittal-schedule
+  title: "Material Submittal Schedule"
+  version: 0.1.0
+  status: specification
+  objective: "Create a material approval and release schedule aligned with procurement lead times and construction need dates."
+  prompt: ../../prompts/material-submittal-schedule/prompt.md
+  prerequisites:
+    - "procurement-schedule"
+    - "baseline-schedule-generation"
+  required_inputs:
+    - "procurement_schedule"
+    - "material_register"
+    - "approval_cycles"
+    - "required_on_site_dates"
+  deliverables:
+    - "material_submittal_schedule"
+    - "review_cycle_register"
+    - "p6_activity_mapping"
+    - "late_material_risk_report"
+  required_reviewers:
+    - "Planning Manager"
+    - "Project Controls Manager"
+    - "Procurement Manager"
+    - "Design Manager"
+  required_tool_categories:
+    - "lead_time_engine"
+    - "schedule_validator"
+    - "p6_adapter"
+  completion_gates:
+    - source_traceability_complete
+    - schedule_version_and_data_date_recorded
+    - deterministic_calculations_valid
+    - data_quality_checks_complete
+    - output_schema_valid
+    - professional_review_recorded
+  blocking_conditions:
+    - "missing_required_on_site_dates"
+    - "undefined_review_cycles"
+    - "unlinked_materials"
+  authority:
+    may_draft: true
+    may_calculate_with_validated_tools: true
+    may_approve: false
+    may_modify_source_schedule: false
+    may_publish_to_p6: false

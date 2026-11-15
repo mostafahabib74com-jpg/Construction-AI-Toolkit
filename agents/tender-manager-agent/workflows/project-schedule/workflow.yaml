@@ -1,0 +1,53 @@
+schema_version: "1.0"
+workflow:
+  id: project-schedule
+  title: "Tender Project Schedule"
+  version: 0.1.0
+  status: specification
+  objective: "Coordinate a compliant tender schedule package from an approved Planning Agent artifact and align it with the proposal."
+  prompt: ../../prompts/project-schedule/prompt.md
+  prerequisites:
+    - "execution-methodology"
+    - "organization-chart"
+  required_inputs:
+    - "schedule_and_milestone_requirements"
+    - "approved_planning_agent_artifact"
+    - "methodology_and_procurement_inputs"
+    - "approved_assumptions_and_exclusions"
+  deliverables:
+    - "tender_schedule_package_index"
+    - "milestone_and_phase_schedule"
+    - "schedule_narrative_cross_reference"
+    - "schedule_deliverable_specification"
+    - "proposal_schedule_reconciliation"
+    - "schedule_compliance_report"
+  required_reviewers:
+    - "Tender Manager"
+    - "Planning Manager"
+    - "Construction Manager"
+  required_tool_categories:
+    - "schedule_artifact_validator"
+    - "cpm_engine"
+    - "schedule_quality_validator"
+    - "p6_adapter"
+    - "chart_renderer"
+  completion_gates:
+    - source_traceability_complete
+    - latest_addendum_reconciled
+    - requirements_and_artifacts_versioned
+    - deterministic_checks_complete
+    - output_schema_valid
+    - professional_review_recorded
+  blocking_conditions:
+    - "missing_approved_planning_artifact"
+    - "contract_milestone_conflict"
+    - "methodology_schedule_conflict"
+    - "unvalidated_native_schedule_file"
+  authority:
+    may_draft: true
+    may_assemble_approved_artifacts: true
+    may_approve: false
+    may_issue_correspondence: false
+    may_commit_price: false
+    may_authorize_submission: false
+    may_upload: false

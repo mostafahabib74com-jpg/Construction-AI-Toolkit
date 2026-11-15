@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/agents/planning-p6-agent/schemas/schedule.schema.json",
+  "title": "Controlled Construction Schedule",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schedule", "wbs", "activities", "relationships", "calendars", "review"],
+  "properties": {
+    "schedule": {
+      "type": "object",
+      "required": ["project_id", "schedule_id", "version", "purpose", "status", "data_date", "time_zone", "source_cutoff", "scheduling_options"],
+      "properties": {
+        "project_id": {"type": "string"},
+        "schedule_id": {"type": "string"},
+        "version": {"type": "string"},
+        "purpose": {"type": "string"},
+        "status": {"enum": ["draft", "submitted", "approved", "update", "forecast", "recovery", "scenario", "impacted", "superseded"]},
+        "data_date": {"type": "string", "format": "date-time"},
+        "time_zone": {"type": "string"},
+        "source_cutoff": {"type": "string"},
+        "scheduling_options": {"type": "object"},
+        "default_calendar_id": {"type": ["string", "null"]},
+        "contract_start": {"type": ["string", "null"], "format": "date-time"},
+        "contract_finish": {"type": ["string", "null"], "format": "date-time"}
+      }
+    },
+    "wbs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["wbs_id", "code", "name", "parent_id", "owner_role"],
+        "properties": {
+          "wbs_id": {"type": "string"},
+          "code": {"type": "string"},
+          "name": {"type": "string"},
+          "parent_id": {"type": ["string", "null"]},
+          "owner_role": {"type": "string"},
+          "scope_boundary": {"type": ["string", "null"]}
+        }
+      }
+    },
+    "activities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["activity_id", "name", "wbs_id", "activity_type", "calendar_id", "original_duration_hours", "status", "percent_complete_type"],
+        "properties": {
+          "activity_id": {"type": "string"},
+          "name": {"type": "string"},
+          "wbs_id": {"type": "string"},
+          "activity_type": {"enum": ["task_dependent", "resource_dependent", "start_milestone", "finish_milestone", "level_of_effort", "wbs_summary"]},
+          "calendar_id": {"type": "string"},
+          "original_duration_hours": {"type": "number", "minimum": 0},
+          "remaining_duration_hours": {"type": ["number", "null"], "minimum": 0},
+          "status": {"enum": ["not_started", "in_progress", "completed"]},
+          "percent_complete_type": {"enum": ["duration", "physical", "units"]},
+          "physical_percent_complete": {"type": ["number", "null"], "minimum": 0, "maximum": 100},
+          "actual_start": {"type": ["string", "null"], "format": "date-time"},
+          "actual_finish": {"type": ["string", "null"], "format": "date-time"},
+          "constraint_type": {"type": ["string", "null"]},
+          "constraint_date": {"type": ["string", "null"], "format": "date-time"},
+          "activity_codes": {"type": "object"},
+          "source_ids": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "relationships": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["relationship_id", "predecessor_id", "successor_id", "type", "lag_hours"],
+        "properties": {
+          "relationship_id": {"type": "string"},
+          "predecessor_id": {"type": "string"},
+          "successor_id": {"type": "string"},
+          "type": {"enum": ["FS", "SS", "FF", "SF"]},
+          "lag_hours": {"type": "number"},
+          "rationale": {"type": ["string", "null"]},
+          "source_ids": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "calendars": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["calendar_id", "name", "type", "time_zone", "standard_workweek", "exceptions"],
+        "properties": {
+          "calendar_id": {"type": "string"},
+          "name": {"type": "string"},
+          "type": {"enum": ["global", "project", "resource"]},
+          "time_zone": {"type": "string"},
+          "standard_workweek": {"type": "object"},
+          "exceptions": {"type": "array", "items": {"type": "object"}},
+          "hours_per_day": {"type": "number", "exclusiveMinimum": 0}
+        }
+      }
+    },
+    "resources": {"type": "array", "items": {"type": "object"}},
+    "assignments": {"type": "array", "items": {"type": "object"}},
+    "expenses": {"type": "array", "items": {"type": "object"}},
+    "calculation_trace": {"type": "array", "items": {"type": "object"}},
+    "review": {"$ref": "common.schema.json#/$defs/review"}
+  }
+}

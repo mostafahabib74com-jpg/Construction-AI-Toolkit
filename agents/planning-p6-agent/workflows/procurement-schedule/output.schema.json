@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/agents/planning-p6-agent/workflows/procurement-schedule/output.schema.json",
+  "title": "Procurement Schedule Output",
+  "allOf": [
+    {
+      "$ref": "../../schemas/workflow.schema.json#/$defs/outputEnvelope"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "workflow_id": {
+          "const": "procurement-schedule"
+        },
+        "workflow_version": {
+          "const": "0.1.0"
+        },
+        "deliverables": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "enum": [
+                  "procurement_schedule",
+                  "long_lead_register",
+                  "procurement_interface_matrix",
+                  "procurement_risk_register",
+                  "p6_activity_mapping"
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

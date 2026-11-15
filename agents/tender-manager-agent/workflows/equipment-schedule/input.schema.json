@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/agents/tender-manager-agent/workflows/equipment-schedule/input.schema.json",
+  "title": "Equipment Schedule Input",
+  "allOf": [
+    {
+      "$ref": "../../schemas/workflow.schema.json#/$defs/inputEnvelope"
+    },
+    {
+      "type": "object",
+      "required": [
+        "workflow_inputs"
+      ],
+      "properties": {
+        "workflow_inputs": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "approved_methodology_and_schedule",
+            "quantity_and_productivity_basis",
+            "approved_equipment_records",
+            "site_logistics_and_hse_rules"
+          ],
+          "properties": {
+            "approved_methodology_and_schedule": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: approved methodology and schedule"
+            },
+            "quantity_and_productivity_basis": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: quantity and productivity basis"
+            },
+            "approved_equipment_records": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: approved equipment records"
+            },
+            "site_logistics_and_hse_rules": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: site logistics and hse rules"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+schema_version: "1.0"
+workflow:
+  id: boq-development
+  title: "BOQ Development"
+  version: 0.1.0
+  status: specification
+  objective: "Develop or validate a measurable, source-linked BOQ covering the controlled tender scope."
+  prompt: ../../prompts/boq-development/prompt.md
+  prerequisites:
+    - "scope-extraction"
+    - "information-gap-analysis"
+  required_inputs:
+    - "approved_scope_matrix"
+    - "quantity_sources"
+    - "measurement_profile"
+    - "project_taxonomies"
+  deliverables:
+    - "structured_boq"
+    - "quantity_basis_report"
+    - "boq_traceability_matrix"
+    - "boq_exception_report"
+    - "boq_mapping"
+    - "measurement_query_register"
+    - "boq_reconciliation"
+  required_reviewers:
+    - "Estimation Manager"
+    - "Quantity Surveyor"
+  required_tool_categories:
+    - "spreadsheet_parser"
+    - "quantity_engine"
+    - "unit_normalizer"
+    - "boq_validator"
+  completion_gates:
+    - source_traceability_complete
+    - missing_information_visible
+    - assumptions_and_exclusions_visible
+    - output_schema_valid
+    - professional_review_recorded
+  blocking_conditions:
+    - "missing_measurement_profile"
+    - "untraceable_quantities"
+    - "scope_boq_reconciliation_failure"
+  authority:
+    may_draft: true
+    may_calculate_with_validated_tools: true
+    may_approve: false
+    may_issue_externally: false

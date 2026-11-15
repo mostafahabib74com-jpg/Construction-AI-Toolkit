@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/agents/tender-manager-agent/workflows/project-schedule/input.schema.json",
+  "title": "Tender Project Schedule Input",
+  "allOf": [
+    {
+      "$ref": "../../schemas/workflow.schema.json#/$defs/inputEnvelope"
+    },
+    {
+      "type": "object",
+      "required": [
+        "workflow_inputs"
+      ],
+      "properties": {
+        "workflow_inputs": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "schedule_and_milestone_requirements",
+            "approved_planning_agent_artifact",
+            "methodology_and_procurement_inputs",
+            "approved_assumptions_and_exclusions"
+          ],
+          "properties": {
+            "schedule_and_milestone_requirements": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: schedule and milestone requirements"
+            },
+            "approved_planning_agent_artifact": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: approved planning agent artifact"
+            },
+            "methodology_and_procurement_inputs": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: methodology and procurement inputs"
+            },
+            "approved_assumptions_and_exclusions": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: approved assumptions and exclusions"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

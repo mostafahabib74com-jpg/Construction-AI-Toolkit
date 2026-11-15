@@ -1,0 +1,48 @@
+schema_version: "1.0"
+profiles:
+  - id: estimating-methodology
+    type: methodology
+    required: true
+    owner_role: Estimation Manager
+    content_file: estimating-methodology.md
+  - id: rfp-taxonomy
+    type: classification
+    required: true
+    owner_role: Tender Manager
+    content_file: rfp-taxonomy.md
+  - id: cost-taxonomy
+    type: classification
+    required: true
+    owner_role: Estimation Manager
+    content_file: cost-taxonomy.md
+  - id: pricing-risk-taxonomy
+    type: risk
+    required: true
+    owner_role: Commercial Manager
+    content_file: pricing-risk-taxonomy.md
+  - id: bid-governance
+    type: governance
+    required: true
+    owner_role: Executive Bid Sponsor
+    content_file: bid-governance.md
+external_profile_slots:
+  - contract_form_and_edition
+  - measurement_standard
+  - regional_cost_database
+  - company_productivity_database
+  - currency_and_exchange_rate
+  - tax_and_duty
+  - escalation_indices
+  - insurance_and_bonding
+  - labor_regulation
+  - logistics_and_import
+  - company_overhead_and_markup
+required_metadata:
+  - owner
+  - jurisdiction
+  - edition
+  - effective_date
+  - review_date
+  - license_status
+  - source_reference
+  - permitted_projects

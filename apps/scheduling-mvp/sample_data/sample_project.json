@@ -1,0 +1,21 @@
+{
+  "demonstration_data": true,
+  "notice": "Synthetic demonstration data only; not for construction or commercial use.",
+  "project_input": {
+    "name": "DEMO - Community Center",
+    "client": "DEMO Client",
+    "contractor": "DEMO Contractor",
+    "consultant": "DEMO Consultant",
+    "project_type": "DEMO Building Project",
+    "location": "DEMO Location",
+    "planned_start_date": "2026-09-01",
+    "required_completion_date": "2027-08-31",
+    "working_days_per_week": 6,
+    "working_hours_per_day": 8,
+    "working_weekdays": ["saturday", "sunday", "monday", "tuesday", "wednesday", "thursday"],
+    "workday_start_time": "07:00",
+    "currency": "SAR",
+    "unit_system": "SI",
+    "time_zone": "Asia/Riyadh"
+  }
+}

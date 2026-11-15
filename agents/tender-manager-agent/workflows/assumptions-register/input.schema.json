@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/agents/tender-manager-agent/workflows/assumptions-register/input.schema.json",
+  "title": "Tender Assumptions Register Input",
+  "allOf": [
+    {
+      "$ref": "../../schemas/workflow.schema.json#/$defs/inputEnvelope"
+    },
+    {
+      "type": "object",
+      "required": [
+        "workflow_inputs"
+      ],
+      "properties": {
+        "workflow_inputs": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "controlled_source_gaps",
+            "approved_domain_artifacts",
+            "query_and_response_register",
+            "assumption_authority_matrix"
+          ],
+          "properties": {
+            "controlled_source_gaps": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: controlled source gaps"
+            },
+            "approved_domain_artifacts": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: approved domain artifacts"
+            },
+            "query_and_response_register": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: query and response register"
+            },
+            "assumption_authority_matrix": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: assumption authority matrix"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+schema_version: "1.0"
+workflow:
+  id: tender-package-ingestion
+  title: "Tender Package Ingestion"
+  version: 0.1.0
+  status: specification
+  objective: "Register, classify, reconcile, and quality-check the complete tender package and every addendum."
+  prompt: ../../prompts/tender-package-ingestion/prompt.md
+  prerequisites:
+    []
+  required_inputs:
+    - "source_package"
+    - "client_indexes_and_transmittals"
+    - "submission_rules"
+    - "communication_rules"
+  deliverables:
+    - "document_register"
+    - "expected_received_matrix"
+    - "addendum_register"
+    - "deadline_register"
+    - "data_quality_report"
+    - "tender_intake_summary"
+  required_reviewers:
+    - "Tender Manager"
+    - "Document Control Manager"
+  required_tool_categories:
+    - "document_parser"
+    - "ocr_engine"
+    - "checksum_service"
+    - "revision_comparison"
+    - "content_security_scanner"
+  completion_gates:
+    - source_traceability_complete
+    - latest_addendum_reconciled
+    - requirements_and_artifacts_versioned
+    - deterministic_checks_complete
+    - output_schema_valid
+    - professional_review_recorded
+  blocking_conditions:
+    - "missing_invitation_or_document_index"
+    - "unconfirmed_submission_deadline_or_time_zone"
+    - "material_unreadable_source"
+    - "incomplete_addendum_reconciliation"
+  authority:
+    may_draft: true
+    may_assemble_approved_artifacts: true
+    may_approve: false
+    may_issue_correspondence: false
+    may_commit_price: false
+    may_authorize_submission: false
+    may_upload: false

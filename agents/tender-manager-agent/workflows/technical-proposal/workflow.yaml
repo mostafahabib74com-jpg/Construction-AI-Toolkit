@@ -1,0 +1,61 @@
+schema_version: "1.0"
+workflow:
+  id: technical-proposal
+  title: "Technical Proposal"
+  version: 0.1.0
+  status: specification
+  objective: "Assemble a compliant, persuasive, evidence-based technical proposal from approved discipline and company artifacts."
+  prompt: ../../prompts/technical-proposal/prompt.md
+  prerequisites:
+    - "compliance-matrix"
+    - "assumptions-register"
+    - "exclusions-register"
+    - "execution-methodology"
+    - "organization-chart"
+    - "equipment-schedule"
+    - "manpower-histogram"
+    - "project-schedule"
+  required_inputs:
+    - "approved_compliance_matrix"
+    - "client_response_structure_and_limits"
+    - "approved_discipline_artifacts"
+    - "verified_company_content"
+    - "approved_tender_registers"
+  deliverables:
+    - "technical_proposal_outline"
+    - "draft_technical_proposal"
+    - "figure_table_and_evidence_schedule"
+    - "section_review_tracker"
+    - "technical_consistency_report"
+    - "rendering_specification"
+  required_reviewers:
+    - "Tender Manager"
+    - "Proposal Manager"
+    - "Technical Manager"
+    - "Responsible Discipline Leads"
+  required_tool_categories:
+    - "approved_content_retrieval"
+    - "citation_validator"
+    - "document_assembler"
+    - "cross_reference_validator"
+    - "office_renderer"
+  completion_gates:
+    - source_traceability_complete
+    - latest_addendum_reconciled
+    - requirements_and_artifacts_versioned
+    - deterministic_checks_complete
+    - output_schema_valid
+    - professional_review_recorded
+  blocking_conditions:
+    - "mandatory_section_without_approved_content"
+    - "unverified_company_claim"
+    - "page_or_format_noncompliance"
+    - "technical_commercial_conflict"
+  authority:
+    may_draft: true
+    may_assemble_approved_artifacts: true
+    may_approve: false
+    may_issue_correspondence: false
+    may_commit_price: false
+    may_authorize_submission: false
+    may_upload: false

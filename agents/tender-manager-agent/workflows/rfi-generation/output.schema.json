@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/agents/tender-manager-agent/workflows/rfi-generation/output.schema.json",
+  "title": "Tender RFI Generation Output",
+  "allOf": [
+    {
+      "$ref": "../../schemas/workflow.schema.json#/$defs/outputEnvelope"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "workflow_id": {
+          "const": "rfi-generation"
+        },
+        "workflow_version": {
+          "const": "0.1.0"
+        },
+        "deliverables": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "enum": [
+                  "rfi_register",
+                  "client_form_rfi_drafts",
+                  "duplicate_and_prior_answer_report",
+                  "review_and_issue_control",
+                  "response_closure_tracker"
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

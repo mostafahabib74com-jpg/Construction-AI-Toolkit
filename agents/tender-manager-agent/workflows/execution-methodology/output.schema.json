@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/agents/tender-manager-agent/workflows/execution-methodology/output.schema.json",
+  "title": "Execution Methodology Output",
+  "allOf": [
+    {
+      "$ref": "../../schemas/workflow.schema.json#/$defs/outputEnvelope"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "workflow_id": {
+          "const": "execution-methodology"
+        },
+        "workflow_version": {
+          "const": "0.1.0"
+        },
+        "deliverables": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "enum": [
+                  "execution_strategy",
+                  "work_package_method_matrix",
+                  "logistics_and_interface_narrative",
+                  "schedule_resource_method_reconciliation",
+                  "constructability_risk_register",
+                  "methodology_review_tracker"
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

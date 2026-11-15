@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/agents/tender-manager-agent/workflows/execution-methodology/input.schema.json",
+  "title": "Execution Methodology Input",
+  "allOf": [
+    {
+      "$ref": "../../schemas/workflow.schema.json#/$defs/inputEnvelope"
+    },
+    {
+      "type": "object",
+      "required": [
+        "workflow_inputs"
+      ],
+      "properties": {
+        "workflow_inputs": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "controlled_scope_and_design_sources",
+            "construction_strategy",
+            "preliminary_schedule_and_milestones",
+            "discipline_contributions",
+            "site_and_logistics_constraints"
+          ],
+          "properties": {
+            "controlled_scope_and_design_sources": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: controlled scope and design sources"
+            },
+            "construction_strategy": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: construction strategy"
+            },
+            "preliminary_schedule_and_milestones": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: preliminary schedule and milestones"
+            },
+            "discipline_contributions": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: discipline contributions"
+            },
+            "site_and_logistics_constraints": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: site and logistics constraints"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

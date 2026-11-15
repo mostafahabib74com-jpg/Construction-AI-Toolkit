@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/agents/planning-p6-agent/workflows/resource-loading/input.schema.json",
+  "title": "Resource Loading Input",
+  "allOf": [
+    {
+      "$ref": "../../schemas/workflow.schema.json#/$defs/inputEnvelope"
+    },
+    {
+      "type": "object",
+      "required": [
+        "workflow_inputs"
+      ],
+      "properties": {
+        "workflow_inputs": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "baseline_schedule",
+            "resource_dictionary",
+            "productivity_basis",
+            "availability_limits"
+          ],
+          "properties": {
+            "baseline_schedule": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: baseline schedule"
+            },
+            "resource_dictionary": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: resource dictionary"
+            },
+            "productivity_basis": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: productivity basis"
+            },
+            "availability_limits": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: availability limits"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

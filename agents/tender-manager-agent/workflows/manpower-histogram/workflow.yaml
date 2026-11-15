@@ -1,0 +1,55 @@
+schema_version: "1.0"
+workflow:
+  id: manpower-histogram
+  title: "Manpower Histogram"
+  version: 0.1.0
+  status: specification
+  objective: "Generate traceable periodized manpower data and a histogram specification from approved resource assignments or a controlled staffing plan."
+  prompt: ../../prompts/manpower-histogram/prompt.md
+  prerequisites:
+    - "project-schedule"
+    - "organization-chart"
+    - "equipment-schedule"
+  required_inputs:
+    - "approved_schedule_and_resource_assignments"
+    - "productivity_crew_shift_and_calendar_basis"
+    - "organization_and_operator_requirements"
+    - "labor_constraints"
+  deliverables:
+    - "periodized_manpower_data"
+    - "histogram_rendering_specification"
+    - "trade_role_and_location_summaries"
+    - "peak_and_mobilization_analysis"
+    - "resource_reconciliation"
+    - "assumption_and_exception_report"
+  required_reviewers:
+    - "Tender Manager"
+    - "Planning Manager"
+    - "Construction Manager"
+    - "Estimation or Commercial Manager"
+    - "HSE Manager"
+  required_tool_categories:
+    - "resource_engine"
+    - "calendar_engine"
+    - "histogram_renderer"
+    - "resource_reconciliation"
+  completion_gates:
+    - source_traceability_complete
+    - latest_addendum_reconciled
+    - requirements_and_artifacts_versioned
+    - deterministic_checks_complete
+    - output_schema_valid
+    - professional_review_recorded
+  blocking_conditions:
+    - "missing_resource_calculation_trace"
+    - "unapproved_schedule_version"
+    - "headcount_labor_hour_conversion_gap"
+    - "unreconciled_resource_peak"
+  authority:
+    may_draft: true
+    may_assemble_approved_artifacts: true
+    may_approve: false
+    may_issue_correspondence: false
+    may_commit_price: false
+    may_authorize_submission: false
+    may_upload: false

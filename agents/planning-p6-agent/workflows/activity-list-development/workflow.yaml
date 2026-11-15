@@ -1,0 +1,46 @@
+schema_version: "1.0"
+workflow:
+  id: activity-list-development
+  title: "Activity List Development"
+  version: 0.1.0
+  status: specification
+  objective: "Develop a measurable, logic-ready activity and milestone register covering the approved WBS and execution scope."
+  prompt: ../../prompts/activity-list-development/prompt.md
+  prerequisites:
+    - "wbs-development"
+  required_inputs:
+    - "approved_wbs"
+    - "scope_and_deliverables"
+    - "milestone_register"
+    - "productivity_or_duration_basis"
+  deliverables:
+    - "activity_register"
+    - "activity_dictionary"
+    - "milestone_register"
+    - "activity_source_traceability"
+    - "schedule_assumption_register"
+  required_reviewers:
+    - "Planning Manager"
+    - "Project Controls Manager"
+    - "Construction Manager"
+  required_tool_categories:
+    - "document_parser"
+    - "duration_engine"
+    - "schedule_validator"
+  completion_gates:
+    - source_traceability_complete
+    - schedule_version_and_data_date_recorded
+    - deterministic_calculations_valid
+    - data_quality_checks_complete
+    - output_schema_valid
+    - professional_review_recorded
+  blocking_conditions:
+    - "unapproved_wbs"
+    - "missing_duration_basis"
+    - "untraceable_scope"
+  authority:
+    may_draft: true
+    may_calculate_with_validated_tools: true
+    may_approve: false
+    may_modify_source_schedule: false
+    may_publish_to_p6: false

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/contracts/v1/application/schedule-wbs-node.schema.json",
+  "title": "Scheduling MVP WBS Node",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["wbs_id", "schedule_id", "code", "name", "parent_wbs_id", "sort_order", "notes", "created_at", "updated_at"],
+  "properties": {
+    "wbs_id": {"type": "string", "minLength": 1},
+    "schedule_id": {"type": "string", "minLength": 1},
+    "code": {"type": "string", "minLength": 1, "maxLength": 80},
+    "name": {"type": "string", "minLength": 1, "maxLength": 240},
+    "parent_wbs_id": {"type": ["string", "null"]},
+    "sort_order": {"type": "integer", "minimum": 0},
+    "notes": {"type": ["string", "null"]},
+    "created_at": {"type": "string", "format": "date-time"},
+    "updated_at": {"type": "string", "format": "date-time"}
+  }
+}

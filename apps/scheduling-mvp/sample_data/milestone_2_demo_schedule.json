@@ -1,0 +1,91 @@
+{
+  "demonstration_data": true,
+  "notice": "Synthetic Milestone 2 scheduling data only; not for construction, tender, or contractual use.",
+  "wbs": [
+    {"code": "1", "name": "DEMO Project", "parent_code": null, "sort_order": 0},
+    {"code": "1.1", "name": "DEMO Construction", "parent_code": "1", "sort_order": 1}
+  ],
+  "calendar": {
+    "code": "DEMO-6D-8H",
+    "name": "DEMO six-day calendar",
+    "time_zone": "Asia/Riyadh",
+    "working_weekdays": ["saturday", "sunday", "monday", "tuesday", "wednesday", "thursday"],
+    "workday_start_time": "07:00",
+    "working_hours_per_day": "8",
+    "breaks": [{"start_time": "12:00", "end_time": "13:00"}],
+    "exceptions": [{"date": "2026-09-23", "working": false, "reason": "DEMO non-working exception"}]
+  },
+  "activities": [
+    {
+      "activity_id": "DEMO-A1000",
+      "activity_name": "DEMO Project start",
+      "activity_type": "start_milestone",
+      "wbs_code": "1.1",
+      "quantity": null,
+      "unit": null,
+      "normalized_unit": null,
+      "productivity_rate": null,
+      "productivity_basis": null,
+      "crew_count": null,
+      "sort_order": 0
+    },
+    {
+      "activity_id": "DEMO-A1010",
+      "activity_name": "DEMO Excavation",
+      "activity_type": "task_dependent",
+      "wbs_code": "1.1",
+      "quantity": "1200",
+      "unit": "m3",
+      "normalized_unit": "m3",
+      "productivity_rate": "100",
+      "productivity_basis": "per_day",
+      "crew_count": 2,
+      "sort_order": 1
+    },
+    {
+      "activity_id": "DEMO-A1020",
+      "activity_name": "DEMO Reinforced concrete",
+      "activity_type": "task_dependent",
+      "wbs_code": "1.1",
+      "quantity": "450",
+      "unit": "m3",
+      "normalized_unit": "m3",
+      "productivity_rate": "30",
+      "productivity_basis": "per_day",
+      "crew_count": 2,
+      "sort_order": 2
+    },
+    {
+      "activity_id": "DEMO-A1030",
+      "activity_name": "DEMO Blockwork",
+      "activity_type": "task_dependent",
+      "wbs_code": "1.1",
+      "quantity": "3200",
+      "unit": "m2",
+      "normalized_unit": "m2",
+      "productivity_rate": "200",
+      "productivity_basis": "per_day",
+      "crew_count": 2,
+      "sort_order": 3
+    },
+    {
+      "activity_id": "DEMO-A1040",
+      "activity_name": "DEMO Project finish",
+      "activity_type": "finish_milestone",
+      "wbs_code": "1.1",
+      "quantity": null,
+      "unit": null,
+      "normalized_unit": null,
+      "productivity_rate": null,
+      "productivity_basis": null,
+      "crew_count": null,
+      "sort_order": 4
+    }
+  ],
+  "relationships": [
+    {"predecessor": "DEMO-A1000", "successor": "DEMO-A1010", "type": "FS", "lag_hours": "0"},
+    {"predecessor": "DEMO-A1010", "successor": "DEMO-A1020", "type": "FS", "lag_hours": "0"},
+    {"predecessor": "DEMO-A1020", "successor": "DEMO-A1030", "type": "FS", "lag_hours": "0"},
+    {"predecessor": "DEMO-A1030", "successor": "DEMO-A1040", "type": "FS", "lag_hours": "0"}
+  ]
+}

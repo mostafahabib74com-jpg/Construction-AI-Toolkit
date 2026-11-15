@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/agents/tender-manager-agent/workflows/commercial-proposal/output.schema.json",
+  "title": "Commercial Proposal Output",
+  "allOf": [
+    {
+      "$ref": "../../schemas/workflow.schema.json#/$defs/outputEnvelope"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "workflow_id": {
+          "const": "commercial-proposal"
+        },
+        "workflow_version": {
+          "const": "0.1.0"
+        },
+        "deliverables": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "enum": [
+                  "commercial_proposal_specification",
+                  "price_and_form_reconciliation",
+                  "commercial_schedule_and_portal_mapping",
+                  "commercial_qualification_schedule",
+                  "commercial_risk_and_approval_report",
+                  "commercial_rendering_specification"
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

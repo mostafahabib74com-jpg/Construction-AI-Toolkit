@@ -1,0 +1,33 @@
+schema_version: "1.0"
+agent_id: estimation-agent
+agent_version: 0.1.0
+workflow_order:
+  - rfp-analysis
+  - scope-extraction
+  - information-gap-analysis
+  - rfi-generation
+  - commercial-query-generation
+  - design-basis-report
+  - boq-development
+  - cbs-development
+  - excel-cost-model
+  - quotation-comparison
+  - pricing-risk-assessment
+  - technical-proposal
+  - commercial-proposal
+  - final-bid-package
+workflows:
+  rfp-analysis: {version: 0.1.0, status: specification, review_tier: 2}
+  scope-extraction: {version: 0.1.0, status: specification, review_tier: 2}
+  information-gap-analysis: {version: 0.1.0, status: specification, review_tier: 2}
+  rfi-generation: {version: 0.1.0, status: specification, review_tier: 3}
+  commercial-query-generation: {version: 0.1.0, status: specification, review_tier: 3}
+  design-basis-report: {version: 0.1.0, status: specification, review_tier: 3}
+  boq-development: {version: 0.1.0, status: specification, review_tier: 2}
+  cbs-development: {version: 0.1.0, status: specification, review_tier: 2}
+  excel-cost-model: {version: 0.1.0, status: specification, review_tier: 2}
+  quotation-comparison: {version: 0.1.0, status: specification, review_tier: 2}
+  pricing-risk-assessment: {version: 0.1.0, status: specification, review_tier: 2}
+  technical-proposal: {version: 0.1.0, status: specification, review_tier: 3}
+  commercial-proposal: {version: 0.1.0, status: specification, review_tier: 3}
+  final-bid-package: {version: 0.1.0, status: specification, review_tier: 3}

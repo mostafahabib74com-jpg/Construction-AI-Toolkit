@@ -1,0 +1,49 @@
+schema_version: "1.0"
+workflow:
+  id: progress-update
+  title: "Progress Update"
+  version: 0.1.0
+  status: specification
+  objective: "Produce an auditable schedule update from verified actuals, remaining durations, status logic, and a fixed data date."
+  prompt: ../../prompts/progress-update/prompt.md
+  prerequisites:
+    - "baseline-schedule-generation"
+  required_inputs:
+    - "approved_baseline_or_current_schedule"
+    - "status_data_date"
+    - "field_status_records"
+    - "actuals_and_remaining_data"
+  deliverables:
+    - "updated_schedule_model"
+    - "progress_register"
+    - "variance_report"
+    - "forecast_milestones"
+    - "schedule_quality_report"
+    - "schedule_change_log"
+  required_reviewers:
+    - "Planning Manager"
+    - "Project Controls Manager"
+    - "Construction Manager"
+  required_tool_categories:
+    - "progress_validator"
+    - "cpm_engine"
+    - "schedule_validator"
+    - "p6_adapter"
+  completion_gates:
+    - source_traceability_complete
+    - schedule_version_and_data_date_recorded
+    - deterministic_calculations_valid
+    - data_quality_checks_complete
+    - output_schema_valid
+    - professional_review_recorded
+  blocking_conditions:
+    - "missing_data_date"
+    - "conflicting_actuals"
+    - "unresolved_out_of_sequence_progress"
+    - "unvalidated_update"
+  authority:
+    may_draft: true
+    may_calculate_with_validated_tools: true
+    may_approve: false
+    may_modify_source_schedule: false
+    may_publish_to_p6: false

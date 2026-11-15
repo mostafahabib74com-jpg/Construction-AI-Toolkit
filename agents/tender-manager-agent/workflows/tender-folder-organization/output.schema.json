@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/agents/tender-manager-agent/workflows/tender-folder-organization/output.schema.json",
+  "title": "Tender Folder Organization Output",
+  "allOf": [
+    {
+      "$ref": "../../schemas/workflow.schema.json#/$defs/outputEnvelope"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "workflow_id": {
+          "const": "tender-folder-organization"
+        },
+        "workflow_version": {
+          "const": "0.1.0"
+        },
+        "deliverables": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "enum": [
+                  "folder_tree_specification",
+                  "filing_manifest",
+                  "naming_convention",
+                  "access_control_matrix",
+                  "migration_plan",
+                  "archive_plan"
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

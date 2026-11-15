@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/contracts/v1/core/project.schema.json",
+  "title": "Project Information",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["project_id", "name", "location", "currency", "unit_system", "time_zone"],
+  "properties": {
+    "project_id": {"type": "string", "minLength": 1},
+    "name": {"type": "string", "minLength": 1},
+    "location": {"type": "string", "minLength": 1},
+    "currency": {"type": "string", "pattern": "^[A-Z]{3}$"},
+    "unit_system": {"enum": ["SI", "imperial", "mixed"]},
+    "time_zone": {"type": "string", "minLength": 1},
+    "language": {"type": "string", "pattern": "^[a-z]{2}(-[A-Z]{2})?$"},
+    "client": {"type": ["string", "null"]},
+    "tender_id": {"type": ["string", "null"]}
+  }
+}

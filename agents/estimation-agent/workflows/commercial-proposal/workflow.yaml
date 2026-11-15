@@ -1,0 +1,54 @@
+schema_version: "1.0"
+workflow:
+  id: commercial-proposal
+  title: "Commercial Proposal"
+  version: 0.1.0
+  status: specification
+  objective: "Prepare and reconcile the complete commercial submission from the approved bid price."
+  prompt: ../../prompts/commercial-proposal/prompt.md
+  prerequisites:
+    - "excel-cost-model"
+    - "pricing-risk-assessment"
+  required_inputs:
+    - "approved_estimate"
+    - "approved_workbook"
+    - "client_pricing_forms"
+    - "approved_commercial_basis"
+    - "approved_bid_adjustments"
+  deliverables:
+    - "commercial_offer_letter"
+    - "completed_pricing_schedules"
+    - "bid_price_summary"
+    - "commercial_registers"
+    - "options_and_dayworks"
+    - "commercial_basis_statement"
+    - "reconciliation_report"
+    - "approval_route"
+  required_reviewers:
+    - "Estimation Manager"
+    - "Commercial Manager"
+    - "Finance or Tax Specialist"
+    - "Executive Bid Sponsor"
+  required_tool_categories:
+    - "spreadsheet_generator"
+    - "document_generator"
+    - "reconciliation_engine"
+    - "form_validator"
+  completion_gates:
+    - source_traceability_complete
+    - deterministic_calculations_valid
+    - assumptions_and_exclusions_visible
+    - output_schema_valid
+    - reconciliation_complete
+    - professional_review_recorded
+  blocking_conditions:
+    - "unapproved_final_bid_value"
+    - "price_reconciliation_failure"
+    - "ambiguous_tax_or_currency_basis"
+    - "missing_commercial_approval"
+  authority:
+    may_draft: true
+    may_calculate_with_validated_tools: true
+    may_approve: false
+    may_issue_externally: false
+    may_submit_bid: false

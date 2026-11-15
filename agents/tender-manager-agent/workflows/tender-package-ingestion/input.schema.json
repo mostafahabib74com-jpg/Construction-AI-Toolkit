@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/agents/tender-manager-agent/workflows/tender-package-ingestion/input.schema.json",
+  "title": "Tender Package Ingestion Input",
+  "allOf": [
+    {
+      "$ref": "../../schemas/workflow.schema.json#/$defs/inputEnvelope"
+    },
+    {
+      "type": "object",
+      "required": [
+        "workflow_inputs"
+      ],
+      "properties": {
+        "workflow_inputs": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "source_package",
+            "client_indexes_and_transmittals",
+            "submission_rules",
+            "communication_rules"
+          ],
+          "properties": {
+            "source_package": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: source package"
+            },
+            "client_indexes_and_transmittals": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: client indexes and transmittals"
+            },
+            "submission_rules": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: submission rules"
+            },
+            "communication_rules": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: communication rules"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

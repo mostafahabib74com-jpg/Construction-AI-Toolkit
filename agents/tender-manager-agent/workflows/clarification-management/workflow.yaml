@@ -1,0 +1,51 @@
+schema_version: "1.0"
+workflow:
+  id: clarification-management
+  title: "Clarification Management"
+  version: 0.1.0
+  status: specification
+  objective: "Control tender ambiguities, conflicts, questions, client responses, interpretations, and downstream impacts."
+  prompt: ../../prompts/clarification-management/prompt.md
+  prerequisites:
+    - "compliance-matrix"
+  required_inputs:
+    - "approved_compliance_matrix"
+    - "gap_and_conflict_registers"
+    - "query_and_communication_rules"
+    - "existing_clarifications"
+  deliverables:
+    - "clarification_register"
+    - "draft_clarification_questions"
+    - "response_impact_log"
+    - "outstanding_query_dashboard"
+    - "artifact_revision_actions"
+  required_reviewers:
+    - "Tender Manager"
+    - "Technical Manager"
+    - "Commercial Manager"
+    - "Contracts Manager"
+  required_tool_categories:
+    - "document_comparison"
+    - "duplicate_query_detector"
+    - "impact_mapping_engine"
+    - "correspondence_template_validator"
+  completion_gates:
+    - source_traceability_complete
+    - latest_addendum_reconciled
+    - requirements_and_artifacts_versioned
+    - deterministic_checks_complete
+    - output_schema_valid
+    - professional_review_recorded
+  blocking_conditions:
+    - "missing_query_deadline"
+    - "unauthorized_communication_route"
+    - "unresolved_material_conflict"
+    - "unassessed_client_response"
+  authority:
+    may_draft: true
+    may_assemble_approved_artifacts: true
+    may_approve: false
+    may_issue_correspondence: false
+    may_commit_price: false
+    may_authorize_submission: false
+    may_upload: false

@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/agents/planning-p6-agent/workflows/cost-loading/output.schema.json",
+  "title": "Cost Loading Output",
+  "allOf": [
+    {
+      "$ref": "../../schemas/workflow.schema.json#/$defs/outputEnvelope"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "workflow_id": {
+          "const": "cost-loading"
+        },
+        "workflow_version": {
+          "const": "0.1.0"
+        },
+        "deliverables": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "enum": [
+                  "cost_assignment_register",
+                  "cost_loaded_schedule",
+                  "wbs_cost_reconciliation",
+                  "cost_curve_input",
+                  "cost_loading_exception_report"
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

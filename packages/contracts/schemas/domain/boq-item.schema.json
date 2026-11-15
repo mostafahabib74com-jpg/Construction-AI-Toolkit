@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/contracts/v1/domain/boq-item.schema.json",
+  "title": "BOQ Item",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["boq_item_id", "description", "quantity", "status"],
+  "properties": {
+    "boq_item_id": {"type": "string", "minLength": 1},
+    "wbs_id": {"type": ["string", "null"]},
+    "cbs_code": {"type": ["string", "null"]},
+    "description": {"type": "string", "minLength": 1},
+    "quantity": {"$ref": "https://construction-ai-toolkit.dev/contracts/v1/core/quantity.schema.json"},
+    "rate_id": {"type": ["string", "null"]},
+    "total": {"anyOf": [{"$ref": "https://construction-ai-toolkit.dev/contracts/v1/core/money.schema.json"}, {"type": "null"}]},
+    "status": {"enum": ["draft", "unpriced", "priced", "validated", "approved", "blocked"]},
+    "evidence_ids": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true}
+  }
+}

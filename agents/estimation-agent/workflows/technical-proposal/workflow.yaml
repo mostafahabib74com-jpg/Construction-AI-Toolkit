@@ -1,0 +1,53 @@
+schema_version: "1.0"
+workflow:
+  id: technical-proposal
+  title: "Technical Proposal"
+  version: 0.1.0
+  status: specification
+  objective: "Prepare a compliant, project-specific technical proposal from approved evidence and strategies."
+  prompt: ../../prompts/technical-proposal/prompt.md
+  prerequisites:
+    - "rfp-analysis"
+    - "scope-extraction"
+    - "information-gap-analysis"
+  required_inputs:
+    - "approved_requirement_matrix"
+    - "approved_technical_strategies"
+    - "authorized_company_content"
+    - "approved_clarifications"
+    - "proposal_rules"
+  deliverables:
+    - "proposal_outline"
+    - "technical_proposal"
+    - "evidence_register"
+    - "content_requirements"
+    - "review_log"
+    - "format_validation"
+    - "readiness_report"
+  required_reviewers:
+    - "Tender Manager"
+    - "Technical Manager"
+    - "Estimation Manager"
+    - "Executive Bid Sponsor"
+  required_tool_categories:
+    - "document_generator"
+    - "compliance_validator"
+    - "format_validator"
+  completion_gates:
+    - source_traceability_complete
+    - deterministic_calculations_valid
+    - assumptions_and_exclusions_visible
+    - output_schema_valid
+    - reconciliation_complete
+    - professional_review_recorded
+  blocking_conditions:
+    - "unverified_company_claim"
+    - "missing_mandatory_requirement"
+    - "technical_commercial_inconsistency"
+    - "missing_technical_approval"
+  authority:
+    may_draft: true
+    may_calculate_with_validated_tools: true
+    may_approve: false
+    may_issue_externally: false
+    may_submit_bid: false

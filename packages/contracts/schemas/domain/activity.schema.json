@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/contracts/v1/domain/activity.schema.json",
+  "title": "Schedule Activity",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["activity_id", "wbs_id", "name", "activity_type", "duration_hours", "calendar_id", "status"],
+  "properties": {
+    "activity_id": {"type": "string", "minLength": 1},
+    "wbs_id": {"type": "string", "minLength": 1},
+    "name": {"type": "string", "minLength": 1},
+    "activity_type": {"enum": ["task_dependent", "resource_dependent", "start_milestone", "finish_milestone", "level_of_effort", "wbs_summary"]},
+    "duration_hours": {"type": "number", "minimum": 0},
+    "calendar_id": {"type": "string", "minLength": 1},
+    "status": {"enum": ["not_started", "in_progress", "complete", "blocked"]},
+    "planned_start": {"type": ["string", "null"], "format": "date-time"},
+    "planned_finish": {"type": ["string", "null"], "format": "date-time"},
+    "relationships": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["predecessor_activity_id", "type", "lag_hours"],
+        "properties": {
+          "predecessor_activity_id": {"type": "string", "minLength": 1},
+          "type": {"enum": ["FS", "SS", "FF", "SF"]},
+          "lag_hours": {"type": "number"}
+        }
+      }
+    },
+    "evidence_ids": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true}
+  }
+}

@@ -1,0 +1,44 @@
+schema_version: "1.0"
+workflow:
+  id: commercial-query-generation
+  title: "Commercial Query Generation"
+  version: 0.1.0
+  status: specification
+  objective: "Generate controlled commercial clarifications and proposed bid treatments."
+  prompt: ../../prompts/commercial-query-generation/prompt.md
+  prerequisites:
+    - "information-gap-analysis"
+  required_inputs:
+    - "approved_gap_register"
+    - "contract_requirements"
+    - "pricing_documents"
+    - "commercial_review_comments"
+  deliverables:
+    - "commercial_query_register"
+    - "commercial_impact_register"
+    - "proposed_bid_treatments"
+    - "decision_log"
+    - "response_tracker"
+  required_reviewers:
+    - "Estimation Manager"
+    - "Commercial Manager"
+    - "Contracts Manager"
+  required_tool_categories:
+    - "document_parser"
+    - "document_generator"
+    - "deadline_calculator"
+  completion_gates:
+    - source_traceability_complete
+    - missing_information_visible
+    - assumptions_and_exclusions_visible
+    - output_schema_valid
+    - professional_review_recorded
+  blocking_conditions:
+    - "missing_contract_basis"
+    - "missing_source_reference"
+    - "unapproved_legal_or_tax_position"
+  authority:
+    may_draft: true
+    may_calculate_with_validated_tools: true
+    may_approve: false
+    may_issue_externally: false

@@ -1,0 +1,67 @@
+schema_version: "1.0"
+workflow:
+  id: submission-package
+  title: "Submission Package"
+  version: 0.1.0
+  status: specification
+  objective: "Assemble and preflight an immutable release candidate and report readiness for authorized human submission."
+  prompt: ../../prompts/submission-package/prompt.md
+  prerequisites:
+    - "tender-folder-organization"
+    - "compliance-matrix"
+    - "clarification-management"
+    - "rfi-generation"
+    - "assumptions-register"
+    - "exclusions-register"
+    - "technical-proposal"
+    - "commercial-proposal"
+  required_inputs:
+    - "latest_tender_sources_and_submission_rules"
+    - "approved_submission_artifacts"
+    - "approved_registers_decisions_and_waivers"
+    - "file_envelope_signature_and_security_rules"
+  deliverables:
+    - "submission_package_manifest"
+    - "requirement_to_file_final_matrix"
+    - "technical_commercial_reconciliation"
+    - "preflight_and_security_report"
+    - "signature_form_and_approval_checklist"
+    - "deadline_and_upload_plan"
+    - "submission_readiness_decision"
+    - "receipt_and_archive_template"
+  required_reviewers:
+    - "Tender Manager"
+    - "Commercial Manager"
+    - "Technical Manager"
+    - "Executive Bid Sponsor"
+  required_tool_categories:
+    - "manifest_builder"
+    - "file_preflight"
+    - "pdf_validator"
+    - "spreadsheet_validator"
+    - "malware_scanner"
+    - "checksum_service"
+    - "package_validator"
+  completion_gates:
+    - source_traceability_complete
+    - latest_addendum_reconciled
+    - requirements_and_artifacts_versioned
+    - deterministic_checks_complete
+    - output_schema_valid
+    - professional_review_recorded
+  blocking_conditions:
+    - "mandatory_deliverable_missing"
+    - "stale_or_unapproved_artifact"
+    - "signature_or_form_gap"
+    - "commercial_reconciliation_failure"
+    - "preflight_or_security_failure"
+    - "submission_deadline_at_risk"
+    - "missing_release_authorization"
+  authority:
+    may_draft: true
+    may_assemble_approved_artifacts: true
+    may_approve: false
+    may_issue_correspondence: false
+    may_commit_price: false
+    may_authorize_submission: false
+    may_upload: false

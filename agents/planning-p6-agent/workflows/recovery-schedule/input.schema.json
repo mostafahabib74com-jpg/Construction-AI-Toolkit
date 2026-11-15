@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/agents/planning-p6-agent/workflows/recovery-schedule/input.schema.json",
+  "title": "Recovery Schedule Input",
+  "allOf": [
+    {
+      "$ref": "../../schemas/workflow.schema.json#/$defs/inputEnvelope"
+    },
+    {
+      "type": "object",
+      "required": [
+        "workflow_inputs"
+      ],
+      "properties": {
+        "workflow_inputs": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "current_schedule_update",
+            "recovery_target",
+            "remaining_scope",
+            "resource_constraints"
+          ],
+          "properties": {
+            "current_schedule_update": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: current schedule update"
+            },
+            "recovery_target": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: recovery target"
+            },
+            "remaining_scope": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: remaining scope"
+            },
+            "resource_constraints": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: resource constraints"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

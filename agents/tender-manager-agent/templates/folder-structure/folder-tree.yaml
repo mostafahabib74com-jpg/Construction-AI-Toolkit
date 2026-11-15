@@ -1,0 +1,53 @@
+schema_version: "1.0"
+template:
+  id: controlled-tender-folder-tree
+  version: 0.1.0
+  status: specification
+  roots:
+    - code: "00_Control"
+      purpose: "Tender brief, governance, registers, plans, decisions, deadlines, and indexes"
+      access: tender_core_team
+    - code: "01_Client_Tender"
+      purpose: "Immutable original package, current controlled copy, superseded copy, and client reference data"
+      access: tender_team_read
+      subfolders: ["00_Original_Read_Only", "01_Current_Controlled", "02_Superseded", "03_Reference_Only"]
+    - code: "02_Addenda_Clarifications"
+      purpose: "Addenda, client bulletins, issued RFIs, responses, and impact records"
+      access: tender_team
+      subfolders: ["01_Addenda", "02_Draft_Queries", "03_Issued_RFIs", "04_Client_Responses", "05_Impact_Assessments"]
+    - code: "03_Technical_Working"
+      purpose: "Draft discipline contributions and technical proposal working files"
+      access: technical_contributors
+      subfolders: ["01_Methodology", "02_Organization", "03_Equipment", "04_Manpower", "05_Schedule", "06_Procurement", "07_BIM", "08_QAQC", "09_HSE", "10_Sustainability", "11_Testing_Commissioning", "12_Technical_Proposal"]
+    - code: "04_Commercial_Restricted"
+      purpose: "Estimate, price schedules, commercial forms, terms, tax, finance, and commercial proposal"
+      access: commercial_restricted
+      subfolders: ["01_Estimate_Approved", "02_BOQ_Price_Schedules", "03_Commercial_Forms", "04_Terms_Risks", "05_Tax_Finance", "06_Commercial_Proposal"]
+    - code: "05_Company_Evidence"
+      purpose: "Approved credentials, experience, certifications, personnel, CVs, and plant evidence"
+      access: tender_team_controlled
+      subfolders: ["01_Company_Profile", "02_Project_References", "03_Certifications", "04_Personnel_CVs", "05_Equipment_Evidence"]
+    - code: "06_Forms"
+      purpose: "Client forms, declarations, bonds, securities, signature, and power-of-attorney controls"
+      access: tender_core_team
+    - code: "07_Reviews_Approvals"
+      purpose: "Review packs, comments, dispositions, approvals, and executive authorization"
+      access: reviewers
+      subfolders: ["01_Reviews", "02_Comment_Disposition", "03_Approvals", "04_Authorized_Waivers"]
+    - code: "08_Submission_Staging"
+      purpose: "Controlled assembly area; not an authorized submission package"
+      access: tender_core_team
+    - code: "09_Release_Candidate"
+      purpose: "Immutable approved technical/commercial envelopes and manifest"
+      access: authorized_submitters_read
+    - code: "10_Submission_Receipt_Archive"
+      purpose: "Submission evidence, client/portal receipt, final manifest, and controlled archive"
+      access: tender_management_and_records
+  controls:
+    preserve_original_names: true
+    checksum_originals: true
+    separate_working_reviewed_approved: true
+    commercial_compartmentalization: true
+    personal_data_minimization: true
+    release_candidate_immutable: true
+    receipt_required_for_submitted_status: true

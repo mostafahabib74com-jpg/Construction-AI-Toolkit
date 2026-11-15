@@ -1,0 +1,18 @@
+schema_version: "1.0"
+profiles:
+  - {id: tender-governance, version: 0.1.0, owner_role: Tender Manager, status: draft}
+  - {id: tender-document-taxonomy, version: 0.1.0, owner_role: Document Control Manager, status: draft}
+  - {id: compliance-and-queries, version: 0.1.0, owner_role: Tender Manager, status: draft}
+  - {id: proposal-management, version: 0.1.0, owner_role: Proposal Manager, status: draft}
+  - {id: construction-methodology, version: 0.1.0, owner_role: Construction Manager, status: draft}
+  - {id: organization-resourcing, version: 0.1.0, owner_role: Project Director, status: draft}
+  - {id: equipment-and-manpower, version: 0.1.0, owner_role: Planning Manager, status: draft}
+  - {id: commercial-submission, version: 0.1.0, owner_role: Commercial Manager, status: draft}
+  - {id: submission-control, version: 0.1.0, owner_role: Tender Manager, status: draft}
+requirements:
+  record_jurisdiction: true
+  record_procurement_route: true
+  record_contract_profile: true
+  record_client_profile: true
+  record_company_content_approval: true
+  licensed_material_must_be_referenced_not_reproduced: true

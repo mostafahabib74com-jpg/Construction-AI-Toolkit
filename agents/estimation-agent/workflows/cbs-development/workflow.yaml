@@ -1,0 +1,47 @@
+schema_version: "1.0"
+workflow:
+  id: cbs-development
+  title: "Cost Breakdown Structure Development"
+  version: 0.1.0
+  status: specification
+  objective: "Create a complete, scalable cost hierarchy and cross-system mapping."
+  prompt: ../../prompts/cbs-development/prompt.md
+  prerequisites:
+    - "boq-development"
+  required_inputs:
+    - "approved_boq"
+    - "scope_and_wbs"
+    - "company_cost_codes"
+    - "downstream_system_requirements"
+  deliverables:
+    - "cbs_hierarchy"
+    - "cbs_dictionary"
+    - "coding_rules"
+    - "boq_cbs_mapping"
+    - "wbs_cbs_crosswalk"
+    - "mapping_exception_report"
+    - "rollup_specification"
+  required_reviewers:
+    - "Estimation Manager"
+    - "Cost Control Manager"
+  required_tool_categories:
+    - "boq_mapper"
+    - "hierarchy_validator"
+    - "reconciliation_engine"
+  completion_gates:
+    - source_traceability_complete
+    - deterministic_calculations_valid
+    - assumptions_and_exclusions_visible
+    - output_schema_valid
+    - reconciliation_complete
+    - professional_review_recorded
+  blocking_conditions:
+    - "unapproved_boq"
+    - "ambiguous_cost_ownership"
+    - "unmapped_material_cost"
+  authority:
+    may_draft: true
+    may_calculate_with_validated_tools: true
+    may_approve: false
+    may_issue_externally: false
+    may_submit_bid: false

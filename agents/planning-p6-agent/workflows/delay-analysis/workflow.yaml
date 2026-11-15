@@ -1,0 +1,49 @@
+schema_version: "1.0"
+workflow:
+  id: delay-analysis
+  title: "Delay Analysis"
+  version: 0.1.0
+  status: specification
+  objective: "Analyze schedule delay using a declared method, controlled contemporaneous evidence, and a strict boundary between time effect and entitlement."
+  prompt: ../../prompts/delay-analysis/prompt.md
+  prerequisites:
+    - "progress-update"
+  required_inputs:
+    - "accepted_baseline"
+    - "schedule_updates"
+    - "delay_event_register"
+    - "contemporaneous_records"
+    - "contract_rules"
+  deliverables:
+    - "delay_event_chronology"
+    - "schedule_variance_analysis"
+    - "critical_path_analysis"
+    - "method_selection_report"
+    - "limitations_and_entitlement_boundary"
+  required_reviewers:
+    - "Planning Manager"
+    - "Project Controls Manager"
+    - "Contract or Claims Manager"
+  required_tool_categories:
+    - "cpm_engine"
+    - "schedule_comparison_engine"
+    - "delay_analysis_engine"
+    - "schedule_validator"
+  completion_gates:
+    - source_traceability_complete
+    - schedule_version_and_data_date_recorded
+    - deterministic_calculations_valid
+    - data_quality_checks_complete
+    - output_schema_valid
+    - professional_review_recorded
+  blocking_conditions:
+    - "missing_accepted_baseline"
+    - "missing_contemporaneous_records"
+    - "analysis_period_gap"
+    - "entitlement_instruction_requested"
+  authority:
+    may_draft: true
+    may_calculate_with_validated_tools: true
+    may_approve: false
+    may_modify_source_schedule: false
+    may_publish_to_p6: false

@@ -1,0 +1,172 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/agents/estimation-agent/workflows/design-basis-report/input.schema.json",
+  "title": "Design Basis Report Input",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "project",
+    "execution",
+    "documents",
+    "workflow_inputs"
+  ],
+  "properties": {
+    "project": {
+      "type": "object",
+      "required": [
+        "project_id",
+        "name",
+        "location",
+        "currency",
+        "unit_system"
+      ],
+      "properties": {
+        "project_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "location": {
+          "type": "string",
+          "minLength": 1
+        },
+        "currency": {
+          "type": "string",
+          "pattern": "^[A-Z]{3}$"
+        },
+        "unit_system": {
+          "enum": [
+            "SI",
+            "imperial",
+            "mixed"
+          ]
+        }
+      }
+    },
+    "execution": {
+      "type": "object",
+      "required": [
+        "workflow_version",
+        "document_revision_cutoff",
+        "requested_language"
+      ],
+      "properties": {
+        "workflow_version": {
+          "const": "0.1.0"
+        },
+        "document_revision_cutoff": {
+          "type": "string",
+          "minLength": 1
+        },
+        "requested_language": {
+          "type": "string",
+          "minLength": 2
+        },
+        "due_date": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        }
+      }
+    },
+    "documents": {
+      "type": "array",
+      "items": {
+        "$ref": "../../schemas/common.schema.json#/$defs/documentReference"
+      }
+    },
+    "workflow_inputs": {
+      "type": "object",
+      "required": [
+        "approved_scope_matrix",
+        "design_documents",
+        "standards_profiles",
+        "discipline_reviews"
+      ],
+      "properties": {
+        "approved_scope_matrix": {
+          "type": [
+            "object",
+            "array",
+            "string"
+          ],
+          "description": "Controlled input: approved scope matrix"
+        },
+        "design_documents": {
+          "type": [
+            "object",
+            "array",
+            "string"
+          ],
+          "description": "Controlled input: design documents"
+        },
+        "standards_profiles": {
+          "type": [
+            "object",
+            "array",
+            "string"
+          ],
+          "description": "Controlled input: standards profiles"
+        },
+        "discipline_reviews": {
+          "type": [
+            "object",
+            "array",
+            "string"
+          ],
+          "description": "Controlled input: discipline reviews"
+        }
+      }
+    },
+    "upstream_outputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "workflow_id",
+          "version",
+          "approval_status"
+        ],
+        "properties": {
+          "workflow_id": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "approval_status": {
+            "enum": [
+              "approved",
+              "conditionally_approved",
+              "draft"
+            ]
+          },
+          "artifact_reference": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "requested_formats": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "json",
+          "markdown",
+          "docx",
+          "xlsx",
+          "pdf"
+        ]
+      },
+      "minItems": 1
+    }
+  }
+}

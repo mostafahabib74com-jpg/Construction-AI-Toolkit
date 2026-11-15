@@ -1,0 +1,1 @@
+Tender_ID,Release_Candidate_ID,Check_ID,Check_Domain,Check_Name,Rule_or_Threshold,Manifest_Item_IDs,Tool_or_Review_Method,Result,Severity,Evidence,Required_Action,Owner_Role,Due_Date,Waiver_Allowed,Waiver_Reference,Reviewer,Checked_Date,Disposition,Notes

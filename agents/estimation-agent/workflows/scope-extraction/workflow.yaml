@@ -1,0 +1,42 @@
+schema_version: "1.0"
+workflow:
+  id: scope-extraction
+  title: "Scope Extraction"
+  version: 0.1.0
+  status: specification
+  objective: "Create a traceable multidimensional scope model for pricing and delivery."
+  prompt: ../../prompts/scope-extraction/prompt.md
+  prerequisites:
+    - "rfp-analysis"
+  required_inputs:
+    - "approved_rfp_analysis"
+    - "scope_documents"
+    - "project_taxonomies"
+  deliverables:
+    - "scope_hierarchy"
+    - "scope_matrix"
+    - "responsibility_matrix"
+    - "interface_matrix"
+    - "scope_mapping"
+    - "scope_risk_register"
+  required_reviewers:
+    - "Estimation Manager"
+    - "Technical Manager"
+  required_tool_categories:
+    - "document_parser"
+    - "scope_classifier"
+  completion_gates:
+    - source_traceability_complete
+    - missing_information_visible
+    - assumptions_and_exclusions_visible
+    - output_schema_valid
+    - professional_review_recorded
+  blocking_conditions:
+    - "unapproved_rfp_analysis"
+    - "undefined_scope_boundary"
+    - "unresolved_critical_conflict"
+  authority:
+    may_draft: true
+    may_calculate_with_validated_tools: true
+    may_approve: false
+    may_issue_externally: false

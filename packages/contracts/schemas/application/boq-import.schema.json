@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/contracts/v1/application/boq-import.schema.json",
+  "title": "BOQ Import Batch",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "import_id",
+    "project_id",
+    "source_file_name",
+    "source_type",
+    "source_sheet",
+    "imported_at",
+    "row_count",
+    "rows"
+  ],
+  "properties": {
+    "import_id": {"type": "string", "minLength": 1},
+    "project_id": {"type": "string", "minLength": 1},
+    "source_file_name": {"type": "string", "minLength": 1},
+    "source_type": {"enum": ["csv", "xlsx"]},
+    "source_sheet": {"type": ["string", "null"]},
+    "imported_at": {"type": "string", "format": "date-time"},
+    "row_count": {"type": "integer", "minimum": 0},
+    "rows": {
+      "type": "array",
+      "items": {"$ref": "https://construction-ai-toolkit.dev/contracts/v1/application/boq-import-row.schema.json"}
+    }
+  }
+}

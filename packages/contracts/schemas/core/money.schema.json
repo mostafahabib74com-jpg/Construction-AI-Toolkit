@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/contracts/v1/core/money.schema.json",
+  "title": "Money",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["amount", "currency", "base_date", "pricing_basis"],
+  "properties": {
+    "amount": {"type": "number"},
+    "currency": {"type": "string", "pattern": "^[A-Z]{3}$"},
+    "base_date": {"type": "string", "format": "date"},
+    "pricing_basis": {"type": "string", "minLength": 1}
+  }
+}

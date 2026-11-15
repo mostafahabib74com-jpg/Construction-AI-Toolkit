@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/contracts/v1/domain/wbs.schema.json",
+  "title": "WBS Node",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["wbs_id", "name", "level", "status"],
+  "properties": {
+    "wbs_id": {"type": "string", "minLength": 1},
+    "name": {"type": "string", "minLength": 1},
+    "parent_wbs_id": {"type": ["string", "null"]},
+    "level": {"type": "integer", "minimum": 0},
+    "description": {"type": ["string", "null"]},
+    "responsible_role": {"type": ["string", "null"]},
+    "status": {"enum": ["draft", "validated", "approved", "blocked"]},
+    "evidence_ids": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true}
+  }
+}

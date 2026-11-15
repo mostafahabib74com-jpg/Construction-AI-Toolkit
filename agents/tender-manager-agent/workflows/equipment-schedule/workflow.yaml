@@ -1,0 +1,54 @@
+schema_version: "1.0"
+workflow:
+  id: equipment-schedule
+  title: "Equipment Schedule"
+  version: 0.1.0
+  status: specification
+  objective: "Develop a capacity-checked equipment schedule aligned with methodology, work fronts, project schedule, and approved availability."
+  prompt: ../../prompts/equipment-schedule/prompt.md
+  prerequisites:
+    - "execution-methodology"
+    - "project-schedule"
+  required_inputs:
+    - "approved_methodology_and_schedule"
+    - "quantity_and_productivity_basis"
+    - "approved_equipment_records"
+    - "site_logistics_and_hse_rules"
+  deliverables:
+    - "detailed_equipment_schedule"
+    - "equipment_activity_matrix"
+    - "capacity_and_utilization_references"
+    - "mobilization_certification_maintenance_register"
+    - "availability_and_contingency_report"
+    - "technical_proposal_equipment_summary"
+  required_reviewers:
+    - "Tender Manager"
+    - "Construction Manager"
+    - "Plant or Equipment Manager"
+    - "Planning Manager"
+    - "HSE Manager"
+  required_tool_categories:
+    - "capacity_engine"
+    - "availability_validator"
+    - "schedule_cross_reference"
+    - "equipment_register_validator"
+  completion_gates:
+    - source_traceability_complete
+    - latest_addendum_reconciled
+    - requirements_and_artifacts_versioned
+    - deterministic_checks_complete
+    - output_schema_valid
+    - professional_review_recorded
+  blocking_conditions:
+    - "missing_capacity_basis"
+    - "unverified_equipment_availability"
+    - "equipment_schedule_conflict"
+    - "missing_critical_certification"
+  authority:
+    may_draft: true
+    may_assemble_approved_artifacts: true
+    may_approve: false
+    may_issue_correspondence: false
+    may_commit_price: false
+    may_authorize_submission: false
+    may_upload: false

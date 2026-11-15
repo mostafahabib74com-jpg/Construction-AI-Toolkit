@@ -1,0 +1,45 @@
+schema_version: "1.0"
+workflow:
+  id: shop-drawing-schedule
+  title: "Shop Drawing Schedule"
+  version: 0.1.0
+  status: specification
+  objective: "Create a discipline-based shop drawing production, coordination, review, resubmission, and release schedule linked to construction need dates."
+  prompt: ../../prompts/shop-drawing-schedule/prompt.md
+  prerequisites:
+    - "baseline-schedule-generation"
+  required_inputs:
+    - "baseline_schedule"
+    - "design_deliverable_register"
+    - "review_cycles"
+    - "construction_need_dates"
+  deliverables:
+    - "shop_drawing_schedule"
+    - "review_cycle_register"
+    - "p6_activity_mapping"
+    - "design_interface_risk_report"
+  required_reviewers:
+    - "Planning Manager"
+    - "Project Controls Manager"
+    - "Design Manager"
+  required_tool_categories:
+    - "lead_time_engine"
+    - "schedule_validator"
+    - "p6_adapter"
+  completion_gates:
+    - source_traceability_complete
+    - schedule_version_and_data_date_recorded
+    - deterministic_calculations_valid
+    - data_quality_checks_complete
+    - output_schema_valid
+    - professional_review_recorded
+  blocking_conditions:
+    - "missing_construction_need_dates"
+    - "undefined_review_cycles"
+    - "unresolved_design_interfaces"
+  authority:
+    may_draft: true
+    may_calculate_with_validated_tools: true
+    may_approve: false
+    may_modify_source_schedule: false
+    may_publish_to_p6: false

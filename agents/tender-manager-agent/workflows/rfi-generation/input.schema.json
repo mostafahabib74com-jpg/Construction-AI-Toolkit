@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/agents/tender-manager-agent/workflows/rfi-generation/input.schema.json",
+  "title": "Tender RFI Generation Input",
+  "allOf": [
+    {
+      "$ref": "../../schemas/workflow.schema.json#/$defs/inputEnvelope"
+    },
+    {
+      "type": "object",
+      "required": [
+        "workflow_inputs"
+      ],
+      "properties": {
+        "workflow_inputs": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "approved_clarification_candidates",
+            "source_citations",
+            "client_rfi_form_and_rules",
+            "reviewer_assignments"
+          ],
+          "properties": {
+            "approved_clarification_candidates": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: approved clarification candidates"
+            },
+            "source_citations": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: source citations"
+            },
+            "client_rfi_form_and_rules": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: client rfi form and rules"
+            },
+            "reviewer_assignments": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: reviewer assignments"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

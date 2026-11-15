@@ -1,0 +1,50 @@
+schema_version: "1.0"
+workflow:
+  id: rfi-generation
+  title: "Tender RFI Generation"
+  version: 0.1.0
+  status: specification
+  objective: "Draft concise, traceable, non-duplicative, and commercially safe tender RFIs for authorized review and issue."
+  prompt: ../../prompts/rfi-generation/prompt.md
+  prerequisites:
+    - "clarification-management"
+  required_inputs:
+    - "approved_clarification_candidates"
+    - "source_citations"
+    - "client_rfi_form_and_rules"
+    - "reviewer_assignments"
+  deliverables:
+    - "rfi_register"
+    - "client_form_rfi_drafts"
+    - "duplicate_and_prior_answer_report"
+    - "review_and_issue_control"
+    - "response_closure_tracker"
+  required_reviewers:
+    - "Tender Manager"
+    - "Responsible Discipline Lead"
+    - "Commercial or Contracts Manager"
+  required_tool_categories:
+    - "citation_validator"
+    - "duplicate_query_detector"
+    - "form_validator"
+    - "correspondence_control"
+  completion_gates:
+    - source_traceability_complete
+    - latest_addendum_reconciled
+    - requirements_and_artifacts_versioned
+    - deterministic_checks_complete
+    - output_schema_valid
+    - professional_review_recorded
+  blocking_conditions:
+    - "question_already_answered"
+    - "missing_source_basis"
+    - "query_deadline_expired"
+    - "missing_issue_authority"
+  authority:
+    may_draft: true
+    may_assemble_approved_artifacts: true
+    may_approve: false
+    may_issue_correspondence: false
+    may_commit_price: false
+    may_authorize_submission: false
+    may_upload: false

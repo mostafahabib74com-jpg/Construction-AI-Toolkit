@@ -1,0 +1,44 @@
+schema_version: "1.0"
+workflow:
+  id: calendar-assignment
+  title: "Calendar Assignment"
+  version: 0.1.0
+  status: specification
+  objective: "Define auditable P6 calendars and assign each activity to the calendar that represents its governing work pattern."
+  prompt: ../../prompts/calendar-assignment/prompt.md
+  prerequisites:
+    - "activity-list-development"
+  required_inputs:
+    - "activity_register"
+    - "workweek_rules"
+    - "holiday_register"
+    - "shift_and_exception_rules"
+  deliverables:
+    - "calendar_register"
+    - "calendar_assignment_matrix"
+    - "calendar_exception_register"
+    - "calendar_narrative"
+  required_reviewers:
+    - "Planning Manager"
+    - "Project Controls Manager"
+    - "Construction Manager"
+  required_tool_categories:
+    - "calendar_engine"
+    - "schedule_validator"
+  completion_gates:
+    - source_traceability_complete
+    - schedule_version_and_data_date_recorded
+    - deterministic_calculations_valid
+    - data_quality_checks_complete
+    - output_schema_valid
+    - professional_review_recorded
+  blocking_conditions:
+    - "missing_project_timezone"
+    - "undefined_workweek"
+    - "unapproved_calendar_exceptions"
+  authority:
+    may_draft: true
+    may_calculate_with_validated_tools: true
+    may_approve: false
+    may_modify_source_schedule: false
+    may_publish_to_p6: false

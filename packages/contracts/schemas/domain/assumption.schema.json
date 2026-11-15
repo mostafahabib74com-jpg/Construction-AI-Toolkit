@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/contracts/v1/domain/assumption.schema.json",
+  "title": "Assumption",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["assumption_id", "statement", "basis", "status"],
+  "properties": {
+    "assumption_id": {"type": "string", "minLength": 1},
+    "statement": {"type": "string", "minLength": 1},
+    "basis": {"type": "string", "minLength": 1},
+    "status": {"enum": ["draft", "proposed", "accepted", "rejected", "superseded"]},
+    "owner": {"type": ["string", "null"]},
+    "impact": {"type": ["string", "null"]},
+    "evidence_ids": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true}
+  }
+}

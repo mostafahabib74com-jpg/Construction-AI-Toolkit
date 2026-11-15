@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/agents/planning-p6-agent/workflows/time-impact-analysis/input.schema.json",
+  "title": "Time Impact Analysis Input",
+  "allOf": [
+    {
+      "$ref": "../../schemas/workflow.schema.json#/$defs/inputEnvelope"
+    },
+    {
+      "type": "object",
+      "required": [
+        "workflow_inputs"
+      ],
+      "properties": {
+        "workflow_inputs": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "accepted_schedule_model",
+            "contemporaneous_update",
+            "delay_event_and_fragnet_basis",
+            "analysis_date",
+            "contract_rules"
+          ],
+          "properties": {
+            "accepted_schedule_model": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: accepted schedule model"
+            },
+            "contemporaneous_update": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: contemporaneous update"
+            },
+            "delay_event_and_fragnet_basis": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: delay event and fragnet basis"
+            },
+            "analysis_date": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: analysis date"
+            },
+            "contract_rules": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: contract rules"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

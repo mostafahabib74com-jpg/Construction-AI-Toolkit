@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/contracts/v1/core/workflow-result.schema.json",
+  "title": "Workflow Result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["run_id", "request_id", "qualified_workflow_id", "status", "summary", "artifacts", "issues", "blockers"],
+  "properties": {
+    "run_id": {"type": "string", "minLength": 1},
+    "request_id": {"type": "string", "minLength": 1},
+    "qualified_workflow_id": {"type": "string", "pattern": "^[a-z0-9-]+/[a-z0-9-]+$"},
+    "status": {"enum": ["complete", "blocked", "failed", "requires_review"]},
+    "summary": {"type": "string", "minLength": 1},
+    "artifacts": {"type": "array", "items": {"$ref": "https://construction-ai-toolkit.dev/contracts/v1/core/artifact.schema.json"}},
+    "issues": {"type": "array", "items": {"$ref": "https://construction-ai-toolkit.dev/contracts/v1/core/error.schema.json"}},
+    "blockers": {"type": "array", "items": {"$ref": "https://construction-ai-toolkit.dev/contracts/v1/core/error.schema.json"}}
+  }
+}

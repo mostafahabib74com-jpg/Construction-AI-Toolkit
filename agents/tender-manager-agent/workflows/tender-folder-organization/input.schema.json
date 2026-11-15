@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/agents/tender-manager-agent/workflows/tender-folder-organization/input.schema.json",
+  "title": "Tender Folder Organization Input",
+  "allOf": [
+    {
+      "$ref": "../../schemas/workflow.schema.json#/$defs/inputEnvelope"
+    },
+    {
+      "type": "object",
+      "required": [
+        "workflow_inputs"
+      ],
+      "properties": {
+        "workflow_inputs": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "approved_document_register",
+            "folder_policy",
+            "naming_policy",
+            "access_and_retention_policy",
+            "client_packaging_rules"
+          ],
+          "properties": {
+            "approved_document_register": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: approved document register"
+            },
+            "folder_policy": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: folder policy"
+            },
+            "naming_policy": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: naming policy"
+            },
+            "access_and_retention_policy": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: access and retention policy"
+            },
+            "client_packaging_rules": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: client packaging rules"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

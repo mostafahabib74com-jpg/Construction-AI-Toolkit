@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/agents/tender-manager-agent/workflows/commercial-proposal/input.schema.json",
+  "title": "Commercial Proposal Input",
+  "allOf": [
+    {
+      "$ref": "../../schemas/workflow.schema.json#/$defs/inputEnvelope"
+    },
+    {
+      "type": "object",
+      "required": [
+        "workflow_inputs"
+      ],
+      "properties": {
+        "workflow_inputs": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "approved_estimate_and_price_schedules",
+            "approved_commercial_contract_tax_and_finance_decisions",
+            "client_commercial_forms_and_portal_fields",
+            "approved_commercial_registers"
+          ],
+          "properties": {
+            "approved_estimate_and_price_schedules": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: approved estimate and price schedules"
+            },
+            "approved_commercial_contract_tax_and_finance_decisions": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: approved commercial contract tax and finance decisions"
+            },
+            "client_commercial_forms_and_portal_fields": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: client commercial forms and portal fields"
+            },
+            "approved_commercial_registers": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: approved commercial registers"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

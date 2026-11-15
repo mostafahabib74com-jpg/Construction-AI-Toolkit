@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/agents/tender-manager-agent/workflows/equipment-schedule/output.schema.json",
+  "title": "Equipment Schedule Output",
+  "allOf": [
+    {
+      "$ref": "../../schemas/workflow.schema.json#/$defs/outputEnvelope"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "workflow_id": {
+          "const": "equipment-schedule"
+        },
+        "workflow_version": {
+          "const": "0.1.0"
+        },
+        "deliverables": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "enum": [
+                  "detailed_equipment_schedule",
+                  "equipment_activity_matrix",
+                  "capacity_and_utilization_references",
+                  "mobilization_certification_maintenance_register",
+                  "availability_and_contingency_report",
+                  "technical_proposal_equipment_summary"
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/contracts/v1/application/schedule-activity.schema.json",
+  "title": "Scheduling MVP Draft Activity",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["activity_pk", "schedule_id", "activity_id", "activity_name", "activity_type", "source_boq_row_id", "boq_item_code", "boq_description", "source_row_number", "quantity", "unit", "normalized_unit", "wbs_id", "productivity_rate", "productivity_basis", "crew_count", "calendar_id", "notes", "assumptions", "sort_order", "created_at", "updated_at"],
+  "properties": {
+    "activity_pk": {"type": "string", "minLength": 1},
+    "schedule_id": {"type": "string", "minLength": 1},
+    "activity_id": {"type": "string", "minLength": 1, "maxLength": 80},
+    "activity_name": {"type": "string", "minLength": 1, "maxLength": 500},
+    "activity_type": {"enum": ["task_dependent", "start_milestone", "finish_milestone"]},
+    "source_boq_row_id": {"type": ["string", "null"]},
+    "boq_item_code": {"type": ["string", "null"]},
+    "boq_description": {"type": ["string", "null"]},
+    "source_row_number": {"type": ["integer", "null"], "minimum": 1},
+    "quantity": {"type": ["string", "null"], "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$"},
+    "unit": {"type": ["string", "null"]},
+    "normalized_unit": {"type": ["string", "null"]},
+    "wbs_id": {"type": ["string", "null"]},
+    "productivity_rate": {"type": ["string", "null"], "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$"},
+    "productivity_basis": {"type": ["string", "null"], "enum": ["per_day", "per_hour", null]},
+    "crew_count": {"type": ["integer", "null"]},
+    "calendar_id": {"type": ["string", "null"]},
+    "notes": {"type": ["string", "null"]},
+    "assumptions": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "sort_order": {"type": "integer", "minimum": 0},
+    "created_at": {"type": "string", "format": "date-time"},
+    "updated_at": {"type": "string", "format": "date-time"}
+  }
+}

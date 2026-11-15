@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/contracts/v1/application/schedule-workspace.schema.json",
+  "title": "Scheduling MVP Workspace",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schedule_id", "project_id", "name", "version", "status", "calculation_mode", "rounding_precision", "rounding_mode", "created_at", "updated_at"],
+  "properties": {
+    "schedule_id": {"type": "string", "minLength": 1},
+    "project_id": {"type": "string", "minLength": 1},
+    "name": {"type": "string", "minLength": 1},
+    "version": {"type": "string", "minLength": 1},
+    "status": {"enum": ["draft", "ready", "calculated", "blocked"]},
+    "calculation_mode": {"const": "forward_pass"},
+    "rounding_precision": {"type": "integer", "minimum": 0, "maximum": 6},
+    "rounding_mode": {"enum": ["ROUND_HALF_UP", "ROUND_HALF_EVEN", "ROUND_UP", "ROUND_DOWN"]},
+    "created_at": {"type": "string", "format": "date-time"},
+    "updated_at": {"type": "string", "format": "date-time"}
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/contracts/v1/application/scheduling-project.schema.json",
+  "title": "Scheduling MVP Project",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "project_id",
+    "name",
+    "client",
+    "contractor",
+    "consultant",
+    "project_type",
+    "location",
+    "planned_start_date",
+    "required_completion_date",
+    "working_days_per_week",
+    "working_hours_per_day",
+    "working_weekdays",
+    "workday_start_time",
+    "currency",
+    "unit_system",
+    "time_zone",
+    "created_at",
+    "updated_at"
+  ],
+  "properties": {
+    "project_id": {"type": "string", "minLength": 1},
+    "name": {"type": "string", "minLength": 1},
+    "client": {"type": "string", "minLength": 1},
+    "contractor": {"type": "string", "minLength": 1},
+    "consultant": {"type": "string", "minLength": 1},
+    "project_type": {"type": "string", "minLength": 1},
+    "location": {"type": "string", "minLength": 1},
+    "planned_start_date": {"type": "string", "format": "date"},
+    "required_completion_date": {"type": "string", "format": "date"},
+    "working_days_per_week": {"type": "integer", "minimum": 1, "maximum": 7},
+    "working_hours_per_day": {"type": "number", "exclusiveMinimum": 0, "maximum": 24},
+    "working_weekdays": {
+      "type": "array",
+      "items": {"enum": ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]},
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "workday_start_time": {"type": "string", "pattern": "^(?:[01]\\d|2[0-3]):[0-5]\\d$"},
+    "currency": {"type": "string", "pattern": "^[A-Z]{3}$"},
+    "unit_system": {"enum": ["SI", "imperial", "mixed"]},
+    "time_zone": {"type": "string", "minLength": 1},
+    "created_at": {"type": "string", "format": "date-time"},
+    "updated_at": {"type": "string", "format": "date-time"}
+  }
+}

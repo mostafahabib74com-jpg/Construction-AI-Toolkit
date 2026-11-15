@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/agents/tender-manager-agent/workflows/compliance-matrix/input.schema.json",
+  "title": "Compliance Matrix Input",
+  "allOf": [
+    {
+      "$ref": "../../schemas/workflow.schema.json#/$defs/inputEnvelope"
+    },
+    {
+      "type": "object",
+      "required": [
+        "workflow_inputs"
+      ],
+      "properties": {
+        "workflow_inputs": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "controlled_tender_sources",
+            "evaluation_criteria",
+            "submission_rules",
+            "responsibility_model"
+          ],
+          "properties": {
+            "controlled_tender_sources": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: controlled tender sources"
+            },
+            "evaluation_criteria": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: evaluation criteria"
+            },
+            "submission_rules": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: submission rules"
+            },
+            "responsibility_model": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: responsibility model"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

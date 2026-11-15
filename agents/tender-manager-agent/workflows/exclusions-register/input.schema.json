@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/agents/tender-manager-agent/workflows/exclusions-register/input.schema.json",
+  "title": "Tender Exclusions Register Input",
+  "allOf": [
+    {
+      "$ref": "../../schemas/workflow.schema.json#/$defs/inputEnvelope"
+    },
+    {
+      "type": "object",
+      "required": [
+        "workflow_inputs"
+      ],
+      "properties": {
+        "workflow_inputs": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "controlled_scope_and_boq",
+            "approved_estimate_and_schedule_artifacts",
+            "client_exclusion_and_deviation_rules",
+            "commercial_authority_matrix"
+          ],
+          "properties": {
+            "controlled_scope_and_boq": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: controlled scope and boq"
+            },
+            "approved_estimate_and_schedule_artifacts": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: approved estimate and schedule artifacts"
+            },
+            "client_exclusion_and_deviation_rules": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: client exclusion and deviation rules"
+            },
+            "commercial_authority_matrix": {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ],
+              "description": "Controlled input: commercial authority matrix"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

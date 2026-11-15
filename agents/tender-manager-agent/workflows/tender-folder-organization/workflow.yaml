@@ -1,0 +1,52 @@
+schema_version: "1.0"
+workflow:
+  id: tender-folder-organization
+  title: "Tender Folder Organization"
+  version: 0.1.0
+  status: specification
+  objective: "Specify a secure tender folder, naming, access, promotion, and archive model while preserving original evidence."
+  prompt: ../../prompts/tender-folder-organization/prompt.md
+  prerequisites:
+    - "tender-package-ingestion"
+  required_inputs:
+    - "approved_document_register"
+    - "folder_policy"
+    - "naming_policy"
+    - "access_and_retention_policy"
+    - "client_packaging_rules"
+  deliverables:
+    - "folder_tree_specification"
+    - "filing_manifest"
+    - "naming_convention"
+    - "access_control_matrix"
+    - "migration_plan"
+    - "archive_plan"
+  required_reviewers:
+    - "Tender Manager"
+    - "Document Control Manager"
+    - "Information Security Reviewer"
+  required_tool_categories:
+    - "file_inventory"
+    - "duplicate_detector"
+    - "naming_validator"
+    - "access_policy_validator"
+  completion_gates:
+    - source_traceability_complete
+    - latest_addendum_reconciled
+    - requirements_and_artifacts_versioned
+    - deterministic_checks_complete
+    - output_schema_valid
+    - professional_review_recorded
+  blocking_conditions:
+    - "unapproved_document_register"
+    - "unclear_master_copy"
+    - "access_policy_gap"
+    - "unresolved_filename_collision"
+  authority:
+    may_draft: true
+    may_assemble_approved_artifacts: true
+    may_approve: false
+    may_issue_correspondence: false
+    may_commit_price: false
+    may_authorize_submission: false
+    may_upload: false

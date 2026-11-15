@@ -1,0 +1,128 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-ai-toolkit.dev/agents/tender-manager-agent/schemas/common.schema.json",
+  "title": "Tender Manager Common Definitions",
+  "$defs": {
+    "sourceReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_id", "title", "revision", "location", "controlled_status"],
+      "properties": {
+        "source_id": {"type": "string", "minLength": 1},
+        "title": {"type": "string", "minLength": 1},
+        "document_number": {"type": ["string", "null"]},
+        "revision": {"type": "string", "minLength": 1},
+        "issue_date": {"type": ["string", "null"], "format": "date"},
+        "location": {"type": "string", "minLength": 1},
+        "checksum": {"type": ["string", "null"]},
+        "addendum_id": {"type": ["string", "null"]},
+        "supersedes_source_id": {"type": ["string", "null"]},
+        "classification": {"enum": ["public", "internal", "confidential", "restricted"]},
+        "extraction_method": {"enum": ["native", "ocr", "structured_import", "manual_register", "user_statement"]},
+        "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+        "controlled_status": {"enum": ["current", "superseded", "reference_only", "unverified", "missing"]}
+      }
+    },
+    "artifactReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["artifact_id", "agent_id", "workflow_id", "version", "approval_status", "artifact_reference"],
+      "properties": {
+        "artifact_id": {"type": "string", "minLength": 1},
+        "agent_id": {"type": "string", "minLength": 1},
+        "workflow_id": {"type": "string", "minLength": 1},
+        "version": {"type": "string", "minLength": 1},
+        "approval_status": {"enum": ["draft", "in_review", "approved", "conditionally_approved", "rejected", "superseded"]},
+        "artifact_reference": {"type": "string", "minLength": 1},
+        "checksum": {"type": ["string", "null"]},
+        "approved_by_role": {"type": ["string", "null"]},
+        "approved_at": {"type": ["string", "null"], "format": "date-time"}
+      }
+    },
+    "requirement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["requirement_id", "category", "requirement_text", "source", "mandatory", "compliance_status", "owner_role"],
+      "properties": {
+        "requirement_id": {"type": "string", "minLength": 1},
+        "parent_requirement_id": {"type": ["string", "null"]},
+        "category": {"enum": ["administrative", "technical", "commercial", "contractual", "form", "portal", "submission", "scored", "informational"]},
+        "requirement_text": {"type": "string", "minLength": 1},
+        "source": {"$ref": "#/$defs/sourceReference"},
+        "source_locator": {"type": ["string", "null"]},
+        "mandatory": {"type": "boolean"},
+        "evaluation_weight": {"type": ["number", "null"], "minimum": 0},
+        "compliance_status": {"enum": ["not_assessed", "compliant", "partially_compliant", "noncompliant", "deviation_proposed", "not_applicable", "blocked", "requires_review"]},
+        "owner_role": {"type": "string", "minLength": 1},
+        "response_reference": {"type": ["string", "null"]},
+        "evidence_references": {"type": "array", "items": {"type": "string"}},
+        "due_date": {"type": ["string", "null"], "format": "date-time"},
+        "review_status": {"enum": ["not_started", "draft", "in_review", "approved", "rejected", "revision_required"]}
+      }
+    },
+    "finding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "category", "description", "severity", "basis", "status"],
+      "properties": {
+        "id": {"type": "string"},
+        "category": {"type": "string"},
+        "description": {"type": "string"},
+        "severity": {"enum": ["critical", "high", "medium", "low", "information"]},
+        "basis": {"enum": ["source_fact", "approved_artifact", "deterministic_check", "tender_judgment", "assumption", "recommendation"]},
+        "source": {"$ref": "#/$defs/sourceReference"},
+        "affected_ids": {"type": "array", "items": {"type": "string"}},
+        "recommended_action": {"type": ["string", "null"]},
+        "owner_role": {"type": ["string", "null"]},
+        "due_date": {"type": ["string", "null"], "format": "date-time"},
+        "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+        "status": {"enum": ["open", "accepted", "rejected", "closed", "requires_review"]}
+      }
+    },
+    "registerItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "description", "basis", "status"],
+      "properties": {
+        "id": {"type": "string"},
+        "description": {"type": "string"},
+        "basis": {"enum": ["source_fact", "approved_artifact", "tender_judgment", "assumption", "commercial_decision", "client_response"]},
+        "source": {"$ref": "#/$defs/sourceReference"},
+        "impact": {"type": ["string", "null"]},
+        "owner_role": {"type": ["string", "null"]},
+        "due_date": {"type": ["string", "null"], "format": "date-time"},
+        "approval_reference": {"type": ["string", "null"]},
+        "status": {"enum": ["draft", "open", "approved", "rejected", "superseded", "closed"]}
+      }
+    },
+    "manifestItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["item_id", "deliverable_type", "filename", "version", "mandatory", "status"],
+      "properties": {
+        "item_id": {"type": "string"},
+        "deliverable_type": {"type": "string"},
+        "artifact_id": {"type": ["string", "null"]},
+        "filename": {"type": "string", "minLength": 1},
+        "folder_or_envelope": {"type": ["string", "null"]},
+        "format": {"type": ["string", "null"]},
+        "version": {"type": "string", "minLength": 1},
+        "mandatory": {"type": "boolean"},
+        "signature_required": {"type": "boolean"},
+        "checksum": {"type": ["string", "null"]},
+        "status": {"enum": ["missing", "draft", "in_review", "approved", "preflight_passed", "blocked", "not_applicable"]}
+      }
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["required_roles", "status"],
+      "properties": {
+        "required_roles": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+        "status": {"enum": ["not_started", "in_review", "approved", "rejected", "revision_required"]},
+        "comments": {"type": "array", "items": {"type": "string"}},
+        "authorization_reference": {"type": ["string", "null"]}
+      }
+    }
+  }
+}

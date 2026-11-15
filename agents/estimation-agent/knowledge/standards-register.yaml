@@ -1,0 +1,31 @@
+schema_version: "1.0"
+purpose: >-
+  Register standards and commercial references selected for a project without
+  reproducing copyrighted or proprietary content.
+entries: []
+required_entry_fields:
+  - profile_id
+  - title
+  - issuing_body
+  - edition
+  - jurisdiction
+  - effective_date
+  - owner
+  - license_status
+  - permitted_use
+  - source_location
+  - review_date
+supported_profile_types:
+  - estimate_classification
+  - measurement_standard
+  - contract_form
+  - cost_database
+  - productivity_database
+  - tax_and_duty
+  - currency_and_exchange
+  - escalation_index
+  - insurance_and_bonding
+  - labor_and_localization
+  - logistics_and_import
+  - client_procedure
+  - company_procedure

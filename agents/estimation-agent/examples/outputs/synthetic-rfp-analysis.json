@@ -1,0 +1,44 @@
+{
+  "workflow_id": "rfp-analysis",
+  "workflow_version": "0.1.0",
+  "status": "incomplete",
+  "executive_summary": "Synthetic example showing that the workflow remains incomplete when referenced tender documents are absent.",
+  "source_register": [],
+  "deliverables": [
+    {
+      "type": "source_register",
+      "artifact_reference": null,
+      "status": "draft",
+      "notes": "Populate only after the synthetic document fixture is available."
+    }
+  ],
+  "findings": [],
+  "registers": {
+    "missing_information": [
+      {
+        "id": "MI-001",
+        "description": "Referenced drawings, specifications, BOQ, and contract conditions are not present in this minimal example.",
+        "impact": "Full RFP analysis cannot be completed.",
+        "treatment": "Provide controlled synthetic fixtures.",
+        "owner_role": "Evaluation Maintainer",
+        "status": "open"
+      }
+    ],
+    "assumptions": [],
+    "exclusions": [],
+    "qualifications": [],
+    "actions": []
+  },
+  "quality_gates": [
+    {
+      "gate": "source_traceability_complete",
+      "status": "failed",
+      "evidence": "Required fixtures absent."
+    }
+  ],
+  "review": {
+    "required_roles": ["Estimation Manager", "Tender Manager"],
+    "status": "not_started",
+    "comments": []
+  }
+}
